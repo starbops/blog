@@ -8,7 +8,6 @@ spec:
   tls:
   - hosts:
     - blog.internal.zespre.com
-    secretName: internal-tls
   - hosts:
     - blog.zespre.com
     secretName: blog-tls
