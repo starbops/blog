@@ -1,5 +1,5 @@
 FROM ruby:3.0.0-buster AS build
-COPY zpcc /app
+COPY blog /app
 WORKDIR /app
 RUN bundle install \
     && jekyll build
