@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog
+  namespace: blog-universal
+spec:
+  selector:
+    matchLabels:
+      app: blog
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: blog
+    spec:
+      containers:
+      - name: blog
+        image: registry.internal.zespre.com/zpcc-blog:0.0.1
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: regcred
