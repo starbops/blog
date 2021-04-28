@@ -18,6 +18,8 @@ defaults:
     values:
       layout: "default"
 
+google_analytics: UA-56544554-1
+
 plugins:
 - jekyll-feed
 - jekyll-seo-tag
