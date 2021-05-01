@@ -1,4 +1,4 @@
-FROM ruby:3.0.0-buster AS build
+FROM ruby:2.7.1-buster AS build
 ARG JEKYLL_ENV=development
 COPY blog /app
 WORKDIR /app
