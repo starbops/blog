@@ -8,7 +8,7 @@ description: >
 
 permalink: /:slug.html
 
-favicon: 'logo.png'
+favicon: 'favicon.ico'
 
 theme: no-style-please
 
@@ -16,7 +16,7 @@ theme_config:
   appearance: auto
   back_home_text: '..'
   date_format: '%Y-%m-%d'
-  show_description: false
+  show_description: true
 
 sass:
   style: :compressed
