@@ -3,3 +3,13 @@ layout: page
 title: About
 ---
 Hi, I'm Zespre.
+
+For profession, please visit:
+
+- [GitHub](https://github.com/starbops)
+- [LinkedIn](https://www.linkedin.com/in/starbops)
+
+For gaming, please visit:
+
+- [YouTube](https://www.youtube.com/channel/UCVIPbYP853Uz7EgmANh85MQ)
+- [Twitch](https://www.twitch.tv/starbops)
