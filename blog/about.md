@@ -7,7 +7,7 @@ Hi, I'm Zespre.
 ---
 {: data-content="one more thing"}
 
-Just kidding, here are some links about my works. For profession, please visit:
+Just kidding :smiling_imp:, here are some links about my works. For profession, please visit:
 
 - [GitHub](https://github.com/starbops)
 - [LinkedIn](https://www.linkedin.com/in/starbops)
