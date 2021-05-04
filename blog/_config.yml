@@ -21,6 +21,8 @@ theme_config:
 sass:
   style: :compressed
 
+google_analytics: UA-56544554-1
+
 plugins:
 - jekyll-feed
 - jekyll-seo-tag
