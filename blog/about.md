@@ -7,7 +7,7 @@ Hello, this is Zespre.
 ---
 {: data-content="contact information"}
 
-You can reach me at **starbops at zespre dot com** or [Twitter](https://twitter.com/starbops).
+You can reach me at \<starbops at zespre dot com\> or [Twitter](https://twitter.com/starbops).
 
 PGP key: [keys.openpgp.org](https://keys.openpgp.org/vks/v1/by-fingerprint/79587E86E14CE975D2FFE193273D1350B8CEE44D)  
 PGP signature: `7958 7E86 E14C E975 D2FF  E193 273D 1350 B8CE E44D`
