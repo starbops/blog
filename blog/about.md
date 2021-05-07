@@ -4,6 +4,8 @@ title: About
 ---
 Hi, I'm Zespre.
 
+You can reach me at [starbops[at]zespre.com](mailto:starbops@zespre.com) or [Twitter](https://twitter.com/starbops)
+
 ---
 {: data-content="one more thing"}
 
