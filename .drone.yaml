@@ -7,7 +7,7 @@ steps:
   commands:
   - gem install mdl
   - mdl README.md
-- name: build
+- name: build on tag
   image: plugins/docker
   settings:
     registry: registry.internal.zespre.com
@@ -23,7 +23,7 @@ steps:
   when:
     event:
     - tag
-- name: build
+- name: build on push
   image: plugins/docker
   settings:
     registry: registry.internal.zespre.com
