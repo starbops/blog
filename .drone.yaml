@@ -14,6 +14,21 @@ steps:
     repo: registry.internal.zespre.com/starbops/blog
     tags:
     - ${DRONE_TAG##v}-${DRONE_COMMIT_SHA:0:7}
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+  build_args:
+  - JEKYLL_ENV=production
+  when:
+    event:
+    - tag
+- name: build
+  image: plugins/docker
+  settings:
+    registry: registry.internal.zespre.com
+    repo: registry.internal.zespre.com/starbops/blog
+    tags:
     - latest
     username:
       from_secret: docker_username
@@ -21,3 +36,6 @@ steps:
       from_secret: docker_password
   build_args:
   - JEKYLL_ENV=development
+  when:
+    event:
+    - push
