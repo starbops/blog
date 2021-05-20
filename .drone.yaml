@@ -1,0 +1,23 @@
+kind: pipeline
+type: kubernetes
+name: default
+steps:
+- name: lint
+  image: ruby:2.7.1-buster
+  commands:
+  - gem install mdl
+  - mdl README.md
+- name: build
+  image: plugins/docker
+  settings:
+    registry: registry.internal.zespre.com
+    repo: registry.internal.zespre.com/starbops/blog
+    tags:
+    - ${DRONE_TAG##v}-${DRONE_COMMIT_SHA:0:7}
+    - latest
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+  build_args:
+  - JEKYLL_ENV=development

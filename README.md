@@ -1,6 +1,8 @@
 Zespre's Blog
 =============
 
+[![Build Status](https://drone.internal.zespre.com/api/badges/starbops/blog/status.svg)](https://drone.internal.zespre.com/starbops/blog)
+
 Build the Image
 ---------------
 
