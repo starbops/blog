@@ -40,3 +40,22 @@ steps:
   when:
     event:
     - push
+- name: deploy
+  image: bitsbeats/drone-helm3
+  settings:
+    kube_api_server:
+      from_secret: kube_api_server
+    kube_token:
+      from_secret: kube_token
+    chart: zpcc/blog
+    release: blog
+    namespace: blog-test
+    timeout: 5
+    helm_repos:
+    - zpcc=https://charts.internal.zespre.com
+    values:
+    - image.tag=${DRONE_TAG##v}-${DRONE_COMMIT_SHA:0:7}
+    - imagePullSecrets[0].name=regcred
+  when:
+    event:
+    - tag
