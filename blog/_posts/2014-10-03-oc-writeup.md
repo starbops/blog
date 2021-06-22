@@ -72,9 +72,9 @@ of 17, the last character must be "1"
 ## Exploitation
 
 1. `nc 140.113.208.235 10002`
-2. input `1 1 1 1 1 1 11111111111111111`
-3. got shell
-4. `cat flag`
+1. input `1 1 1 1 1 1 11111111111111111`
+1. got shell
+1. `cat flag`
 
 ## Capture The Flag
 

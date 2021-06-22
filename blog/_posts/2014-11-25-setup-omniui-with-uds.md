@@ -21,21 +21,21 @@ OmniUI is a diagnosis, analytic, and management framework for Software-Defined
 Networks. It provides graphical user interface to illustrate information of
 flows, devices and statistic data. Features of OmniUI includes:
 
-- Compatible with various controller
-- Forwarding path of specific flow
-- Topology view with traffic information
-- Statistic data of specific flow
-- Statistic data of specific port/link
-- Dynamic flow migration
+-  Compatible with various controller
+-  Forwarding path of specific flow
+-  Topology view with traffic information
+-  Statistic data of specific flow
+-  Statistic data of specific port/link
+-  Dynamic flow migration
 
 OmniUI has three major components:
 
-- Web UI: self-explanatory
-- Core: provides many resources such as event registration, RESTful API
-  registration and service, IPC (actually IMC, Inter Module Communication),
-  etc.
-- Controller adapter: Per-controller application, to unify data format of
-  various types of controller.
+-  Web UI: self-explanatory
+-  Core: provides many resources such as event registration, RESTful API
+   registration and service, IPC (actually IMC, Inter Module Communication),
+   etc.
+-  Controller adapter: Per-controller application, to unify data format of
+   various types of controller.
 
 More details please refer to the GitHub page of [OmniUI][3].
 
@@ -52,8 +52,8 @@ Using Git to clone the repository on GitHub. Then change the current branch to
 "dev" branch which contains User-Defined Statistics (UDS) feature.
 
 ```bash
-$ git clone https://github.com/dlinknctu/OmniUI.git
-$ cd OmniUI && git checkout dev
+git clone https://github.com/dlinknctu/OmniUI.git
+cd OmniUI && git checkout dev
 ```
 
 ## Trema-Edge
@@ -68,7 +68,7 @@ controller. Trema-Edge is the bleeding-edge of Trema, written in C but also has
 a release of Ruby version. Currently, it supports OpenFlow 1.3 only.
 
 ```bash
-$ git clone https://github.com/trema/trema-edge.git
+git clone https://github.com/trema/trema-edge.git
 ```
 
 This repository has only been tested with ruby 2.0.0 and will not work with
@@ -77,9 +77,9 @@ to mess up your ruby environment. Install RVM for better ruby and packages
 management:
 
 ```bash
-$ gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
-$ \curl -sSL https://get.rvm.io | bash -s stable
-$ echo "source $HOME/.rvm/scripts/rvm" >> ~/.bash_profile
+gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
+\curl -sSL https://get.rvm.io | bash -s stable
+echo "source $HOME/.rvm/scripts/rvm" >> ~/.bash_profile
 ```
 
 Then re-login you will have `rvm` on the go. Use `rvm help` to see the
@@ -97,8 +97,8 @@ $ rake
 
 Install the packages required by Trema-Edge adapter:
 
-- pkg-config
-- json-c
+-  pkg-config
+-  json-c
 
 ```bash
 # apt-get install pkg-config
@@ -115,17 +115,17 @@ The controller adapter of Trema-Edge provided by OnmiUI resides in
 Trema-Edge. Then build the UDS application.
 
 ```bash
-$ cp -R ~/OmniUI/adapter/trema/uds ~/trema-edge/
-$ cd ~/trema-edge/uds
-$ make
+cp -R ~/OmniUI/adapter/trema/uds ~/trema-edge/
+cd ~/trema-edge/uds
+make
 ```
 
 After the UDS application was built, run the controller along with our UDS
 application:
 
 ```bash
-$ cd ~/trema-edge
-$ ./trema run uds/src/uds
+cd ~/trema-edge
+./trema run uds/src/uds
 ```
 
 Trema listens on port 6653. Now use Mininet to populate desired virtual
@@ -152,9 +152,9 @@ That's all.
 
 ## References
 
-- [rvm][4]
-- [json-c][5]
-- [trema-edge][6]
+-  [rvm][4]
+-  [json-c][5]
+-  [trema-edge][6]
 
 [1]: http://mininet.org
 [2]: https://github.com/mininet/mininet/wiki/Introduction-to-Mininet

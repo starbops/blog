@@ -8,6 +8,6 @@ slug: network-programming-20141106
 
 ## Semaphore
 
-- Big semaphore, small semaphores
+-  Big semaphore, small semaphores
 
 ## Shared Memory

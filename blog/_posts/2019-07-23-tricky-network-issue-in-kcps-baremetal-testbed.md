@@ -6,36 +6,38 @@ slug: tricky-network-issue-in-kcps-baremetal-testbed
 ---
 This tricky network issue consists of:
 
-- Subnet overlapping
-- ARP request not ignored
-- Proxy ARP race condition
-- Asymmetric routing
+-  Subnet overlapping
+-  ARP request not ignored
+-  Proxy ARP race condition
+-  Asymmetric routing
 
 ## arp_ignore
 
-```
+```text
 arp_ignore - INTEGER
-	Define different modes for sending replies in response to
-	received ARP requests that resolve local target IP addresses:
-	0 - (default): reply for any local target IP address, configured
-	on any interface
-	1 - reply only if the target IP address is local address
-	configured on the incoming interface
-	2 - reply only if the target IP address is local address
-	configured on the incoming interface and both with the
-	sender's IP address are part from same subnet on this interface
-	3 - do not reply for local addresses configured with scope host,
-	only resolutions for global and link addresses are replied
-	4-7 - reserved
-	8 - do not reply for all local addresses
+        Define different modes for sending replies in response to
+        received ARP requests that resolve local target IP addresses:
+        0 - (default): reply for any local target IP address, configured
+        on any interface
+        1 - reply only if the target IP address is local address
+        configured on the incoming interface
+        2 - reply only if the target IP address is local address
+        configured on the incoming interface and both with the
+        sender's IP address are part from same subnet on this interface
+        3 - do not reply for local addresses configured with scope host,
+        only resolutions for global and link addresses are replied
+        4-7 - reserved
+        8 - do not reply for all local addresses
 
-	The max value from conf/{all,interface}/arp_ignore is used
-	when ARP request is received on the {interface}
+        The max value from conf/{all,interface}/arp_ignore is used
+        when ARP request is received on the {interface}
 ```
 
 ## Proxy ARP
 
-> Though not the best practice, you can design a network to use one subnet on multiple VLANs and use routers with proxy ARP enabled to forward traffic between hosts in those VLANs.
+> Though not the best practice, you can design a network to use one subnet on
+> multiple VLANs and use routers with proxy ARP enabled to forward traffic
+> between hosts in those VLANs.
 
 ## Proxy ARP Disabled at VLAN 5 Interface
 
@@ -82,39 +84,47 @@ listening on eth0.5, link-type EN10MB (Ethernet), capture size 65535 bytes
 
 ## rp_filter
 
-```
+```text
 rp_filter - INTEGER
-	0 - No source validation.
-	1 - Strict mode as defined in RFC3704 Strict Reverse Path
-	    Each incoming packet is tested against the FIB and if the interface
-	    is not the best reverse path the packet check will fail.
-	    By default failed packets are discarded.
-	2 - Loose mode as defined in RFC3704 Loose Reverse Path
-	    Each incoming packet's source address is also tested against the FIB
-	    and if the source address is not reachable via any interface
-	    the packet check will fail.
+        0 - No source validation.
+        1 - Strict mode as defined in RFC3704 Strict Reverse Path
+            Each incoming packet is tested against the FIB and if the interface
+            is not the best reverse path the packet check will fail.
+            By default failed packets are discarded.
+        2 - Loose mode as defined in RFC3704 Loose Reverse Path
+            Each incoming packet's source address is also tested against the FIB
+            and if the source address is not reachable via any interface
+            the packet check will fail.
 
-	Current recommended practice in RFC3704 is to enable strict mode
-	to prevent IP spoofing from DDos attacks. If using asymmetric routing
-	or other complicated routing, then loose mode is recommended.
+        Current recommended practice in RFC3704 is to enable strict mode
+        to prevent IP spoofing from DDos attacks. If using asymmetric routing
+        or other complicated routing, then loose mode is recommended.
 
-	The max value from conf/{all,interface}/rp_filter is used
-	when doing source validation on the {interface}.
+        The max value from conf/{all,interface}/rp_filter is used
+        when doing source validation on the {interface}.
 
-	Default value is 0. Note that some distributions enable it
-	in startup scripts.
+        Default value is 0. Note that some distributions enable it
+        in startup scripts.
 ```
 
-`rp_filter` stands for reverse path filtering. The reverse path filter will check if the source of a packet that was received on a certain interface is reachable through the same interface it was received. The purpose is to prevent spoofed packets, with a changed source address, not being processed/routed further. In a router it could also prevent routing packets that have a private
-IP address as source to the internet as they obviously will never find their way back.
+`rp_filter` stands for reverse path filtering. The reverse path filter will
+check if the source of a packet that was received on a certain interface is
+reachable through the same interface it was received. The purpose is to prevent
+spoofed packets, with a changed source address, not being processed/routed
+further. In a router it could also prevent routing packets that have a private
+IP address as source to the internet as they obviously will never find their way
+back.
 
 ## References
 
-- [Proxy ARP - Cisco](https://www.cisco.com/c/en/us/support/docs/ip/dynamic-address-allocation-resolution/13718-5.html)
-- [/proc/sys/net/ipv4/* Variables](https://www.kernel.org/doc/Documentation/networking/ip-sysctl.txt)
-- [How to broadcast ARP update to all neighbors in Linux?](https://serverfault.com/questions/175803/how-to-broadcast-arp-update-to-all-neighbors-in-linux/175806)
-- [ARP Table Timeout and MAC-Address-Table Timeout](https://learningnetwork.cisco.com/thread/2450)
-- [Using the Linux arping utility to send out gratuitious ARPs](https://prefetch.net/blog/2011/03/26/using-the-linux-arping-utility-to-send-out-gratuitious-arps/)
-- [Solved: Proxy-Arp - Cisco Support Community](https://supportforums.cisco.com/t5/wan-routing-and-switching/proxy-arp/td-p/1560798)
-- [Configure two network cards in a different subnet on RHEL 6, RHEL 7, CentOS 6 and CentOS 7](http://jensd.be/468/linux/two-network-cards-rp_filter)
-- [Linux does not reply to ARP request messages if requested IP address is associated with another (disabled) interface](https://unix.stackexchange.com/questions/205708/linux-does-not-reply-to-arp-request-messages-if-requested-ip-address-is-associat)
+-  [Proxy ARP - Cisco](https://www.cisco.com/c/en/us/support/docs/ip/dynamic-address-allocation-resolution/13718-5.html)
+-  [/proc/sys/net/ipv4/* Variables](https://www.kernel.org/doc/Documentation/networking/ip-sysctl.txt)
+-  [How to broadcast ARP update to all neighbors in Linux?](https://serverfault.com/questions/175803/how-to-broadcast-arp-update-to-all-neighbors-in-linux/175806)
+-  [ARP Table Timeout and MAC-Address-Table Timeout](https://learningnetwork.cisco.com/thread/2450)
+-  [Using the Linux arping utility to send out gratuitious ARPs](https://prefetch.net/blog/2011/03/26/using-the-linux-arping-utility-to-send-out-gratuitious-arps/)
+-  [Solved: Proxy-Arp - Cisco Support Community](https://supportforums.cisco.com/t5/wan-routing-and-switching/proxy-arp/td-p/1560798)
+-  [Configure two network cards in a different subnet on RHEL 6, RHEL 7, CentOS
+   6 and CentOS 7](http://jensd.be/468/linux/two-network-cards-rp_filter)
+-  [Linux does not reply to ARP request messages if requested IP address is
+   associated with another (disabled)
+   interface](https://unix.stackexchange.com/questions/205708/linux-does-not-reply-to-arp-request-messages-if-requested-ip-address-is-associat)

@@ -6,26 +6,34 @@ slug: linux-ha-redundant-ring-protocol
 ---
 ## Introduction
 
-Corosync is the messaging layer inside your cluster. It is responsable for several things like:
+Corosync is the messaging layer inside your cluster. It is responsable for
+several things like:
 
-- Cluster membership and messaging thanks to the Totem Single Ring Ordering and Membership protocol
-- Quorum calculation
-- Availability manager
+-  Cluster membership and messaging thanks to the Totem Single Ring Ordering and
+   Membership protocol
+-  Quorum calculation
+-  Availability manager
 
 ## Setup
 
 RRP supports various mode of operation:
 
-- Active: both rings will be active and in use
-- Passive: only one of the N ring is in use, the second one will be used only if the first one fails
+-  Active: both rings will be active and in use
+-  Passive: only one of the N ring is in use, the second one will be used only
+   if the first one fails
 
-Doing this on a running cluster is totally possible. First put your cluster on maintenance mode, this mode means that Pacemaker won't orchestrate your cluster and will put your resource as `unmanaged`. It allows you to perform some critical operations like upgrading Corosync. The resources are still running but unmanaged by Pacemaker.
+Doing this on a running cluster is totally possible. First put your cluster on
+maintenance mode, this mode means that Pacemaker won't orchestrate your cluster
+and will put your resource as `unmanaged`. It allows you to perform some
+critical operations like upgrading Corosync. The resources are still running but
+unmanaged by Pacemaker.
 
 ```bash
-$ sudo crm configure property maintenance-mode=true
+sudo crm configure property maintenance-mode=true
 ```
 
-The state of your cluster must change with an `unmanaged` flag between parenthesis:
+The state of your cluster must change with an `unmanaged` flag between
+parenthesis:
 
 ```bash
 $ crm_mon -1
@@ -73,7 +81,7 @@ RING ID 0
 
 Edit `corosync.conf` with the following:
 
-```bash
+```text
 totem {
     version: 2
     secauth: on
@@ -98,22 +106,25 @@ totem {
 
 To be simple, you just have to:
 
-- Enable RRP mode with the `rrp_mode: passive` option
-- Add a new interface sub-section with:
-    - A new ring number
-    - The address of your network
-    - A new multicast address
-    - A new multicast port
+-  Enable RRP mode with the `rrp_mode: passive` option
+-  Add a new interface sub-section with:
+   -  A new ring number
+   -  The address of your network
+   -  A new multicast address
+   -  A new multicast port
 
-Corosync uses two UDP ports **mcastport (for mcast receives)** and **mcastport -1 (for mcast sends**. By default Corosync uses the mcastport 5405 consequently it will bind to:
+Corosync uses two UDP ports **mcastport (for mcast receives)** and **mcastport
+-1 (for mcast sends**. By default Corosync uses the mcastport 5405 consequently
+it will bind to:
 
-- mcast receives: 5405
-- mcast sends: 5404
+-  mcast receives: 5405
+-  mcast sends: 5404
 
-In a redundant ring setup you need to specify a gap here setting 5407 will do the following:
+In a redundant ring setup you need to specify a gap here setting 5407 will do
+the following:
 
-- mcast receives: 5407
-- mcast sends: 5406
+-  mcast receives: 5407
+-  mcast sends: 5406
 
 Restart the Corosync daemon on each nodes and check the result:
 
@@ -154,12 +165,14 @@ $ sudo corosync-cfgtool -a 1 -a 2
 Finally disable the maintenance mode:
 
 ```bash
-$ sudo crm configure property maintenance-mode=false
+sudo crm configure property maintenance-mode=false
 ```
 
 ## Testing
 
-After setting up RRP the most important thing to do is to test whether it works or not. The easiest way to test the RRP mode is to shutdown one of the interfaces:
+After setting up RRP the most important thing to do is to test whether it works
+or not. The easiest way to test the RRP mode is to shutdown one of the
+interfaces:
 
 ```bash
 $ sudo ifdown eth2
@@ -178,8 +191,10 @@ And you will find out the cluster is still running without outage.
 
 ## Conclusion
 
-To put HA on your application in production environment, enabling RRP with bonded NIC is mandatory! This will make your application 'highly highly' available.
+To put HA on your application in production environment, enabling RRP with
+bonded NIC is mandatory! This will make your application 'highly highly'
+available.
 
 ## References
 
-- [Corosync: Redundant Ring Protocol](https://www.sebastien-han.fr/blog/2012/08/01/corosync-rrp-configuration/)
+-  [Corosync: Redundant Ring Protocol](https://www.sebastien-han.fr/blog/2012/08/01/corosync-rrp-configuration/)

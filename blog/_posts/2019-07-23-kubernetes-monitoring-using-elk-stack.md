@@ -7,9 +7,9 @@ slug: kubernetes-monitoring-using-elk-stack
 ## Elasticsearch
 
 ```bash
-$ curl -L -O <https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.2.0-linux-x86_64.tar.gz>
-$ tar -xzvf elasticsearch-7.2.0-linux-x86_64.tar.gz
-$ cd elasticsearch-7.2.0
+curl -L -O <https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.2.0-linux-x86_64.tar.gz>
+tar -xzvf elasticsearch-7.2.0-linux-x86_64.tar.gz
+cd elasticsearch-7.2.0
 ```
 
 `config/elasticsearch.yml`
@@ -20,19 +20,19 @@ cluster.initial_master_nodes: ["172.16.169.17"]
 ```
 
 ```bash
-$ sudo sysctl -w vm.max_map_count=262144
+sudo sysctl -w vm.max_map_count=262144
 ```
 
 ```bash
-$ ./bin/elasticsearch
+./bin/elasticsearch
 ```
 
 ## Kibana
 
 ```bash
-$ curl -L -O <https://artifacts.elastic.co/downloads/kibana/kibana-7.2.0-linux-x86_64.tar.gz>
-$ tar xzvf kibana-7.2.0-linux-x86_64.tar.gz
-$ cd kibana-7.2.0-linux-x86_64/
+curl -L -O <https://artifacts.elastic.co/downloads/kibana/kibana-7.2.0-linux-x86_64.tar.gz>
+tar xzvf kibana-7.2.0-linux-x86_64.tar.gz
+cd kibana-7.2.0-linux-x86_64/
 ```
 
 `config/kibana.yml`
@@ -42,14 +42,14 @@ server.host: "0.0.0.0"
 ```
 
 ```bash
-$ ./bin/kibana
+./bin/kibana
 ```
 
 ## Beats
 
 Edit `ELASTICSEARCH_HOSTS`:
 
-```
+```text
 ["<http://172.16.169.17:9200>"]
 ```
 
@@ -73,8 +73,8 @@ Edit `ELASTICSEARCH_HOSTS`:
 ```
 
 ```bash
-$ kubectl create -f filebeat-kubernetes.yaml
-$ kubectl get pods -n kube-system -l k8s-app=filebeat-dynamic
+kubectl create -f filebeat-kubernetes.yaml
+kubectl get pods -n kube-system -l k8s-app=filebeat-dynamic
 ```
 
 ### Metricbeat
@@ -94,8 +94,8 @@ $ kubectl get pods -n kube-system -l k8s-app=filebeat-dynamic
 ```
 
 ```bash
-$ kubectl create -f metricbeat-kubernetes.yaml
-$ kubectl get pods -n kube-system -l k8s-app=metricbeat
+kubectl create -f metricbeat-kubernetes.yaml
+kubectl get pods -n kube-system -l k8s-app=metricbeat
 ```
 
 ### Packetbeat
@@ -126,11 +126,11 @@ packetbeat.flows:
 ```
 
 ```bash
-$ kubectl create -f packetbeat-kubernetes.yaml
-$ kubectl get pods -n kube-system -l k8s-app=packetbeat-dynamic
+kubectl create -f packetbeat-kubernetes.yaml
+kubectl get pods -n kube-system -l k8s-app=packetbeat-dynamic
 ```
 
 ## References
 
-- [Getting started with the Elastic Stack](https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-elastic-stack.html)
-- [Example: Add logging and metrics to the PHP / Redis Guestbook example](https://kubernetes.io/docs/tutorials/stateless-application/guestbook-logs-metrics-with-elk/)
+-  [Getting started with the Elastic Stack](https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-elastic-stack.html)
+-  [Example: Add logging and metrics to the PHP / Redis Guestbook example](https://kubernetes.io/docs/tutorials/stateless-application/guestbook-logs-metrics-with-elk/)

@@ -6,5 +6,5 @@ slug: pyenv-on-mac-osx
 ---
 I need a handful tool to manage my Python versions and also packages.
 
-- [Common build problems](https://github.com/yyuu/pyenv/wiki/Common-build-problems)
-- [3.2 installation fails with SSL error](https://github.com/yyuu/pyenv/issues/22)
+-  [Common build problems](https://github.com/yyuu/pyenv/wiki/Common-build-problems)
+-  [3.2 installation fails with SSL error](https://github.com/yyuu/pyenv/issues/22)

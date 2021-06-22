@@ -8,40 +8,40 @@ slug: network-programming-20141002
 
 ## exec()
 
-- `exec()` does not create new PID, only `fork()` spawn new PID
-- loader
-- does not change FD table
-- ex: `execl("ls", "ls", "-la", "d1")`
+-  `exec()` does not create new PID, only `fork()` spawn new PID
+-  loader
+-  does not change FD table
+-  ex: `execl("ls", "ls", "-la", "d1")`
 
 ## exit()
 
-- `exit()` has an argument that means error code, to parent
-- flush the buffer before exit
+-  `exit()` has an argument that means error code, to parent
+-  flush the buffer before exit
 
 ## wait()
 
-- parent process use `wait(child_pid)` to wait for child process ends
-- exit status is read via `wait()` system call
+-  parent process use `wait(child_pid)` to wait for child process ends
+-  exit status is read via `wait()` system call
 
 ## PID Table
 
-- PID table: round-robin
-- 1 -> 2 -> ... -> 65535 -> 1 (if available)
-- process fork flow:
-    - parent `fork()` child, child `exec()` to load some other program
-    - parent `wait()` while child `exit()`, then read the exit status of
+-  PID table: round-robin
+-  1 -> 2 -> ... -> 65535 -> 1 (if available)
+-  process fork flow:
+   -  parent `fork()` child, child `exec()` to load some other program
+   -  parent `wait()` while child `exit()`, then read the exit status of
       child.
-    - the child's pid in PID table will be freed
-- zombie process: parent does not `wait()` for child, i.e. the exit status
-  is not read via parent's `wait()` system call when child is in terminated
-  state but still has an entry in process table.
-- orphan process: child's parent process has finished or terminated, but it
-  remains running itself.
+   -  the child's pid in PID table will be freed
+-  zombie process: parent does not `wait()` for child, i.e. the exit status
+   is not read via parent's `wait()` system call when child is in terminated
+   state but still has an entry in process table.
+-  orphan process: child's parent process has finished or terminated, but it
+   remains running itself.
 
 ## File Locking
 
-- Context-switch's atomic unit is assembly instruction
-- The `FILE` structure has a buffer
+-  Context-switch's atomic unit is assembly instruction
+-  The `FILE` structure has a buffer
 
 ## Buffering for printf
 
@@ -80,7 +80,7 @@ int main(void) {
 
 The output will be (assume you redirect the output into a file)
 
-```
+```text
 hello world
 read fd = 3, write fd = 4
 ```
@@ -94,16 +94,16 @@ be sent to the device as soon as possible.
 
 The buffer will be flushed when:
 
-- The buffer is full
-- `flush()` is called (maybe `fflush()` ?)
-- `exit()` is called
+-  The buffer is full
+-  `flush()` is called (maybe `fflush()` ?)
+-  `exit()` is called
 
 Even though the key concept is buffering, there are still some tiny rules
 affect the facts. For example, when console output is used, output to device
 will be done in no time with the following two cases:
 
-- Linefeed, i.e. "\n"
-- The program attempts to read from the terminal (?)
+-  Linefeed, i.e. "\n"
+-  The program attempts to read from the terminal (?)
 
 Reminder: **Do not use `printf()` for heavy interaction**
 

@@ -11,24 +11,24 @@ slug: computer-networks-20140922
 LTE networks fallback to 3G Network circuit switching while calling and
 sending/receiving SMS because of two reasons:
 
-- Technical issue
-- Business concern
+-  Technical issue
+-  Business concern
 
 ## Path
 
 ### Routed
 
-- Stateless (connection-less)
-- Slower
-  - Multiple memory access
+-  Stateless (connection-less)
+-  Slower
+   -  Multiple memory access
 
 ### Switched
 
-- Stateful (connection-oriented)
-- Faster
-  - One memory access
+-  Stateful (connection-oriented)
+-  Faster
+   -  One memory access
 
 ## Q & A
 
-- Q: What construct connectivity?
-- A: Nodes and links
+-  Q: What construct connectivity?
+-  A: Nodes and links

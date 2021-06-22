@@ -4,14 +4,15 @@ title: 'Hack.lu CTF 2014: Gunslinger Joe’s private Terminal Writeup'
 category: memo
 slug: gunslinger-joes-private-terminal-writeup
 ---
-First time of my life I solved a problem in a real CTF! Though it is a pretty easy one, it means something to me.
+First time of my life I solved a problem in a real CTF! Though it is a pretty
+easy one, it means something to me.
 
 ## Problem Description
 
 In the Hack.lu CTF website, there are some description about "Gunslinger Joe's
 private Terminal":
 
-```
+```text
 Gunslinger Joe's private Terminal
 by cutz (Misc)
 50 (+20) Points
@@ -81,13 +82,13 @@ the very first file in the directory specified. So let's see what is the first
 executable in the `/bin`.
 
 ```bash
-$ /*/*
+/*/*
 ```
 
 Oops! WTF! It seems that the file `/bin/bashbug` has been executed. And we
 finally got an editor, which is `vim`.
 
-```
+```text
 From: gunslinger_joe
 To: ../../bin/bunzip2
 Subject: [50 character or so descriptive subject here (for reference)]
@@ -129,6 +130,6 @@ page.
 
 ## Flag
 
-```
+```text
 flag{joe_thought_youd_suck_at_bash}
 ```

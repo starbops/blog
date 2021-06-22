@@ -8,22 +8,22 @@ slug: secure-programming-20141118
 
 ## Flash 0 Day
 
-- DEP
-- ASLR
-- EMET
-- browser sandbox
+-  DEP
+-  ASLR
+-  EMET
+-  browser sandbox
 
-- rop
-- fop
+-  rop
+-  fop
 
 ## Attack & Defense
 
-- token
-- pcap per round, delay about 3 rounds (3 rounds ago)
-- exploit
-- binary patch
-- wrapper
-- traffic analysis
-- monitoring
-- ld preloading
-- xinetd
+-  token
+-  pcap per round, delay about 3 rounds (3 rounds ago)
+-  exploit
+-  binary patch
+-  wrapper
+-  traffic analysis
+-  monitoring
+-  ld preloading
+-  xinetd

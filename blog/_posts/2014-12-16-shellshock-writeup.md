@@ -23,18 +23,17 @@ has bash vulnerability. Using `nc` to see what are sent from the ShellShock
 Tester.
 
 ```bash
-$ nc -l -p 5566
+nc -l -p 5566
 ```
 
 And it turns out to be the following result:
 
-```
+```text
 GET / HTTP/1.1
 User-Agent: () { :;}; echo 'ShellShockTester_atdog';
 Host: 140.113.235.153:5566
 Accept: */*
 ```
-
 
 Ah-ha! The string `{ :;}; echo 'ShellShockTester_atdog';` is a typical method to
 test if the bash which is currently using is vulnerable to CVE-2014-6271. A
@@ -44,14 +43,14 @@ it is vulnerable. So why don't we build a fake HTTP server to fool the
 ShellShock Tester?
 
 Building a simple HTTP server using python module [Flask][2]. It returns the
-string when the ShellShock Tester queried for the index page. It seems that the 
-ShellShock Tester stores the response returned from the target website into its 
+string when the ShellShock Tester queried for the index page. It seems that the
+ShellShock Tester stores the response returned from the target website into its
 database using `insert`. At the time the type of the database is still unknown.
 
 So I append a single quote right after the string, and the result showed on the
 ShellShock Tester is:
 
-```
+```text
 DATABASE Msg: unrecognized token: "'ShellShockTester_atdog'')"
 
 Response: ShellShockTester_atdog'
@@ -111,7 +110,7 @@ reason is that `ATTACH` command will attach a SQLite database. If the database
 does not exist, it create the database which is a PHP file. The file's content
 contains a short piece of PHP code showed above.
 
-Simply visit the page "http://tor.atdog.tw:8888/lol.php?cmd=ls", it will list
+Simply visit the page <http://tor.atdog.tw:8888/lol.php?cmd=ls>, it will list
 every file in the current directory. And there is the SQLite database! Download
 it and grab the flag!
 
@@ -119,16 +118,16 @@ it and grab the flag!
 
 The flag is:
 
-```
+```text
 SecProg{SQL1teInject1on_yoooo}
 ```
 
 ## References
 
-- [Select Queries][3]
-- [SQLite 3 error-based injection][4]
-- [SQLite3 Injection Cheat Sheet][5]
-- [SQLite Injection \| Hits from the bits][6]
+-  [Select Queries][3]
+-  [SQLite 3 error-based injection][4]
+-  [SQLite3 Injection Cheat Sheet][5]
+-  [SQLite Injection \| Hits from the bits][6]
 
 [1]: http://tor.atdog.tw:8888/index.php
 [2]: http://flask.pocoo.org

@@ -8,10 +8,10 @@ Security Programming Homework 2-1
 
 ## Intelligence Gathering
 
-- There is a vulnerability in piece of code which contains `strtok()`
-- There is a `call eax` in the binary
-- Because it is an interactive shell program, bad characters are 0x00, 0x0a,
-  0x2f (filter out by specific function in the program)
+-  There is a vulnerability in piece of code which contains `strtok()`
+-  There is a `call eax` in the binary
+-  Because it is an interactive shell program, bad characters are 0x00, 0x0a,
+   0x2f (filter out by specific function in the program)
 
 ## De-complie the binary
 
@@ -22,7 +22,7 @@ next time...
 So I turned up using IDA Pro to do the static analysis. By decompilation,
 bunch of functions showed up:
 
-```
+```text
 ...
 frame_dummy
 passCmdline
@@ -76,7 +76,7 @@ won't call our shellcode.
 The shellcode for execute `/bin/sh` is showed following, grab from the
 Internet. See the references at the end of this article for more information.
 
-```
+```text
 PYj0X40PPPPQPaJRX4Dj0YIIIII0DN0RX502A05r9sOPTY01A01RX500D05cFZBPTY01SX540D05ZFXbPTYA01A01SX50A005XnRYPSX5AA005nnCXPSX5AA005plbXPTYA01Tx
 ```
 
@@ -99,5 +99,6 @@ The flag is `SECPROG{N3tw0rk_Pr0gr4mm1ng_h0m3w0rk_1s_e4s1er}`
 
 ## References
 
-- [Linux x86 Shellcoding 101 – Objective: Topics introduction and exit(69) shellcode](http://0xcd80.wordpress.com/2011/04/16/linux-x86-shellcoding-101/)
-- [x86 alphanumeric shellcodeを書いてみる](http://inaz2.hatenablog.com/entry/2014/07/11/004655)
+-  [Linux x86 Shellcoding 101 – Objective: Topics introduction and exit(69)
+   shellcode](http://0xcd80.wordpress.com/2011/04/16/linux-x86-shellcoding-101/)
+-  [x86 alphanumeric shellcodeを書いてみる](http://inaz2.hatenablog.com/entry/2014/07/11/004655)

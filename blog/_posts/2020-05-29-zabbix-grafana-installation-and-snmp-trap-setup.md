@@ -52,7 +52,7 @@ mysql> quit;
 
 `/etc/zabbix/zabbix_server.conf`
 
-```
+```text
 DBHost=localhost
 DBName=zabbix
 DBUser=zabbix
@@ -61,7 +61,7 @@ DBPassword=<password>
 
 `/etc/httpd/conf.d/zabbix.conf`
 
-```
+```text
 php_value max_execution_time 300
 php_value memory_limit 128M
 php_value post_max_size 16M
@@ -92,7 +92,7 @@ Following up by frontend installation steps.
 
 `/etc/yum.repos.d/grafana.repo`
 
-```
+```text
 [grafana]
 name=grafana
 baseurl=https://packages.grafana.com/oss/rpm
@@ -137,11 +137,11 @@ Zabbix HTTP URL is `http://<zabbix-server-ip>/zabbix/api_jsonrpc.php`.
 
 ## References
 
-- [Zabbix Documentation 4.0](https://www.zabbix.com/documentation/4.0/manual/installation/install_from_packages/rhel_centos)
-- [i received an zabbix server start error and shared solition](https://stackoverflow.com/questions/59356695/i-received-an-zabbix-server-start-error-and-shared-solition)
-- [How to install and configure Grafana on CentOS 7 \| FOSS Linux](https://www.fosslinux.com/8328/how-to-install-and-configure-grafana-on-centos-7.htm)
-- [Tutorial - Zabbix IPMI Monitor Configuration](https://techexpert.tips/zabbix/zabbix-ipmi-monitor/)
-- [SNMP Traps in Zabbix](https://blog.zabbix.com/snmp-traps-in-zabbix/)
-- [Zabbix4.0 をRHEL8 へインストール（仮）- SNMPTT設定もするよ - Qiita](https://qiita.com/mgmjoke/items/0cedf8eee419b7504a09)
-- [SNMP Traps - Standard Handler vs Embedded Handler](https://support.nagios.com/kb/article.php?id=557)
-- [[ NetSNMP ] snmptrapd.conf 設定](https://blog.xuite.net/aflyfish/blog/86126735-%5B+NetSNMP+%5D+snmptrapd.conf+設定)
+-  [Zabbix Documentation 4.0](https://www.zabbix.com/documentation/4.0/manual/installation/install_from_packages/rhel_centos)
+-  [i received an zabbix server start error and shared solition](https://stackoverflow.com/questions/59356695/i-received-an-zabbix-server-start-error-and-shared-solition)
+-  [How to install and configure Grafana on CentOS 7 \| FOSS Linux](https://www.fosslinux.com/8328/how-to-install-and-configure-grafana-on-centos-7.htm)
+-  [Tutorial - Zabbix IPMI Monitor Configuration](https://techexpert.tips/zabbix/zabbix-ipmi-monitor/)
+-  [SNMP Traps in Zabbix](https://blog.zabbix.com/snmp-traps-in-zabbix/)
+-  [Zabbix4.0 をRHEL8 へインストール（仮）- SNMPTT設定もするよ - Qiita](https://qiita.com/mgmjoke/items/0cedf8eee419b7504a09)
+-  [SNMP Traps - Standard Handler vs Embedded Handler](https://support.nagios.com/kb/article.php?id=557)
+-  [[ NetSNMP ] snmptrapd.conf 設定](https://blog.xuite.net/aflyfish/blog/86126735-%5B+NetSNMP+%5D+snmptrapd.conf+設定)

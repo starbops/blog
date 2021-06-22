@@ -4,7 +4,6 @@ title: 'GDB Remote Debugging'
 category: memo
 slug: gdb-remote-debugging
 ---
-
 Sometimes we want to debug a program which acts interactively with user. It is
 a bad idea to debug this kind of program with normal gdb and nc command. This
 article provides an alternative way to debug the program remotely.
@@ -47,4 +46,4 @@ $ nc <target> <port>
 
 ## Reference
 
-- [Debugging with GDB: Remote Debugging](http://davis.lbl.gov/Manuals/GDB/gdb_17.html)
+-  [Debugging with GDB: Remote Debugging](http://davis.lbl.gov/Manuals/GDB/gdb_17.html)

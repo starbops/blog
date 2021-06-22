@@ -91,7 +91,7 @@ Then to load tor now:
 The default Tor configuration file is at `/usr/local/etc/tor/torrc.sample`.
 We just need to add two lines of configuration in `${HOME}/.torrc`
 
-```
+```text
 StrictNodes 1
 ExitNodes {hk}
 ```
@@ -113,8 +113,8 @@ pip install mechanize PySocks
 
 ### Key Points
 
-- Using python mechanize library to implement login action
-- Using python PySocks library to make all connections go through Tor network
+-  Using python mechanize library to implement login action
+-  Using python PySocks library to make all connections go through Tor network
   (SOCKS proxy)
 
 ## Flag
@@ -123,12 +123,12 @@ The flag is `SECPROC{Hey,D0n't_f0rg3t_g0_thr0ugh_an0nymity_n3tw0rk.}`
 
 ## References
 
-- [Tor Country Codes - B3RN3D][1]
-- [tutorial SQL injection - LampSecurity CTF 6][2]
-- [MySQL - String Functions][3]
-- [Python's mechanize to login like a user][4]
-- [stack overflow - using tor as a SOCKS5 proxy with python urllib2 or mechanize][5]
-- [stack overflow - python re.sub group: number after \number][6]
+-  [Tor Country Codes - B3RN3D][1]
+-  [tutorial SQL injection - LampSecurity CTF 6][2]
+-  [MySQL - String Functions][3]
+-  [Python's mechanize to login like a user][4]
+-  [stack overflow - using tor as a SOCKS5 proxy with python urllib2 or mechanize][5]
+-  [stack overflow - python re.sub group: number after \number][6]
 
 [1]: https://b3rn3d.herokuapp.com/blog/2014/03/05/tor-country-codes
 [2]: http://www.infond.fr/2010/06/tutorial-sql-injection-lampsecurity-ctf.html
