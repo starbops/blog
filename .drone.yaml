@@ -59,3 +59,14 @@ steps:
   when:
     event:
     - tag
+- name: notification
+  image: plugins/slack
+  settings:
+    webhook: https://mattermost.internal.zespre.com/hooks/d1ymz9ie3fyrudk76qon6hc4dr
+    channel: cicd
+    username: drone-bot
+    icon_url: https://pbs.twimg.com/profile_images/1291040329395613698/bpYKcF66_400x400.jpg
+  when:
+    status:
+    - success
+    - failure
