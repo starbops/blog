@@ -54,7 +54,8 @@ steps:
     helm_repos:
     - zpcc=https://charts.internal.zespre.com
     values:
-    - image.repository=registry.internal.zespre.com/starbops/blog:${DRONE_TAG##v}-${DRONE_COMMIT_SHA:0:7}
+    - image.tag=${DRONE_TAG##v}-${DRONE_COMMIT_SHA:0:7}
+    - imagePullSecrets[0].name=regcred
   when:
     event:
     - tag
