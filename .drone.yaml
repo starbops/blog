@@ -50,7 +50,7 @@ steps:
     chart: zpcc/blog
     release: blog
     namespace: blog-test
-    timeout: 5
+    timeout: 5m
     helm_repos:
     - zpcc=https://charts.internal.zespre.com
     values:
@@ -71,7 +71,7 @@ steps:
     chart: zpcc/blog
     release: blog
     namespace: blog-universal
-    timeout: 5
+    timeout: 5m
     helm_repos:
     - zpcc=https://charts.internal.zespre.com
     values:
