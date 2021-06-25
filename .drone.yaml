@@ -48,6 +48,7 @@ steps:
     kube_token:
       from_secret: kube_token
     lint: false
+    build_dependencies: false
     chart: zpcc/blog
     release: blog
     namespace: blog-test
@@ -70,8 +71,9 @@ steps:
       from_secret: kube_api_server
     kube_token:
       from_secret: kube_token
-    chart: zpcc/blog
     lint: false
+    build_dependencies: false
+    chart: zpcc/blog
     release: blog
     namespace: blog-universal
     timeout: 5m
