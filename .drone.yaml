@@ -40,7 +40,7 @@ steps:
   when:
     event:
     - push
-- name: deploy
+- name: deploy to staging
   image: bitsbeats/drone-helm3
   settings:
     kube_api_server:
@@ -50,6 +50,27 @@ steps:
     chart: zpcc/blog
     release: blog
     namespace: blog-test
+    timeout: 5
+    helm_repos:
+    - zpcc=https://charts.internal.zespre.com
+    values:
+    - image.tag=${DRONE_COMMIT_SHA:0:7}
+    - imagePullSecrets[0].name=regcred
+  when:
+    event:
+    - push
+    branch:
+    - master
+- name: deploy to prod
+  image: bitsbeats/drone-helm3
+  settings:
+    kube_api_server:
+      from_secret: kube_api_server
+    kube_token:
+      from_secret: kube_token
+    chart: zpcc/blog
+    release: blog
+    namespace: blog-universal
     timeout: 5
     helm_repos:
     - zpcc=https://charts.internal.zespre.com
