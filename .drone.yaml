@@ -52,7 +52,7 @@ steps:
     build_dependencies: false
     chart: zpcc/blog
     release: blog
-    namespace: blog-test
+    namespace: drone
     timeout: 5m
     helm_repos:
     - zpcc=https://charts.internal.zespre.com
