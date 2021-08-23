@@ -4,46 +4,76 @@ title: 'Install DRBD on CentOS 6.9 (Active/Passive)'
 category: memo
 slug: install-drbd-on-centos-69-active-passive
 ---
-This is an relatively simple guide about how to install DRBD (Distributed Replicated Block Device) on two CentOS 6.9 hosts in active/passive mode as block-level data failover.
+This is an relatively simple guide about how to install DRBD (Distributed
+Replicated Block Device) on two CentOS 6.9 hosts in active/passive mode as
+block-level data failover.
 
 ## DRBD Introduction
 
-The DRBD is a software-based, shared-nothing, replicated storage solution mirroring the content of block devices (hard disks, partitions, logical volumes etc.) between hosts.
+The DRBD is a software-based, shared-nothing, replicated storage solution
+mirroring the content of block devices (hard disks, partitions, logical volumes
+etc.) between hosts.
 
 DRBD mirrors data
 
-- **in real time**. Replication occurs continuously while applications modify the data on the device.
-- **transparently**. Applications need not be aware that the data is stored on multiple hosts.
-- **synchronously** or **asynchronously**. With synchronous mirroring, applications are notified of write completions after thewrites have been carried out on all hosts. With asynchronous mirroring, applications are notified of write completions when the writes have completed locally, which usually is before they have propagated to the other hosts.
+-  **in real time**. Replication occurs continuously while applications modify
+  the data on the device.
+-  **transparently**. Applications need not be aware that the data is stored on
+  multiple hosts.
+-  **synchronously** or **asynchronously**. With synchronous mirroring,
+  applications are notified of write completions after thewrites have been
+carried out on all hosts. With asynchronous mirroring, applications are notified
+of write completions when the writes have completed locally, which usually is
+before they have propagated to the other hosts.
 
 ### Kernel Module
 
-DRBD's core functionality is implemented by way of a Linux kernel module. Specifically, DRBD consititutes a driver for a virtual block device, so DRBD is situated right near the bottom of a system's I/O stack. Because of this, DRBD is extremely flexible and versatile, which makes it a replication solution suitable for adding high availability to just about any application.
+DRBD's core functionality is implemented by way of a Linux kernel module.
+Specifically, DRBD consititutes a driver for a virtual block device, so DRBD is
+situated right near the bottom of a system's I/O stack. Because of this, DRBD is
+extremely flexible and versatile, which makes it a replication solution suitable
+for adding high availability to just about any application.
 
-DRBD is, by definition and as mandated by the Linux kernel architecture, agnostic of the layers above it. Thus, it is impossible for DRBD to miraculously add features to upper layers that these do not possess. For example, DRBD cannot auto-detect file system corruption or add active-active clustering capability to file systems like ext3 or XFS.
+DRBD is, by definition and as mandated by the Linux kernel architecture,
+agnostic of the layers above it. Thus, it is impossible for DRBD to miraculously
+add features to upper layers that these do not possess. For example, DRBD cannot
+auto-detect file system corruption or add active-active clustering capability to
+file systems like ext3 or XFS.
 
 ![DRBD in Kernel](https://docs.linbit.com/ug/users-guide-8.4/drbd-in-kernel.png)
 
 ### User Space Administration tools
 
-DRBD comes with a set of administration tools which communicate with the kernel module in order to configure and administer DRBD resources.
+DRBD comes with a set of administration tools which communicate with the kernel
+module in order to configure and administer DRBD resources.
 
-`drbdadm`. The high-level administration tool of the DRBD program suite. Obtains all DRBD configuration parameters from the configuration file `/etc/drbd.conf` and acts as a front-end for `drbdsetup` and `drbdmeta`. `drbdadm` has a *dry-run* mode, invoked with the `-d` option, that shows which `drbdsetup` and `drbdmeta` calls `drbdadm` would issue without actually calling those commands.
+`drbdadm`. The high-level administration tool of the DRBD program suite. Obtains
+all DRBD configuration parameters from the configuration file `/etc/drbd.conf`
+and acts as a front-end for `drbdsetup` and `drbdmeta`. `drbdadm` has a
+*dry-run* mode, invoked with the `-d` option, that shows which `drbdsetup` and
+`drbdmeta` calls `drbdadm` would issue without actually calling those commands.
 
-`drbdsetup`. Configures the DRBD module loaded into the kernel. All parameters to `drbdsetup` must be passed on the command line. The separation between `drbdadm` and `drbdsetup` allows for maximum flexibility. Most users will rarely need to use `drbdsetup` directly, if at all.
+`drbdsetup`. Configures the DRBD module loaded into the kernel. All parameters
+to `drbdsetup` must be passed on the command line. The separation between
+`drbdadm` and `drbdsetup` allows for maximum flexibility. Most users will rarely
+need to use `drbdsetup` directly, if at all.
 
-`drbdmeta`. Allows to create, dump, restore, and modify DRBD meta data structures. Like `drbdsetup`, most users will only rarely need to use `drbdmeta` directly.
+`drbdmeta`. Allows to create, dump, restore, and modify DRBD meta data
+structures. Like `drbdsetup`, most users will only rarely need to use `drbdmeta`
+directly.
 
 ## Environment Information
 
 In this article, there are two hosts, both are installed with CentOS 6.9:
 
-- `carlos`
-    - IP address: 10.0.1.133
-- `carol`
-    - IP address: 10.0.1.233
+-  `carlos`
+   -  IP address: 10.0.1.133
+-  `carol`
+   -  IP address: 10.0.1.233
 
-We'll make `carlos` as DRBD primary node and `carol` as secondary node. Most of the actions done below should be executed on both hosts, while some are not. Please be sure what you are doing.
+We'll make `carlos` as DRBD primary node and `carol` as secondary node. Most of
+the actions done below should be executed on both hosts, while some are not.
+Please be sure what you are doing.
 
 ## Installation
 
@@ -54,7 +84,8 @@ First we need to upgrade the system and install some build-time dependencies:
 [root@carlos ~]# yum -y install gcc make automake autoconf libxslt libxslt-devel flex rpm-build kernel-devel
 ```
 
-Construct the RPM build directory tree. Download DRBD community source code from [here](https://www.linbit.com/en/drbd-community/drbd-download/). We'll
+Construct the RPM build directory tree. Download DRBD community source code from
+[here](https://www.linbit.com/en/drbd-community/drbd-download/). We'll
 need to build the code and then package them into RPMs.
 
 ```bash
@@ -87,7 +118,8 @@ Extract source code from tarballs:
 
 ## Configuration
 
-DRBD requires the same name as its hostname, so please verify that they're the same:
+DRBD requires the same name as its hostname, so please verify that they're the
+same:
 
 ```bash
 [root@carlos ~]# uname -n
@@ -96,13 +128,14 @@ carlos
 
 Optional: edit `/etc/hosts` to set hostname alias for convenience:
 
-```
+```text
 ...
 10.0.1.133 carlos
 10.0.1.233 carol
 ```
 
-We'll create a new disk partition to act as DRBD disk. Both hosts have a new disk `/dev/sdb`. Let's create a partition `dev/sdb1` and use it as DRBD disk.
+We'll create a new disk partition to act as DRBD disk. Both hosts have a new
+disk `/dev/sdb`. Let's create a partition `dev/sdb1` and use it as DRBD disk.
 
 ```bash
 [root@carlos ~]# fdisk -l
@@ -180,9 +213,10 @@ Syncing disks.
 
 Repeat the steps above on the other host.
 
-After creating DRBD disks on both hosts, it's time to create resource configuration file of DRBD. Edit `/etc/drbd.d/s1.res`:
+After creating DRBD disks on both hosts, it's time to create resource
+configuration file of DRBD. Edit `/etc/drbd.d/s1.res`:
 
-```
+```text
 resource s1 {
   on carlos {
     device /dev/drbd0;
@@ -199,17 +233,32 @@ resource s1 {
 }
 ```
 
-In DRBD, *resource* is the collective term that refers to all aspects of a particular replicated data set. These include:
+In DRBD, *resource* is the collective term that refers to all aspects of a
+particular replicated data set. These include:
 
-**Resource name**. This can be any arbitrary, US-ASCII name not containing whitespace by which the resource is referred to.
+**Resource name**. This can be any arbitrary, US-ASCII name not containing
+whitespace by which the resource is referred to.
 
-**Volumes**. Any resource is a replication group consisting of one of more *volumes* that share a common replication stream. DRBD ensures write fidelity across all volumes in the resource. Volumes are numbered starting with `0`, and there may be up to 65535 volumes in one resource. A volume contains the replicated data set, and a set of metadata for DRBD internal use.
+**Volumes**. Any resource is a replication group consisting of one of more
+*volumes* that share a common replication stream. DRBD ensures write fidelity
+across all volumes in the resource. Volumes are numbered starting with `0`, and
+there may be up to 65535 volumes in one resource. A volume contains the
+replicated data set, and a set of metadata for DRBD internal use.
 
-At the `drbdadm` level, a volume within a resource can be addressed by the resource name and volume number as `<resource>/<volume>`.
+At the `drbdadm` level, a volume within a resource can be addressed by the
+resource name and volume number as `<resource>/<volume>`.
 
-**DRBD device**. This is a virtual block device managed by DRBD. It has a device major number of 147, and its minor numbers are numbered from 0 on wards, as is customary. Each DRBD device corresponds to a volume in a resource. The associated block device is usually named `/dev/drbdX`, where `X` is the device minor number. DRBD also allows for user-defined block device names which must, however, start with `drbd_`.
+**DRBD device**. This is a virtual block device managed by DRBD. It has a device
+major number of 147, and its minor numbers are numbered from 0 on wards, as is
+customary. Each DRBD device corresponds to a volume in a resource. The
+associated block device is usually named `/dev/drbdX`, where `X` is the device
+minor number. DRBD also allows for user-defined block device names which must,
+however, start with `drbd_`.
 
-In this file we define our resource as `s1`, using `/dev/sdb1` on both hosts as DRBD disk `/dev/drbd0`. Also, the hosts' IP addresses are shown, too. This DRBD configuration file must be identical between two nodes. So we'll copy it to the other host.
+In this file we define our resource as `s1`, using `/dev/sdb1` on both hosts as
+DRBD disk `/dev/drbd0`. Also, the hosts' IP addresses are shown, too. This DRBD
+configuration file must be identical between two nodes. So we'll copy it to the
+other host.
 
 ```bash
 [root@carlos ~]# scp /etc/drbd.d/s1.res root@carol:/etc/drbd.d/
@@ -268,9 +317,14 @@ Starting DRBD resources: [
 .
 ```
 
-You'll see that DRBD is actually not ready, it's waiting for other DRBD nodes to come up. At the same time please login to the other host using another SSH session, then start the DRBD service. And both DRBD service will started successfully.
+You'll see that DRBD is actually not ready, it's waiting for other DRBD nodes to
+come up. At the same time please login to the other host using another SSH
+session, then start the DRBD service. And both DRBD service will started
+successfully.
 
-The following command will initialize the primary server. Please notice that this should be executed only once on primary server of your choice (e.g. on `carlos`).
+The following command will initialize the primary server. Please notice that
+this should be executed only once on primary server of your choice (e.g. on
+`carlos`).
 
 ```bash
 [root@carlos ~]# drbdadm -- --overwrite-data-of-peer primary s1
@@ -288,7 +342,8 @@ m:res  cs          ro                 ds                     p  mounted  fstype
 ...    sync'ed:    1.0%               (16228/16376)M
 ```
 
-After a while the DRBD status will tell you that it's fully synced between primary and secondary nodes. We're done!
+After a while the DRBD status will tell you that it's fully synced between
+primary and secondary nodes. We're done!
 
 ```bash
 [root@carlos ~]# service drbd status
@@ -331,7 +386,9 @@ m:res  cs         ro                   ds                 p  mounted  fstype
 
 Now both DRBD nodes are in secondary mode.
 
-And we switch to the other host and make it as primary node, then check its status. You can see that the host is being primary now. It means you can mount the partition and the same data will show up in the end.
+And we switch to the other host and make it as primary node, then check its
+status. You can see that the host is being primary now. It means you can mount
+the partition and the same data will show up in the end.
 
 ```bash
 [root@carol ~]# drbdadm primary s1
@@ -349,5 +406,5 @@ drwx------. 2 root root    16384 Mar 14 19:56 lost+found
 
 ## References
 
-- [Chapter 1. DRBD fundamentals - Docs LINBIT](https://docs.linbit.com/doc/users-guide-84/ch-fundamentals/)
-- [How to install and setup DRBD on CentOS](https://www.howtoforge.com/tutorial/how-to-install-and-setup-drbd-on-centos-6/)
+-  [Chapter 1. DRBD fundamentals - Docs LINBIT](https://docs.linbit.com/doc/users-guide-84/ch-fundamentals/)
+-  [How to install and setup DRBD on CentOS](https://www.howtoforge.com/tutorial/how-to-install-and-setup-drbd-on-centos-6/)

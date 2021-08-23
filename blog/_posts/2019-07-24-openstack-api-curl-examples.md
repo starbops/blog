@@ -4,6 +4,7 @@ title: 'OpenStack API Curl Examples'
 category: note
 slug: openstack-api-curl-examples
 ---
+
 ## Identity: Keystone
 
 ### Default-Scoped (May be unscoped)
@@ -74,7 +75,8 @@ Content-Type: application/json
 
 ### Domain-Scoped
 
-Get a domain-scoped token (Note that a role-assignment on the domain is needed!):
+Get a domain-scoped token (Note that a role-assignment on the domain is
+needed!):
 
 ### Getting A Token from A Token
 
@@ -107,11 +109,13 @@ Content-Type: application/json
 {"token": {"issued_at": "2018-12-18T08:52:43.000000Z", "audit_ids": ["xaSqrWOPRUW3Qy4tiSDklQ"], "methods": ["password"], "expires_at": "2018-12-18T09:52:43.000000Z", "user": {"domain": {"id": "default", "name": "Default"}, "id": "e003b3c7d733467b81bb2785cf89cee3", "name": "admin"}}}
 ```
 
-If a scope was included in the request body then this would get a token with the new scope.
+If a scope was included in the request body then this would get a token with the
+new scope.
 
 ### User Change Password
 
-Use user's credential to get the token (project-scoped), then change the user's own password.
+Use user's credential to get the token (project-scoped), then change the user's
+own password.
 
 ```bash
 $ USER_ID=a6f67ff1136140798a9dad43294d379c
@@ -126,7 +130,8 @@ $ curl -X POST \
 
 ### Resetting User Password
 
-Use admin's credential to get the token (project-scoped), then change the target user's password.
+Use admin's credential to get the token (project-scoped), then change the target
+user's password.
 
 ```bash
 $ USER_ID=a6f67ff1136140798a9dad43294d379c
@@ -140,5 +145,5 @@ http://controller:5000/v3/users/$USER_ID
 
 ## References
 
-- [API Examples using Curl - keystone 10.0.3.dev9 documentation](https://docs.openstack.org/keystone/newton/api_curl_examples.html)
-- [OpenStack Docs: Identity API v3 (CURRENT)](https://developer.openstack.org/api-ref/identity/v3/index.html)
+-  [API Examples using Curl - keystone 10.0.3.dev9 documentation](https://docs.openstack.org/keystone/newton/api_curl_examples.html)
+-  [OpenStack Docs: Identity API v3 (CURRENT)](https://developer.openstack.org/api-ref/identity/v3/index.html)

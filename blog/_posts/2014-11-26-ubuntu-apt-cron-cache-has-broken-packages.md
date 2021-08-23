@@ -4,13 +4,14 @@ title: 'Ubuntu Apt Cron Cache Has Broken Packages'
 category: memo
 slug: ubuntu-apt-cron-cache-has-broken-packages
 ---
-One day I received an root mail from my machine, talking about some packages are broken in the cache. The investigation begins...
+One day I received an root mail from my machine, talking about some packages are
+broken in the cache. The investigation begins...
 
 ## Problem Encountered
 
 I received a root mail from my machine this morning, contents are shown below:
 
-```
+```text
 Subject: Cron <root@win> test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
 
 /etc/cron.daily/apt:
@@ -95,8 +96,8 @@ Waiting about 20 minutes, this time no more errors are shown. Hooray!
 
 ## References
 
-- [/etc/cron.daily/apt: Cache has broken packages, exiting][1]
-- [How to Remove Old Linux Kernel Headers][2]
+-  [/etc/cron.daily/apt: Cache has broken packages, exiting][1]
+-  [How to Remove Old Linux Kernel Headers][2]
 
 [1]: https://bugs.launchpad.net/ubuntu/+source/apt/+bug/482200
 [2]: https://howto8165.wordpress.com/2014/08/13/remove-old-linux-kernels/

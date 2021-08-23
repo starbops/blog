@@ -4,26 +4,31 @@ title: 'MySQL Replication'
 category: note
 slug: mysql-replication
 ---
-Standard asynchronous replication is not a synchronous cluster. Keep in mind that stand and semi synchronous replication do not guarantee that the environments replication data coherence data integrity
+Standard asynchronous replication is not a synchronous cluster. Keep in mind
+that stand and semi synchronous replication do not guarantee that the
+environments replication data coherence data integrity
 
-- Statement-Based
-- Row-Based
-- Mixed replication
+-  Statement-Based
+-  Row-Based
+-  Mixed replication
 
-First fact you absolutely need to remember is MySQL Replication is single threaded, which means if you have any long running write query it clogs replication stream and small and fast updates which go after it in MySQL binary log can't proceed.
+First fact you absolutely need to remember is MySQL Replication is single
+threaded, which means if you have any long running write query it clogs
+replication stream and small and fast updates which go after it in MySQL binary
+log can't proceed.
 
 Master:
 
-- Dump thread
+-  Dump thread
 
 Slave:
 
-- IO thread
-- SQL thread
+-  IO thread
+-  SQL thread
 
 In `/etc/my.cnf`:
 
-```
+```text
 slave_parallel_workers = N
 ```
 
@@ -58,9 +63,14 @@ mysql> SHOW PROCESSLIST;
 
 ## Reset MySQL Slave
 
-Sometimes when something went wrong with MySQL slave, for example the slave cannot be started by Pacemaker resource agent, could be a very serious problem. Entries being inserted/updated/deleted on master cannot synchronize to slave. A brutal but simple solution is to reset the slave, forcing it to re-synchronize from a specified binlog position.
+Sometimes when something went wrong with MySQL slave, for example the slave
+cannot be started by Pacemaker resource agent, could be a very serious problem.
+Entries being inserted/updated/deleted on master cannot synchronize to slave. A
+brutal but simple solution is to reset the slave, forcing it to re-synchronize
+from a specified binlog position.
 
-First, check MySQL master's status. We're going to use these information on the slave.
+First, check MySQL master's status. We're going to use these information on the
+slave.
 
 ```sql
 mysql> SHOW MASTER STATUS\\G
@@ -73,9 +83,10 @@ Executed_Gtid_Set:
 1 row in set (0.05 sec)
 ```
 
-Then bring up MySQL service on the slave node. Reset the slave with the binlog file and position we got from the above command.
+Then bring up MySQL service on the slave node. Reset the slave with the binlog
+file and position we got from the above command.
 
-```
+```sql
 mysql> RESET SLAVE;
 mysql> CHANGE MASTER TO
     -> MASTER_HOST='bampi-2',
@@ -150,8 +161,10 @@ mysql> STOP SLAVE;
 
 ## References
 
-- [NicolasTrutet/Linux-HA-MySQL-Replication: How to set up 2 nodes failover with a MySQL master-master replication](https://github.com/NicolasTrutet/Linux-HA-MySQL-Replication)
-- [How does MySQL Replication really work?](https://www.percona.com/blog/2013/01/09/how-does-mysql-replication-really-work/)
-- [Overview of Different MySQL Replication Solutions](https://www.percona.com/blog/2017/02/07/overview-of-different-mysql-replication-solutions/)
-- [MySQL 平行執行的 Replication...](https://blog.gslin.org/archives/2013/01/09/3117/mysql-%E5%B9%B3%E8%A1%8C%E5%9F%B7%E8%A1%8C%E7%9A%84-replication/)
-- [Multi-Threaded Replication in MySQL 5.6 and MySQL 5.7](https://www.percona.com/live/mysql-conference-2015/sites/default/files/slides/MySQL_MultiThreaded_Replication.pdf)
+-  [NicolasTrutet/Linux-HA-MySQL-Replication: How to set up 2 nodes failover
+   with a MySQL master-master
+   replication](https://github.com/NicolasTrutet/Linux-HA-MySQL-Replication)
+-  [How does MySQL Replication really work?](https://www.percona.com/blog/2013/01/09/how-does-mysql-replication-really-work/)
+-  [Overview of Different MySQL Replication Solutions](https://www.percona.com/blog/2017/02/07/overview-of-different-mysql-replication-solutions/)
+-  [MySQL 平行執行的 Replication...](https://blog.gslin.org/archives/2013/01/09/3117/mysql-%E5%B9%B3%E8%A1%8C%E5%9F%B7%E8%A1%8C%E7%9A%84-replication/)
+-  [Multi-Threaded Replication in MySQL 5.6 and MySQL 5.7](https://www.percona.com/live/mysql-conference-2015/sites/default/files/slides/MySQL_MultiThreaded_Replication.pdf)

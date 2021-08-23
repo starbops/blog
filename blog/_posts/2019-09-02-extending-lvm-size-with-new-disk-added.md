@@ -4,6 +4,7 @@ title: 'Extending LVM Size with New Disk Added'
 category: note
 slug: extending-lvm-size-with-new-disk-added
 ---
+
 ```bash
 root@pve1:~# lvmdiskscan
   /dev/mapper/36d094660267abf0024ff75e573972158 [       4.91 TiB]
@@ -168,4 +169,6 @@ root@pve1:~# lvs
 
 ## References
 
-- [How to add an extra second hard drive on Linux LVM and increase the size of storage - nixCraft](https://www.cyberciti.biz/faq/howto-add-disk-to-lvm-volume-on-linux-to-increase-size-of-pool/)
+-  [How to add an extra second hard drive on Linux LVM and increase the size of
+   storage -
+   nixCraft](https://www.cyberciti.biz/faq/howto-add-disk-to-lvm-volume-on-linux-to-increase-size-of-pool/)

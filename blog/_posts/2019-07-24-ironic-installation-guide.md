@@ -12,36 +12,37 @@ In this installation guide, Ironic API will be installed on controller node.
 
 ### Prerequisites
 
-Create essential user, service, and endpoint information for Ironic with OpenStack admin credential.
+Create essential user, service, and endpoint information for Ironic with
+OpenStack admin credential.
 
 ```bash
-$ openstack user create --password password --email ironic@example.com ironic
-$ openstack role add --project service --user ironic admin
-$ openstack service create --name ironic --description "Ironic baremetal provisioning service" baremetal
-$ openstack endpoint create --region RegionOne baremetal admin http://controller:6385
-$ openstack endpoint create --region RegionOne baremetal public http://controller:6385
-$ openstack endpoint create --region RegionOne baremetal internal http://controller:6385
+openstack user create --password password --email ironic@example.com ironic
+openstack role add --project service --user ironic admin
+openstack service create --name ironic --description "Ironic baremetal provisioning service" baremetal
+openstack endpoint create --region RegionOne baremetal admin http://controller:6385
+openstack endpoint create --region RegionOne baremetal public http://controller:6385
+openstack endpoint create --region RegionOne baremetal internal http://controller:6385
 ```
 
 ```bash
-$ openstack role create baremetal_admin
-$ openstack role create baremetal_observer
-$ openstack project create baremetal
-$ openstack user create --domain default --project-domain default --project baremetal --password password baremetal_demo
-$ openstack role add --user-domain default --project-domain default --project baremetal --user baremetal_demo baremetal_observer
+openstack role create baremetal_admin
+openstack role create baremetal_observer
+openstack project create baremetal
+openstack user create --domain default --project-domain default --project baremetal --password password baremetal_demo
+openstack role add --user-domain default --project-domain default --project baremetal --user baremetal_demo baremetal_observer
 ```
 
 ### Installation
 
 ```bash
-$ sudo apt install ironic-api
+sudo apt install ironic-api
 ```
 
 ### Configuration
 
 In `/etc/ironic/ironic.conf`:
 
-```
+```text
 [DEFAULT]
 auth_strategy=keystone
 enabled_network_interfaces = noop,flat,neutron
@@ -152,7 +153,7 @@ password=password
 
 In `/etc/nova/nova.conf`:
 
-```
+```text
 ...
 scheduler_host_manager=ironic_host_manager
 ram_allocation_ratio=1.0
@@ -167,18 +168,21 @@ firewall_driver = nova.virt.firewall.NoopFirewallDriver
 
 ### Prepare Provisioning/Cleaning Network
 
-On controller node, we need two additional NICs for this feature to work. Both NICs must connect to the same L2 network as our baremetal nodes reside. One for making Linux bridge under Neutron's control (ens21), the other for Ironic API access endpoint in baremetal network (ens22).
+On controller node, we need two additional NICs for this feature to work. Both
+NICs must connect to the same L2 network as our baremetal nodes reside. One for
+making Linux bridge under Neutron's control (ens21), the other for Ironic API
+access endpoint in baremetal network (ens22).
 
 In `/etc/neutron/plugins/ml2/ml2_conf.ini`:
 
-```
+```text
 [ml2_type_flat]
 flat_networks = external,flat
 ```
 
 In `/etc/neutron/plugins/ml2/linuxbridge_agent.ini`:
 
-```
+```text
 [linux_bridge]
 physical_interface_mappings = external:ens19,vlan:ens20,flat:ens21
 ```
@@ -186,22 +190,23 @@ physical_interface_mappings = external:ens19,vlan:ens20,flat:ens21
 Restart related Neutron services.
 
 ```bash
-$ sudo systemctl restart neutron-linuxbridge-agent.service
-$ sudo systemctl restart neutron-server.service
+sudo systemctl restart neutron-linuxbridge-agent.service
+sudo systemctl restart neutron-server.service
 ```
 
-Create Neutron network for baremetal provisioning/cleaning purposes which is in flat type.
+Create Neutron network for baremetal provisioning/cleaning purposes which is in
+flat type.
 
 ```bash
-$ neutron net-create baremetal-net --shared --provider:network_type flat --provider:physical_network flat
-$ neutron subnet-create baremetal-net 100.74.41.0/24 --name baremetal-subnet --ip-version=4 --gateway=100.74.41.254 --allocation-pool start=100.74.41.200,end=100.74.41.250 --enable-dhcp
+neutron net-create baremetal-net --shared --provider:network_type flat --provider:physical_network flat
+neutron subnet-create baremetal-net 100.74.41.0/24 --name baremetal-subnet --ip-version=4 --gateway=100.74.41.254 --allocation-pool start=100.74.41.200,end=100.74.41.250 --enable-dhcp
 ```
 
 Set up the other NIC for later baremetal nodes API accessing.
 
 ```bash
-$ sudo ip addr add 100.74.41.200/24 dev ens22
-$ sudo ip link set up dev ens22
+sudo ip addr add 100.74.41.200/24 dev ens22
+sudo ip link set up dev ens22
 ```
 
 Edit `/etc/network/interfaces` to make the network configuration persistent.
@@ -213,14 +218,14 @@ In this installation guide, there is a dedicate node for Ironic conductor.
 ### Installation
 
 ```bash
-$ sudo apt install ironic-conductor
+sudo apt install ironic-conductor
 ```
 
 ### Configuration
 
 In `/etc/ironic/ironic.conf`:
 
-```
+```text
 [DEFAULT]
 auth_strategy = keystone
 enabled_drivers = pxe_ipmitool
@@ -340,18 +345,22 @@ pxe_append_params = coreos.autologin sshkey="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAA
 [virtualbox]
 ```
 
-To accelerate cleaning process, disable disk erasure in default cleaning steps. Cleaning ATA disks which do not support cryptographic secure erase could be extremely time consuming. In `/etc/ironic/ironic.conf`:
+To accelerate cleaning process, disable disk erasure in default cleaning steps.
+Cleaning ATA disks which do not support cryptographic secure erase could be
+extremely time consuming. In `/etc/ironic/ironic.conf`:
 
-```
+```text
 [deploy]
 erase_devices_priority=0
 ```
 
 ### Setting Provisioning/Cleaning Network
 
-Of course you can specify different networks for provisioning and cleaning, but in our case we'll use the same network created above. Update the following configuration in `/etc/ironic/ironic.conf`:
+Of course you can specify different networks for provisioning and cleaning, but
+in our case we'll use the same network created above. Update the following
+configuration in `/etc/ironic/ironic.conf`:
 
-```
+```text
 [neutron]
 cleaning_network_uuid = 28791788-59d7-4346-89aa-6f895b523c0c
 provisioning_network_uuid = 28791788-59d7-4346-89aa-6f895b523c0c
@@ -360,23 +369,29 @@ provisioning_network_uuid = 28791788-59d7-4346-89aa-6f895b523c0c
 Restart Ironic conductor service.
 
 ```bash
-$ sudo systemctl restart ironic-conductor.service
+sudo systemctl restart ironic-conductor.service
 ```
 
 ## Ironic Python Agent (IPA)
 
-In this guide we'll build CoreOS version IPA image. So a Docker-ready environment is essential. There's another way to build IPA images, please refer to [Diskimage-builder](https://docs.openstack.org/diskimage-builder/latest/).
+In this guide we'll build CoreOS version IPA image. So a Docker-ready
+environment is essential. There's another way to build IPA images, please refer
+to [Diskimage-builder](https://docs.openstack.org/diskimage-builder/latest/).
 
 ### Prerequisites
 
-We're building IPA image in CentOS 6.9 environment just because in our environment it has Docker client installed and there is a well-configured 3-node Docker Swarm for the use. But the default Python interpreter came along with the OS is relatively outdated:
+We're building IPA image in CentOS 6.9 environment just because in our
+environment it has Docker client installed and there is a well-configured 3-node
+Docker Swarm for the use. But the default Python interpreter came along with the
+OS is relatively outdated:
 
 ```bash
 # python -V
 Python 2.6.6
 ```
 
-Upgrading Python without touching the one system uses could be simple. Download the source tarball and start compiling:
+Upgrading Python without touching the one system uses could be simple. Download
+the source tarball and start compiling:
 
 ```bash
 # yum install gcc findutils grep gpg util-linux
@@ -393,44 +408,58 @@ Python 2.7.10
 ### Image Building
 
 ```bash
-$ git clone https://git.openstack.org/openstack/ironic-python-agent.git
-$ cd ironic-python-agent/
-$ git checkout tags/newton-eol -b newton-eol
-$ cd imagebuild/coreos/
-$ make
+git clone https://git.openstack.org/openstack/ironic-python-agent.git
+cd ironic-python-agent/
+git checkout tags/newton-eol -b newton-eol
+cd imagebuild/coreos/
+make
 ```
 
 ### Gaining Access to IPA on a Node
 
 Here we'll use CoreOS for illustration.
 
-Add `sshkey="ssh-rsa AAAA..."` to `pxe_append_params` setting in `ironic.conf` file then restart Ironic conductor service. After that you're able to `ssh core@<ip-address-of-node>`.
+Add `sshkey="ssh-rsa AAAA..."` to `pxe_append_params` setting in `ironic.conf`
+file then restart Ironic conductor service. After that you're able to `ssh
+core@<ip-address-of-node>`.
 
-On the other hand, if you want to access IPA via console, just simply add `coreos.autologin` to `pxe_append_params` setting in `ironic.conf then restart Ironic conductor service.
+On the other hand, if you want to access IPA via console, just simply add
+`coreos.autologin` to `pxe_append_params` setting in `ironic.conf then restart
+Ironic conductor service.
 
 ### Set IPA to debug logging
 
-Add `ipa-debug=1` to `pxe_append_params` setting in `ironic.conf` file then restart Ironic conductor service. IPA logs could be found with:
+Add `ipa-debug=1` to `pxe_append_params` setting in `ironic.conf` file then
+restart Ironic conductor service. IPA logs could be found with:
 
 ```bash
-$ sudo journalctl -u ironic-python-agent.service
+sudo journalctl -u ironic-python-agent.service
 ```
 
 ## Network Generic Switch
 
-In order to fully enable multi-tenancy feature provided by Ironic, one key point is Neutron support. Neutron supports multi-tenancy by nature. It creates overlay networks through various network technologies on top of provider networks. But right now baremetal multi-tenancy could only be done through VLAN segregation. And the most important, Neutron must have control over physical switches which connect the baremetal nodes. So the "Network Generic Switch" mechanism driver comes to help!
+In order to fully enable multi-tenancy feature provided by Ironic, one key point
+is Neutron support. Neutron supports multi-tenancy by nature. It creates overlay
+networks through various network technologies on top of provider networks. But
+right now baremetal multi-tenancy could only be done through VLAN segregation.
+And the most important, Neutron must have control over physical switches which
+connect the baremetal nodes. So the "Network Generic Switch" mechanism driver
+comes to help!
 
 ### Source Modification
 
-Just before the installation, we have to modify the source code for it to work as expected.
+Just before the installation, we have to modify the source code for it to work
+as expected.
 
-```
-$ git clone https://github.com/openstack/networking-generic-switch.git
-$ cd networking-generic-switch/
-$ git checkout tags/newton-eol -b newton-eol
+```bash
+git clone https://github.com/openstack/networking-generic-switch.git
+cd networking-generic-switch/
+git checkout tags/newton-eol -b newton-eol
 ```
 
-In `networking_generic_switch/generic_switch_mech.py`, there are two places to modify. Change the default VLAN ID 1 to the actual VLAN ID you use in your deployment. In our case it is VLAN ID 41.
+In `networking_generic_switch/generic_switch_mech.py`, there are two places to
+modify. Change the default VLAN ID 1 to the actual VLAN ID you use in your
+deployment. In our case it is VLAN ID 41.
 
 ```python
 def delete_port_postcommit(self, context):
@@ -450,30 +479,32 @@ def bind_port(self, context):
                 ...
 ```
 
-If you don't do this, Neutron will not know what VLAN ID is for provisioning/cleaning network (flat type), and it defaults to VLAN ID 1 which breaks the provisioning/cleaning actions.
+If you don't do this, Neutron will not know what VLAN ID is for
+provisioning/cleaning network (flat type), and it defaults to VLAN ID 1 which
+breaks the provisioning/cleaning actions.
 
 ### Installation
 
 ```bash
-$ sudo python setup.py install
+sudo python setup.py install
 ```
 
 ```bash
-$ sudo pip install netmiko==0.5.0
+sudo pip install netmiko==0.5.0
 ```
 
 ### Configuration
 
 `/etc/neutron/plugins/ml2/ml2_conf.ini`:
 
-```
+```text
 [ml2]
 mechanism_drivers = linuxbridge,genericswitch
 ```
 
 `/etc/neutron/plugins/ml2/ml2_conf_genericswitch.ini`:
 
-```
+```text
 [genericswitch:Catalyst-202]
 device_type = netmiko_cisco_ios
 username = admin
@@ -495,15 +526,16 @@ Restart `neutron-server`.
 
 ### Prerequisites
 
-In order to use Ironic Inspector with OpenStack client, we need to create service endpoint for it.
+In order to use Ironic Inspector with OpenStack client, we need to create
+service endpoint for it.
 
 ```bash
-$ openstack user create --domain default --password-prompt ironic-inspector
-$ openstack role add --project service --user ironic-inspector admin
-$ openstack service create --name ironic-inspector --description "Ironic baremetal discovery service" baremetal-introspection
-$ openstack endpoint create --region RegionOne baremetal-introspection admin http://ironic:5050
-$ openstack endpoint create --region RegionOne baremetal-introspection public http://ironic:5050
-$ openstack endpoint create --region RegionOne baremetal-introspection internal http://ironic:5050
+openstack user create --domain default --password-prompt ironic-inspector
+openstack role add --project service --user ironic-inspector admin
+openstack service create --name ironic-inspector --description "Ironic baremetal discovery service" baremetal-introspection
+openstack endpoint create --region RegionOne baremetal-introspection admin http://ironic:5050
+openstack endpoint create --region RegionOne baremetal-introspection public http://ironic:5050
+openstack endpoint create --region RegionOne baremetal-introspection internal http://ironic:5050
 ```
 
 ### Installation
@@ -511,13 +543,15 @@ $ openstack endpoint create --region RegionOne baremetal-introspection internal 
 Install Ironic Inspector and Dnsmasq on Ironic (conductor) node.
 
 ```bash
-$ sudo apt install ironic-inspector python-memcache dnsmasq
+sudo apt install ironic-inspector python-memcache dnsmasq
 ```
 
-Install Ironic Inspector client package on controller (for `openstack baremetal introspection` command to work) and conductor (for `openstack baremetal node inspect` command to work) node.
+Install Ironic Inspector client package on controller (for `openstack baremetal
+introspection` command to work) and conductor (for `openstack baremetal node
+inspect` command to work) node.
 
 ```bash
-$ sudo apt install python-ironic-inspector-client
+sudo apt install python-ironic-inspector-client
 ```
 
 ### Configuration
@@ -526,7 +560,7 @@ $ sudo apt install python-ironic-inspector-client
 
 `/etc/ironic-inspector/inspector.conf`:
 
-```
+```text
 [DEFAULT]
 rootwrap_config = /etc/ironic-inspector/rootwrap.conf
 
@@ -580,15 +614,17 @@ node_not_found_hook = enroll
 [swift]
 ```
 
-Add the following line in `/etc/default/dnsmasq` to prevent Dnsmasq overwriting the original nameserver in `/etc/resolv.conf`, otherwise it will break your Internet name resolution.
+Add the following line in `/etc/default/dnsmasq` to prevent Dnsmasq overwriting
+the original nameserver in `/etc/resolv.conf`, otherwise it will break your
+Internet name resolution.
 
-```
+```text
 DNSMASQ_EXCEPT=lo
 ```
 
 `/etc/dnsmasq.conf`:
 
-```
+```text
 port=0
 interface=ens19
 bind-interfaces
@@ -600,7 +636,7 @@ dhcp-boot=pxelinux.0
 
 `/tftpboot/pxelinux.cfg/default`:
 
-```
+```text
 default introspect
 
 label introspect
@@ -612,9 +648,9 @@ ipappend 3
 Prepare IPA ramdisk under `/tftpboot/images` directory for PXE booting.
 
 ```bash
-$ sudo systemctl restart ironic-conductor.service
-$ sudo systemctl restart dnsmasq.service
-$ sudo -u ironic-inspector ironic-inspector --config-file /etc/ironic-inspector/inspector.conf
+sudo systemctl restart ironic-conductor.service
+sudo systemctl restart dnsmasq.service
+sudo -u ironic-inspector ironic-inspector --config-file /etc/ironic-inspector/inspector.conf
 ```
 
 # Ironic Operation Guide
@@ -622,13 +658,13 @@ $ sudo -u ironic-inspector ironic-inspector --config-file /etc/ironic-inspector/
 ## Flavor Creation
 
 ```bash
-$ CPU=2
-$ RAM_MB=1024
-$ DISK_GB=100
-$ ARCH=x86_64
-$ nova flavor-create my-baremetal-flavor auto $RAM_MB $DISK_GB $CPU
-$ nova flavor-key my-baremetal-flavor set cpu_arch=$ARCH
-$ nova flavor-key my-baremetal-flavor set capabilities:boot_option="local"
+CPU=2
+RAM_MB=1024
+DISK_GB=100
+ARCH=x86_64
+nova flavor-create my-baremetal-flavor auto $RAM_MB $DISK_GB $CPU
+nova flavor-key my-baremetal-flavor set cpu_arch=$ARCH
+nova flavor-key my-baremetal-flavor set capabilities:boot_option="local"
 ```
 
 ## Image Preparation
@@ -636,18 +672,18 @@ $ nova flavor-key my-baremetal-flavor set capabilities:boot_option="local"
 Upload deploy images:
 
 ```bash
-$ glance image-create --name deploy-coreos-vmlinuz --visibility public --disk-format aki --container-format aki < coreos_production_pxe.vmlinuz
-$ glance image-create --name deploy-coreos-initrd --visibility public --disk-format ari --container-format ari < coreos_production_pxe_image-oem.cpio.gz
+glance image-create --name deploy-coreos-vmlinuz --visibility public --disk-format aki --container-format aki < coreos_production_pxe.vmlinuz
+glance image-create --name deploy-coreos-initrd --visibility public --disk-format ari --container-format ari < coreos_production_pxe_image-oem.cpio.gz
 ```
 
 Upload user images:
 
 ```bash
-$ glance image-create --name my-kernel --visibility public --disk-format aki --container-format aki < my-image.vmlinuz
-$ MY_VMLINUZ_UUID="b332e81d-bd3d-4c24-8d84-83292514eecc"
-$ glance image-create --name my-image.initrd --visibility public --disk-format ari --container-format ari < my-image.initrd
-$ MY_INITRD_UUID="801c428e-561d-4b32-94d0-125eab9ff75b"
-$ glance image-create --name my-image --visibility public --disk-format qcow2 --container-format bare --property kernel_id=$MY_VMLINUZ_UUID --property ramdisk_id=$MY_INITRD_UUID < my-image.qcow2
+glance image-create --name my-kernel --visibility public --disk-format aki --container-format aki < my-image.vmlinuz
+MY_VMLINUZ_UUID="b332e81d-bd3d-4c24-8d84-83292514eecc"
+glance image-create --name my-image.initrd --visibility public --disk-format ari --container-format ari < my-image.initrd
+MY_INITRD_UUID="801c428e-561d-4b32-94d0-125eab9ff75b"
+glance image-create --name my-image --visibility public --disk-format qcow2 --container-format bare --property kernel_id=$MY_VMLINUZ_UUID --property ramdisk_id=$MY_INITRD_UUID < my-image.qcow2
 ```
 
 ## Enrolment
@@ -657,8 +693,8 @@ $ glance image-create --name my-image --visibility public --disk-format qcow2 --
 Use OpenStack admin credential.
 
 ```bash
-$ export IRONIC_API_VERSION=1.20
-$ export OS_BAREMETAL_API_VERSION=1.20
+export IRONIC_API_VERSION=1.20
+export OS_BAREMETAL_API_VERSION=1.20
 ```
 
 ```bash
@@ -704,14 +740,18 @@ $ ironic node-validate fed2481a-7cc2-459d-b9cd-4c74b722c59a
 
 ### Automated Enrolment (Inspect)
 
-Just simply power on the baremetal nodes, Ironic inspector will handle the rest of it.
+Just simply power on the baremetal nodes, Ironic inspector will handle the rest
+of it.
 
-For the record, Ironic inspector has not yet supported the use of `port` scheme in introspection rule by newton version. That is, admin cannot configure extra information like `local_link_connection` with introspection rule. Ironic inspector default plugin includes `local_link_connection`
+For the record, Ironic inspector has not yet supported the use of `port` scheme
+in introspection rule by newton version. That is, admin cannot configure extra
+information like `local_link_connection` with introspection rule. Ironic
+inspector default plugin includes `local_link_connection`
 
 ## Manageable
 
 ```bash
-$ ironic node-set-provision-state hp-11 manage
+ironic node-set-provision-state hp-11 manage
 ```
 
 ## Cleaning
@@ -719,20 +759,20 @@ $ ironic node-set-provision-state hp-11 manage
 ### Automated Cleaning
 
 ```bash
-$ ironic node-set-provision-state hp-11 provide
+ironic node-set-provision-state hp-11 provide
 ```
 
 ### Manual Cleaning
 
 ```bash
-$ ironic node-set-provision-state hp-11 clean \
-        --clean-steps '[{"interface": "deploy", "step": "erase_devices_metadata"}]'
+ironic node-set-provision-state hp-11 clean \
+      --clean-steps '[{"interface": "deploy", "step": "erase_devices_metadata"}]'
 ```
 
 ## Workload
 
 ```bash
-$ nova boot --flavor my-baremetal-flavor --image my-image --nic net-id=070c1b6d-3777-416a-a971-4216dce67b1a --key my-key test-baremetal
+nova boot --flavor my-baremetal-flavor --image my-image --nic net-id=070c1b6d-3777-416a-a971-4216dce67b1a --key my-key test-baremetal
 ```
 
 ## Appendix
@@ -740,15 +780,17 @@ $ nova boot --flavor my-baremetal-flavor --image my-image --nic net-id=070c1b6d-
 ### Diskimage-Builder
 
 ```bash
-# yum install squashfs-tools
-# pip install diskimage-builder
-# DIB_DEV_USER_USERNAME=user DIB_DEV_USER_PASSWORD=password DIB_DEV_USER_PWDLESS_SUDO=yes disk-image-create ironic-agent ubuntu devuser proliant-tools -o ironic-agent
+yum install squashfs-tools
+pip install diskimage-builder
+DIB_DEV_USER_USERNAME=user DIB_DEV_USER_PASSWORD=password DIB_DEV_USER_PWDLESS_SUDO=yes disk-image-create ironic-agent ubuntu devuser proliant-tools -o ironic-agent
 ```
 
 ## References
 
-- [Bare Metal service installation guide](https://docs.openstack.org/project-install-guide/baremetal/newton/)
-- [Node Cleaning - Ironic 6.2.5.dev3 documentation](https://docs.openstack.org/ironic/newton/deploy/cleaning.html)
-- [Troubleshooting Ironic-Python-Agent (IPA)](https://docs.openstack.org/ironic-python-agent/latest/admin/troubleshooting.html)
-- [Multitenancy in Bare Metal Service - Ironic 6.2.5.dev3 documentation](https://docs.openstack.org/ironic/newton/deploy/multitenancy.html)
-- [linux - resolv.conf keeps getting overwritten when dnsmasq is restarted, breaking dnsmasq - Super User](https://superuser.com/questions/894513/resolv-conf-keeps-getting-overwritten-when-dnsmasq-is-restarted-breaking-dnsmas)
+-  [Bare Metal service installation guide](https://docs.openstack.org/project-install-guide/baremetal/newton/)
+-  [Node Cleaning - Ironic 6.2.5.dev3 documentation](https://docs.openstack.org/ironic/newton/deploy/cleaning.html)
+-  [Troubleshooting Ironic-Python-Agent (IPA)](https://docs.openstack.org/ironic-python-agent/latest/admin/troubleshooting.html)
+-  [Multitenancy in Bare Metal Service - Ironic 6.2.5.dev3 documentation](https://docs.openstack.org/ironic/newton/deploy/multitenancy.html)
+-  [linux - resolv.conf keeps getting overwritten when dnsmasq is restarted,
+   breaking dnsmasq - Super
+   User](https://superuser.com/questions/894513/resolv-conf-keeps-getting-overwritten-when-dnsmasq-is-restarted-breaking-dnsmas)

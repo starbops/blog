@@ -12,14 +12,14 @@ slug: secure-programming-20140923
 
 On Linux you can do the following:
 
-- `file <executable>`
-- `strings <executable>`
-- `objdump -d <executable>`
+-  `file <executable>`
+-  `strings <executable>`
+-  `objdump -d <executable>`
 
 Also, there is a powerful tool on Windows called "IDA Pro". It can disassemble
 even decompile executables.
 
 ### Exercise
 
-- Use IDA Pro to disassemble bot.exe
-- Trace sub\_418F50
+-  Use IDA Pro to disassemble bot.exe
+-  Trace sub\_418F50

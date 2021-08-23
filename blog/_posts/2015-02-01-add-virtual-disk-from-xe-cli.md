@@ -8,7 +8,7 @@ I don't know where and when I set this, but XenCenter keeps telling me that I
 cannot add more virtual disks (currently only 3 virtual disks) to my virtual
 machine.
 
-```
+```text
 You have reached the maximum number of virtual disks allowed for this
 virtual machine.
 ```
@@ -90,6 +90,6 @@ page of the virtual machine in XenCenter.
 
 ## Reference
 
-- [XenServer - Create and Attach Virtual Disk from XE CLI][1]
+-  [XenServer - Create and Attach Virtual Disk from XE CLI][1]
 
 [1]: https://techhelplist.com/index.php/tech-tutorials/41-misc/316-xenserver-create-and-attach-virtual-disk-from-xe-cli

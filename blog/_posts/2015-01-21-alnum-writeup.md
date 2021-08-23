@@ -102,7 +102,7 @@ Contents of section .text:
 The instructions listed below are valid because their opcode are in the range
 of alphanumerics.
 
-```
+```text
 30      XOR r/m8 r8
 31      XOR r/m16/32 r16/32
 32      XOR r8 r/m8
@@ -167,7 +167,7 @@ print hex(struct.unpack('<I', z)[0])
 
 With this handy script, we can get rid of many invalid characters.
 
-```
+```text
 [origin]: 0x80cd0b42
 0x30433230
 0x4f713972
@@ -199,12 +199,12 @@ With this handy script, we can get rid of many invalid characters.
 So the strategy of generating an alphanumeric shellcode is:
 
 1. Clear all registers
-2. Make some register to be `0xffffffff` for convenience
-3. `XOR` register with immediate values to shape the wanted value
-4. `PUSH` the register into the stack
-5. Do some minor change through XORing byte by byte
-6. `PUSH esp` into the stack
-7. Jump to the top of the stack by calling `RET`
+1. Make some register to be `0xffffffff` for convenience
+1. `XOR` register with immediate values to shape the wanted value
+1. `PUSH` the register into the stack
+1. Do some minor change through XORing byte by byte
+1. `PUSH esp` into the stack
+1. Jump to the top of the stack by calling `RET`
 
 You might wonder: why `RET` can be used? Actually it can't. So we place a
 dummy value there, and patch it when executing the shellcode. The total length
@@ -218,11 +218,11 @@ The almighty Japanese had already provided a prototype for us! Thanks bro! But
 still there are some parts must be patched to pass the check. All I have done
 is that:
 
-- Replace the invalid immediate vaule
-- Replace `esi` with `edi` in `patch_ret`
-- Replace `ebx` and `edx` with `esi` when pushing zero into the stack
-- Eliminate 5 lines of `dec ecx`, and increase the length of the shellcode
-- Re-calculate the position of the dummy value.
+-  Replace the invalid immediate vaule
+-  Replace `esi` with `edi` in `patch_ret`
+-  Replace `ebx` and `edx` with `esi` when pushing zero into the stack
+-  Eliminate 5 lines of `dec ecx`, and increase the length of the shellcode
+-  Re-calculate the position of the dummy value.
 
 And the result is:
 
@@ -397,16 +397,16 @@ Bingo! Now submit the alphanumeric shellcode to the server, and cat the flag!
 
 ## Flag
 
-```
+```text
 SECPROG{IncredibleASMProgrammer}
 ```
 
 ## References
 
-- [x86 alphanumeric shellcodeを書いてみる][1]
-- [x86 alphanumeric shellcode encoderを書いてみる][2]
-- [Hacking/Shellcode/Alphanumeric/x86 printable opcodes][3]
-- [Encoding Real x86 Instructions][4]
+-  [x86 alphanumeric shellcodeを書いてみる][1]
+-  [x86 alphanumeric shellcode encoderを書いてみる][2]
+-  [Hacking/Shellcode/Alphanumeric/x86 printable opcodes][3]
+-  [Encoding Real x86 Instructions][4]
 
 [1]: http://inaz2.hatenablog.com/entry/2014/07/11/004655
 [2]: http://inaz2.hatenablog.com/entry/2014/07/13/025626

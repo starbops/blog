@@ -8,44 +8,43 @@ slug: distributed-and-collaborative-traffic-monitoring-in-software-defined-netwo
 
 ## Abstraction
 
-- Two representative monitoring tasks
-    - Flow size counting
-    - Packet sampling
+-  Two representative monitoring tasks
+   -  Flow size counting
+   -  Packet sampling
 
-- Distributed and Collaborative Monitoring system (DCM)
-    - Allows switches to collaboratively achieve
-        - Flow monitoring tasks
-        - Balance measurement load
-    - Performs per-flow monitoring
-        - Different groups of flows are monitored using different actions
-    - Memory-efficient solution for switch data plane
+-  Distributed and Collaborative Monitoring system (DCM)
+   -  Allows switches to collaboratively achieve
+      -  Flow monitoring tasks
+      -  Balance measurement load
+   -  Performs per-flow monitoring
+      -  Different groups of flows are monitored using different actions
+   -  Memory-efficient solution for switch data plane
 
-- Highest measurement accuracy given the same memory budget of switches
+-  Highest measurement accuracy given the same memory budget of switches
 
 ## Introduction
 
-- In most networks, routers/switches independently monitor flows
-    - Switches may consumes tremendous resources
-    - Some flows may not be covered by these switches
+-  In most networks, routers/switches independently monitor flows
+   -  Switches may consumes tremendous resources
+   -  Some flows may not be covered by these switches
 
-- A monitoring rule includes
-    - Matching fields
-    - An action applied to the flow
+-  A monitoring rule includes
+   -  Matching fields
+   -  An action applied to the flow
 
-- Two essensial requirements of traffic monitoring
-    - Load distribution
-    - Per-flow monitoring
+-  Two essensial requirements of traffic monitoring
+   -  Load distribution
+   -  Per-flow monitoring
 
 The only two approaches that can achieve per-flow monitoring and load
 distribution are rule-based and aggregation-based flow monitoring.
 
-- Rule-based flow monitoring
-    - Limited by the switch memory space
-- Aggregation-based monitoring
-    - Still requires a large rule table
-    - Potential duplicate samples may occur
-    - Changes of small flows are hard to observe
-
+-  Rule-based flow monitoring
+   -  Limited by the switch memory space
+-  Aggregation-based monitoring
+   -  Still requires a large rule table
+   -  Potential duplicate samples may occur
+   -  Changes of small flows are hard to observe
 
 ## Existing Traffic Measurement Tools
 
@@ -70,8 +69,8 @@ together with interface counters.
 
 Two types of sampling:
 
-- Random sampling of packets or application layer operations
-- Time-based sampling of counters
+-  Random sampling of packets or application layer operations
+-  Time-based sampling of counters
 
 ## System Design
 
@@ -79,18 +78,18 @@ DCM guarantees the following two properties
 
 1. Every packet of a targeted flow should be monitored by at least one switch
    on its path
-2. If a packet is monitored by more than one switches, duplicate monitoring can
+1. If a packet is monitored by more than one switches, duplicate monitoring can
    be detected
 
 ### Model
 
-- Flows are identified by the 5-tuple, i.e., <SrcIp, DstIp, SrcPort, DstPort,
-  Protocol>
-- There is a centralized SDN controller maintaining a monitoring table
-    - The targeted flows
-    - The corresponding monitor actions
-- A switch records measurement results in its local memory and reports the
-  results to the controller periodically
+-  Flows are identified by the 5-tuple, i.e., <SrcIp, DstIp, SrcPort, DstPort,
+   Protocol>
+-  There is a centralized SDN controller maintaining a monitoring table
+   -  The targeted flows
+   -  The corresponding monitor actions
+-  A switch records measurement results in its local memory and reports the
+   results to the controller periodically
 
 ### Assumption
 
@@ -104,25 +103,26 @@ The flow-to-filter matching are based on the hash of a 5-tuple. The DCM
 component does not perform any packet forwarding task.
 
 1. A wildcard rule applies an action to an aggregate of flows
-2. The function of the admission Bloom filter (admBF) is to filter the flows
+1. The function of the admission Bloom filter (admBF) is to filter the flows
    that are not of interest
-3. The action Bloom filters (actBFs) decides the corresponding monitoring
+1. The action Bloom filters (actBFs) decides the corresponding monitoring
    actions
 
 ### Controller Operations
 
-- Monitoring load allocation
-- Bloom filter contruction and updates
-    - Real-time Addition and Periodical Reconstruction (RAPR)
-        - Add immediately
-        - Reconstruct periodically
-- False positive detection
-    - DCM can control false positive rates, but cannot completely eliminate
+-  Monitoring load allocation
+-  Bloom filter contruction and updates
+   -  Real-time Addition and Periodical Reconstruction (RAPR)
+      -  Add immediately
+      -  Reconstruct periodically
+-  False positive detection
+   -  DCM can control false positive rates, but cannot completely eliminate
       false positives
-    - The controller can maintain copies of Bloom filters installed on switches and the record of flow information
-        - Detect all false positives
-        - Limit the negative influence of them
+   -  The controller can maintain copies of Bloom filters installed on switches
+      and the record of flow information
+      -  Detect all false positives
+      -  Limit the negative influence of them
 
 ### Reference
 
-- [Distributed and Collaborative Traffic Monitoring in Software Defined Networks](http://conferences.sigcomm.org/sigcomm/2014/doc/slides/197.pdf)
+-  [Distributed and Collaborative Traffic Monitoring in Software Defined Networks](http://conferences.sigcomm.org/sigcomm/2014/doc/slides/197.pdf)

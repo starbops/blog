@@ -12,15 +12,16 @@ Check Java home environment variable
 
 ![Java Home Environment Variable](/assets/images/changing-different-versions-of-java-on-windows/java-home-environment-variable.png)
 
-Replacing the following three files under `C:\Program Files (x86)\Common Files\Oracle\Java\javapath` with the right ones.
+Replacing the following three files under `C:\Program Files (x86)\Common
+Files\Oracle\Java\javapath` with the right ones.
 
-- `java.exe`
-- `javaw.exe`
-- `javaws.exe`
+-  `java.exe`
+-  `javaw.exe`
+-  `javaws.exe`
 
 Configuring registry settings using `regedit.exe`:
 
-```
+```text
 Key: HKEY_LOCAL_MACHINE\SOFTWARE\JavaSoft\Java Runtime Environment
 Name: CurrentVersion
 Value: 1.8

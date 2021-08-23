@@ -13,21 +13,21 @@ point.
 
 This tutorial is based on two hardware which are listed below:
 
-- Raspberry Pi model B
-- Edimax EW-7811Un Wi-Fi nano USB adapter
+-  Raspberry Pi model B
+-  Edimax EW-7811Un Wi-Fi nano USB adapter
 
 First you need to make sure the Raspberry Pi is running Raspbian. If not,
 download the zip file from the official website and unzip it:
 
 ```bash
-$ unzip 2015-05-05-raspbian-wheezy.zip
+unzip 2015-05-05-raspbian-wheezy.zip
 ```
 
 Insert the SD card which will be inserted into the Raspberry Pi into your
 computer. Here, I use Macbook Air as example. Locate the SD card:
 
 ```bash
-$ diskutil list
+diskutil list
 ```
 
 In my case, `/dev/disk2` is the SD card. Then try to unmount the SD card
@@ -47,15 +47,15 @@ the power of the Pi!
 
 There are two network interfaces need to be configured:
 
-- eth0
-- wlan0
+-  eth0
+-  wlan0
 
 The wired one, i.e. eth0, is already configured, so we only need to setup
 wlan0. This interface is acted as a default gateway of our wireless devices
 that will connect with later. The configuration file is
 `/etc/network/interfaces`:
 
-```
+```text
 iface wlan0 inet static
 address 10.0.0.1
 network 10.0.0.0
@@ -79,7 +79,7 @@ forward packets, i.e. receive the packets which are not destined to itself and
 lookup the routing table then forward them. Add this line in
 `/etc/sysctl.conf` to enable this when every time the Pi boots up:
 
-```
+```text
 net.ipv4.ip_forward=1
 ```
 
@@ -147,7 +147,7 @@ Replace the `hostapd` binary with the newly compiled one:
 Configure the HostAPD by editing `/etc/hostapd/hostapd.conf`. Remember to
 replace the "ssid" and "wpa_passphrase" for your own needs:
 
-```
+```text
 interface=wlan0
 driver=rtl871xdrv
 ssid=my_wife
@@ -165,7 +165,7 @@ rsn_pairwise=CCMP
 
 To make the HostAPD start at system boot, edit `/etc/default/hostapd`:
 
-```
+```text
 DAEMON_CONF="/etc/hostapd/hostapd.conf"
 ```
 
@@ -189,7 +189,7 @@ the configuration file:
 
 Basic configuration:
 
-```
+```text
 interface=wlan0
 expand-hosts
 domain=local
@@ -202,11 +202,11 @@ Raspberry Pi.
 
 ## References
 
-- [Turn Your Raspberry Pi Into a WiFi Hotspot with Edimax Nano USB EW-7811Un
-  (RTL8188CUS chipset)][1]
-- [Using you Raspberry Pi as a Wireless Router and Web Server][2]
-- [RPI-Wireless-Hotspot][3]
-- [Setting Up WiFi Access Point with Edimax EW-7811UN on Raspberry Pi][4]
+-  [Turn Your Raspberry Pi Into a WiFi Hotspot with Edimax Nano USB EW-7811Un
+   (RTL8188CUS chipset)][1]
+-  [Using you Raspberry Pi as a Wireless Router and Web Server][2]
+-  [RPI-Wireless-Hotspot][3]
+-  [Setting Up WiFi Access Point with Edimax EW-7811UN on Raspberry Pi][4]
 
 [1]: http://www.daveconroy.com/turn-your-raspberry-pi-into-a-wifi-hotspot-with-edimax-nano-usb-ew-7811un-rtl8188cus-chipset/
 [2]: http://www.daveconroy.com/using-your-raspberry-pi-as-a-wireless-router-and-web-server/

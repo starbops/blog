@@ -10,21 +10,21 @@ System Administration Kernel and Driver Note
 
 ### Monolithic Kernel
 
-- Entire operating system is working in kernel space
-    - Efficient
-    - But hard to maintain
-- Can dynamically load executable modules at runtime
-- Linux, \*BSD, MS-DOS, Windows 9x series
+-  Entire operating system is working in kernel space
+   -  Efficient
+   -  But hard to maintain
+-  Can dynamically load executable modules at runtime
+-  Linux, \*BSD, MS-DOS, Windows 9x series
 
 ### Micro Kernel
 
-- Address space management, inter-process communication, scheduling
-- Mach, QNX, L4
+-  Address space management, inter-process communication, scheduling
+-  Mach, QNX, L4
 
 ### Hybrid Kernel
 
-- Monolithic + Micro
-- MacOS, Windows NT series, DragonFly BSD
+-  Monolithic + Micro
+-  MacOS, Windows NT series, DragonFly BSD
 
 ## Why Building Custom Kernel
 
@@ -34,9 +34,9 @@ system. Unlike `GENERIC` kernel provided by the default FreeBSD system aims to
 be generic, it must support a very wide range of hardware. A customized kernel
 can be stirpped down to fit your needs. The advantages are listed below:
 
-- Faster boot time
-- Lower memory usage
-- Additional hardware support
+-  Faster boot time
+-  Lower memory usage
+-  Additional hardware support
 
 ## Finding The System Hardware
 
@@ -44,8 +44,8 @@ If your FreeBSD is dual boot with Windows, maybe Windows device manager can help
 you out. Otherwise, use the following methods can list the hardware which are
 currently in your box.
 
-- `pciconf -l`
-- `cat /var/log/dmesg.boot`
+-  `pciconf -l`
+-  `cat /var/log/dmesg.boot`
 
 ## The Configuration File
 
@@ -106,13 +106,13 @@ By default, all kernel modules are rebuilt when a custom kernel is compiled. To
 compile the kernel faster, edit the `/etc/make.conf` before starting to build
 the kernel:
 
-```
+```text
 MODULES_OVERRIDE = linux acpi
 ```
 
 Alternately, this lists the modules which are excluded from the build process:
 
-```
+```text
 WITHOUT_MODULES = linux acpi sound
 ```
 
@@ -124,7 +124,7 @@ If `config` fails, it will show up an error message along with the line of the
 error configuration. Try to fix it by comparing your configuration to
 `GENERIC` or `NOTES`.
 
-```
+```text
 config: line 17: syntax error
 ```
 
@@ -137,8 +137,8 @@ file seems right.
 
 ### The Kernel Does Not Boot
 
-- `/var/log/messages`
-- `dmesg`
+-  `/var/log/messages`
+-  `dmesg`
 
 Make sure to keep a copy of `GENERIC`, or some kernel that is known to work.
 Otherwise the `/boot/kernel/kernel.old` will be overwritten with the last
@@ -235,10 +235,10 @@ Rebuilding the world will not update certain directories such as `/etc`,
 the difference between the files in `/etc` and `/usr/src/etc`. You will have
 four choices for each file that differs:
 
-- Delete the new file
-- Install the new file
-- Merge the new file with the file that currently installed
-- View the result again
+-  Delete the new file
+-  Install the new file
+-  Merge the new file with the file that currently installed
+-  View the result again
 
 ```bash
 # mergemaster -p
@@ -280,5 +280,5 @@ issues. Make sure that all installed ports are rebuilt.
 
 ## References
 
-- [Chapter 9. Configuring the FreeBSD Kernel](http://www.freebsd.org/doc/en/books/handbook/kernelconfig.html)
-- [Chapter 24.6. Rebuilding World](http://www.freebsd.org/doc/en/books/handbook/makeworld.html)
+-  [Chapter 9. Configuring the FreeBSD Kernel](http://www.freebsd.org/doc/en/books/handbook/kernelconfig.html)
+-  [Chapter 24.6. Rebuilding World](http://www.freebsd.org/doc/en/books/handbook/makeworld.html)
