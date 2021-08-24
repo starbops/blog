@@ -18,8 +18,8 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-  build_args:
-  - JEKYLL_ENV=production
+    build_args:
+    - JEKYLL_ENV=production
   when:
     event:
     - tag
@@ -35,8 +35,8 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-  build_args:
-  - JEKYLL_ENV=development
+    build_args:
+    - JEKYLL_ENV=development
   when:
     event:
     - push
