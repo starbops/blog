@@ -86,12 +86,12 @@ steps:
     - image.tag=${DRONE_TAG##v}-${DRONE_COMMIT_SHA:0:7}
     - imagePullSecrets[0].name=regcred
     - ingress.enabled=true
-    - ingress.annotations.kubernetes\.io/ingress\.class=nginx-cloud
-    - ingress.annotations.cert-manager\.io/cluster-issuer=letsencrypt-prod-cloud
+    - ingress.annotations.kubernetes\\.io/ingress\\.class=nginx-cloud
+    - ingress.annotations.cert-manager\\.io/cluster-issuer=letsencrypt-prod-cloud
     - ingress.hosts[0].host="blog.zespre.com"
-    - ingress.hosts[0].paths[0]="/"
-    - ingress.tls[0].hosts[0]=["blog.zespre.com"]
-    - ingress.tls[0].hosts[0].secretName=blog-tls
+    - ingress.hosts[0].paths[0].path="/"
+    - ingress.tls[0].hosts[0]="blog.zespre.com"
+    - ingress.tls[0].secretName=blog-tls
   when:
     event:
     - tag
