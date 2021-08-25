@@ -1,12 +1,12 @@
 ---
 layout: post
-title: 'Inlets: the Cloud Native Tunnel'
+title: 'A Tour of Inlets - A Tunnel Built for the Cloud'
 category: memo
 slug: inlets-the-cloud-native-tunnel
 ---
-## Inlets PRO
+## Inlets
 
-Inlets PRO is a lightweight tunneling tool. It's not a SaaS product, it's a
+Inlets is a lightweight tunneling tool. It's not a SaaS product, it's a
 self-hosted tunneling solution. That means you have total control over it.
 According to the [documentation of Inlets PRO](https://docs.inlets.dev/#/),
 there are various use cases:
@@ -19,15 +19,11 @@ there are various use cases:
 
 `inlets-pro` is the main program where the magic happened. Basically it has two
 modes: TCP and HTTP. Both the server side and the client side run with the same
-program, but with different subcommands. Then what's the differences between
-Inlets **PRO** and Inlets **OSS**?
-
-Inlets OSS has now been replaced by Inlets PRO. The OSS version is archived and
-no longer maintained. The good news is, with the PRO version, whatever you send
-over the tunnel **gets encrypted** in transit through the built-in TLS
-encryption. This is done automatically. A bonus feature is that you do not have
-to expose your services on the Internet, so can use Inlets like a VPN or SSH
-tunnel.
+program, but with different subcommands. Whatever you send over the tunnel
+between the server and the client **gets encrypted** in transit through the
+built-in TLS encryption. This is done automatically. A bonus feature is that you
+do not have to expose your services on the Internet, so can use Inlets like a
+VPN or SSH tunnel.
 
 ### Architecture
 
