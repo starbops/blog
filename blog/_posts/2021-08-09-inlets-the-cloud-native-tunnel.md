@@ -22,11 +22,12 @@ modes: TCP and HTTP. Both the server side and the client side run with the same
 program, but with different subcommands. Then what's the differences between
 Inlets **PRO** and Inlets **OSS**?
 
-Inlets OSS has now been replaced by Inlets PRO. By default, all traffic flows
-through the tunnel is secured with built-in TLS encryption for Inlets PRO.
-Though Inlets PRO is shipped in binary format, Inlets OSS is still available as
-source-only format on GitHub. If you don't need the security feature and latest
-updates, you can try to build your own version from the source code.
+Inlets OSS has now been replaced by Inlets PRO. The OSS version is archived and
+no longer maintained. The good news is, with the PRO version, whatever you send
+over the tunnel **gets encrypted** in transit through the built-in TLS
+encryption. This is done automatically. A bonus feature is that you do not have
+to expose your services on the Internet, so can use Inlets like a VPN or SSH
+tunnel.
 
 ### Architecture
 
