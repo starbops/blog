@@ -78,7 +78,11 @@ on both server side and client side.
 
 ```bash
 export TOKEN=$(head -c 16 /dev/urandom | shasum | cut -d '-' -f 1)
-inlets-pro tcp server --auto-tls --auto-tls-san="174.138.21.44" --token="$TOKEN" --generate=systemd | sudo tee -a /etc/systemd/system/inlets-pro.service
+inlets-pro tcp server \
+    --auto-tls \
+    --auto-tls-san="174.138.21.44" \
+    --token="$TOKEN" \
+    --generate=systemd | sudo tee -a /etc/systemd/system/inlets-pro.service
 sudo systemctl enable inlets-pro.service
 sudo systemctl start inlets-pro.service
 ```
@@ -121,7 +125,10 @@ change the ports by providing `--control-port` and `--port` if there are port
 conflicts.
 
 ```bash
-$ inlets-pro http server --auto-tls --auto-tls-san="188.166.208.238" --token="fe6f868d72123701326e31d3179a07208cc5d80d"
+$ inlets-pro http server \
+    --auto-tls \
+    --auto-tls-san="188.166.208.238" \
+    --token="fe6f868d72123701326e31d3179a07208cc5d80d"
 2021/08/17 16:08:45 Starting HTTP client. Version 0.8.9 - 7df6fc42cfc14dd56d93c32930262202967d234b
 2021/08/17 16:08:45 Wrote: /tmp/certs/ca.crt
 2021/08/17 16:08:45 Wrote: /tmp/certs/ca.key
@@ -137,7 +144,10 @@ to `python3 -m http.server` but with more features such as directory browsing,
 basic authentication, etc.).
 
 ```bash
-$ inlets-pro http fileserver --webroot="$HOME/Projects" --allow-browsing --token="supersecret"
+$ inlets-pro http fileserver \
+    --webroot="$HOME/Projects" \
+    --allow-browsing \
+    --token="supersecret"
 Starting inlets PRO fileserver. Version: 0.8.9-18-gf4fc15b - f4fc15b9604efd0b0ca3cc604c19c200ae6a1d7b
 2021/08/17 16:11:13 Serving: /Users/starbops/Projects, on 127.0.0.1:8080, browsing: true, auth: true
 ```
@@ -149,7 +159,10 @@ tunnel to the **exit-server**, and forward related HTTP requests back to the
 fileserver running on my **local computer**.
 
 ```bash
-$ inlets-pro http client --url="wss://188.166.208.238:8123" --token="fe6f868d72123701326e31d3179a07208cc5d80d" --upstream="localhost:8080"
+$ inlets-pro http client \
+    --url="wss://188.166.208.238:8123" \
+    --token="fe6f868d72123701326e31d3179a07208cc5d80d" \
+    --upstream="localhost:8080"
 Starting HTTP client. Version: 0.8.9-18-gf4fc15b - f4fc15b9604efd0b0ca3cc604c19c200ae6a1d7b
 2021/08/17 16:10:59 Licensed to: <redacted> (Gumroad subscription)
 2021/08/17 16:10:59 Upstream:  => http://localhost:8080
@@ -198,7 +211,9 @@ bunch of additional features about cloud service provider integrations. With
 (usually VM) as exit-server like a breeze. For example:
 
 ```bash
-$ inletsctl create --provider digitalocean --region sgp1 --access-token-file do-access-token
+$ inletsctl create --provider digitalocean \
+    --region sgp1 \
+    --access-token-file do-access-token
 Using provider: digitalocean
 Requesting host: epic-feynman8 in sgp1, from digitalocean
 2021/08/09 11:41:59 Provisioning host with DigitalOcean
@@ -252,7 +267,11 @@ client` command:
 ```bash
 $ export UPSTREAM="nuclear.internal.zespre.com"
 $ export PORTS="3000"
-$ inlets-pro tcp client --url="wss://159.89.204.81:8123" --token="EJW4btMsNaC5CKIl9cZ6qGP3baMztheIvW8GtU1zifXkkxuBr3EwtmVI7hM1bmsK" --upstream="$UPSTREAM" --ports=$PORTS
+$ inlets-pro tcp client \
+    --url="wss://159.89.204.81:8123" \
+    --token="EJW4btMsNaC5CKIl9cZ6qGP3baMztheIvW8GtU1zifXkkxuBr3EwtmVI7hM1bmsK" \
+    --upstream="$UPSTREAM" \
+    --ports=$PORTS
 2021/08/09 12:00:00 Starting TCP client. Version 0.8.8 - 57580545a321dc7549a26e8008999e12cb7161de
 2021/08/09 12:00:00 Licensed to: <redacted> (Gumroad subscription)
 2021/08/09 12:00:00 Upstream server: nuclear.internal.zespre.com, for ports: 3000
@@ -268,7 +287,9 @@ Delete the cloud instance if the tunnel is no longer needed, otherwise it’ll
 cost your money:
 
 ```bash
-inletsctl delete --provider digitalocean --access-token-file do-access-token --ip 159.89.204.81
+inletsctl delete --provider digitalocean \
+    --access-token-file do-access-token \
+    --ip 159.89.204.81
 ```
 
 ## Inlets-operator
@@ -295,7 +316,12 @@ helm repo add inlets https://inlets.github.io/inlets-operator/
 helm repo update
 kubectl apply -f ./artifacts/crds/
 kubectl create ns inlets-operator
-helm upgrade inlets-operator --install inlets/inlets-operator --set provider digitalocean --set region sgp1 --set inletsProLicense="$(cat $HOME/.inlets/LICENSE)" --set annotatedOnly true --namespace inlets-operator
+helm upgrade inlets-operator --install inlets/inlets-operator \
+    --set provider=digitalocean \
+    --set region=sgp1 \
+    --set inletsProLicense="$(cat $HOME/.inlets/LICENSE)" \
+    --set annotatedOnly=true \
+    --namespace inlets-operator
 ```
 
 If there is any problem, check the logs generated in Inlets-operator Deployment:
