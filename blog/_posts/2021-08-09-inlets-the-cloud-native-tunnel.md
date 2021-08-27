@@ -137,8 +137,8 @@ $ inlets-pro http server \
 ```
 
 On my **local computer**, setup an Inlets PRO HTTP fileserver (something similar
-to `python3 -m http.server` but with more features such as directory browsing,
-basic authentication, etc.).
+to `python3 -m http.server` but with more features such as directory browsing
+toggle, basic authentication, etc.).
 
 ```bash
 $ inlets-pro http fileserver \
@@ -391,11 +391,12 @@ service/nginx-1 created
 ```
 
 It's worth mentioning that since in my deployment of K8s, there is
-[MetalLB](https://metallb.universe.tf/) running as a bare-metal load-balancer, I
-have to make MetalLB and Inlets-operator know which LoadBalancer type of Service
-they should take care of. The solution by far is to install Inlets-operator with
-`annotatedOnly=true` and add two annotations in every LoadBalancer type of
-Service:
+[MetalLB](https://metallb.universe.tf/) running as a bare-metal load-balancer,
+which allocates IP addresses from a private network segment (192.168.xx.0/24)
+to LoadBalancer Services. So I have to make MetalLB and Inlets-operator know
+which LoadBalancer type of Service they should take care of. The solution by far
+is to install Inlets-operator with `annotatedOnly=true` and add two annotations
+in every LoadBalancer type of Service:
 
 -  `metallb.universe.tf/address-pool: "dummy"`: "dummy" can be replaced with any
    other terms which isn't a valid address pool name in your MetalLB setup. This
