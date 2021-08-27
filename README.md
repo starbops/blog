@@ -3,6 +3,13 @@ Zespre's Blog
 
 [![Build Status](https://drone.internal.zespre.com/api/badges/starbops/blog/status.svg)](https://drone.internal.zespre.com/starbops/blog)
 
+Testing
+-------
+
+```bash
+sudo docker run --rm -v $PWD:/app -w /app mdl:latest blog/_posts/
+```
+
 Build the Image
 ---------------
 
