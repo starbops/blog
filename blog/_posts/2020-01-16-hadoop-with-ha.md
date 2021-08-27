@@ -79,9 +79,9 @@ detector and a leader elector instead of a separate ZKFC daemon.
 
 ### ZooKeeper Cluster
 
-Please refer to
-[ZooKeeper 3-Node Cluster Installation Guide](https://www.notion.so/ZooKeeper-3-Node-Cluster-Installation-Guide-4170117e2b2b4f2aa11b08c1b639c757)
-to complete 3-node cluster first.
+Please refer to [ZooKeeper 3-Node Cluster Installation Guide]({% link
+_posts/2020-01-15-zookeeper-3-node-cluster-installation-guide.md %}) to complete
+3-node cluster first.
 
 ### Prerequisites
 
