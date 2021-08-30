@@ -6,7 +6,7 @@ steps:
   image: ruby:2.7.1-buster
   commands:
   - gem install mdl
-  - mdl blog/_posts
+  - mdl blog/*.md blog/_posts/*.md
 - name: build on tag
   image: plugins/docker
   settings:
