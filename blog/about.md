@@ -2,7 +2,11 @@
 layout: page
 title: About
 ---
-Hello, this is Zespre.
+Hello, I'm Zespre from Taiwan. This is where I share my exploration on
+open-source software especially on cloud native things. As a software engineer,
+I mainly focus on streamlining the development process, from methodologies to
+implementations. Bringing values to customers and colleagues is the core vision
+that I believe and to fulfill.
 
 ---
 {: data-content="contact information"}
