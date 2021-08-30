@@ -20,12 +20,12 @@ Research Laboratories, [ITRI](https://www.itri.org.tw). I was dedicated to the
 development of a tool for bare-metal server provisioning, called BAMPI. Our
 client is one of the most largest teleco in Japan. It was hard but an
 interesting experience to deal with the requests from Japanese customer. After
-that, we saw there is a need to manage physical resource pool just like the
-cloud service providers do. People can request for physical resources in terms
-of compute, networking, and storage, in a self-service way. So I designed and
-implemented a platform called PROP (Physical Resource Orchestration Platform),
-and it turned out to be a product of the company, which was renamed to ITRI
-HaaS (Hardware as a Service).
+that, we noticed there was a need to manage physical resource pool just like
+the cloud service providers do. People can request for physical resources in
+terms of compute, networking, and storage, in a self-service way. So I designed
+and implemented a platform called PROP (Physical Resource Orchestration
+Platform), and it turned out to be a product of the company, which was renamed
+to ITRI HaaS (Hardware as a Service).
 
 ![Cloud Service Models](/assets/images/cloud-service-models.png)
 
