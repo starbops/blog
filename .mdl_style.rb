@@ -6,6 +6,8 @@ rule 'MD002', :level => 2
 rule 'MD004', :style => :dash
 # MD007 - Unordered list indentation
 rule 'MD007', :indent => 3
+# MD009 - Trailing spaces
+rule 'MD009', :br_spaces => 2
 # MD013 - Line length
 rule 'MD013', :code_blocks => false, :tables => false
 # MD024 - Multiple headers with the same content
