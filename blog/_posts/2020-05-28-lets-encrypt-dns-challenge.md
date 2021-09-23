@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Automate Let\'s Encrypt DNS Challenge with Certbot and Gandi.net'
+title: "Automate Let's Encrypt DNS Challenge with Certbot and Gandi.net"
 category: memo
 slug: lets-encrypt-dns-challenge
 ---
