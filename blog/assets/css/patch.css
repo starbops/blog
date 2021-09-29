@@ -1,4 +1,5 @@
 div.highlighter-rouge code {
+    overflow-wrap: normal;
     white-space: pre !important;
 }
 img.emoji {
