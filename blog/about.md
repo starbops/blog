@@ -15,6 +15,9 @@ and various services running on top of them. What I gained the most is the
 experience of defining problem scopes and finding root causes in a short period
 of time.
 
+---
+{: data-content="automate the hardest part"}
+
 Three years later I started my career at Information and Communications Research
 Laboratories, [ITRI](https://www.itri.org.tw). I was dedicated to the
 development of a tool for bare-metal server provisioning, called
