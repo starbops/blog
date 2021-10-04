@@ -15,17 +15,22 @@ and various services running on top of them. What I gained the most is the
 experience of defining problem scopes and finding root causes in a short period
 of time.
 
-Three years later I started my career at Information and Communications
-Research Laboratories, [ITRI](https://www.itri.org.tw). I was dedicated to the
-development of a tool for bare-metal server provisioning, called BAMPI. Our
-client is one of the most largest teleco in Japan. It was hard but an
+---
+{: data-content="automate the hardest part"}
+
+Three years later I started my career at Information and Communications Research
+Laboratories, [ITRI](https://www.itri.org.tw). I was dedicated to the
+development of a tool for bare-metal server provisioning, called
+[BAMPI](https://www.itri.org.tw/english/Zetspir-ZEro-Touch-Server-PRovisioning-from-ITRI?CRWP=654720162774031517).
+Our client is one of the most largest teleco in Japan. It was hard but an
 interesting experience to deal with the requests from Japanese customer. After
-that, we noticed there was a need to manage physical resource pool just like
-the cloud service providers do. People can request for physical resources in
-terms of compute, networking, and storage, in a self-service way. So I designed
-and implemented a platform called PROP (Physical Resource Orchestration
-Platform), and it turned out to be a product of the company, which was renamed
-to ITRI HaaS (Hardware as a Service).
+that, we noticed there was a need to manage physical resource pool just like the
+cloud service providers do. People can request for physical resources in terms
+of compute, networking, and storage, in a self-service way. So I designed and
+implemented a platform called PROP (Physical Resource Orchestration Platform),
+and it turned out to be a product of the company, which was renamed to [ITRI
+HaaS (Hardware as a
+Service)](https://www.itri.org.tw/english/Hardware-as-a-Service?CRWP=1036045520423647723).
 
 ![Cloud Service Models](/assets/images/cloud-service-models.png)
 
@@ -52,7 +57,7 @@ please visit:
 -  [GitHub](https://github.com/starbops)
 -  [LinkedIn](https://www.linkedin.com/in/starbops)
 
-For gaming, please visit:
+I'm also a PC gamer, For my gaming highlights or VODs, please take a look:
 
 -  [YouTube](https://www.youtube.com/channel/UCVIPbYP853Uz7EgmANh85MQ)
 -  [Twitch](https://www.twitch.tv/starbops)
