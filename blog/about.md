@@ -57,7 +57,7 @@ please visit:
 -  [GitHub](https://github.com/starbops)
 -  [LinkedIn](https://www.linkedin.com/in/starbops)
 
-For gaming, please visit:
+I'm also a PC gamer, For my gaming highlights or VODs, please take a look:
 
 -  [YouTube](https://www.youtube.com/channel/UCVIPbYP853Uz7EgmANh85MQ)
 -  [Twitch](https://www.twitch.tv/starbops)
