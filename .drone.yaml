@@ -26,6 +26,7 @@ steps:
 - name: build on push
   image: plugins/docker
   settings:
+    mtu: 1450
     registry: registry.internal.zespre.com
     repo: registry.internal.zespre.com/starbops/blog
     tags:
