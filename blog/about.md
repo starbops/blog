@@ -31,6 +31,9 @@ implemented a platform called PROP (Physical Resource Orchestration Platform),
 and it turned out to be a product of the company, which was renamed to [ITRI
 HaaS (Hardware as a
 Service)](https://www.itri.org.tw/english/Hardware-as-a-Service?CRWP=1036045520423647723).
+This is the solution which unlocks cloud-like agility for your on-prem
+infrastructure. It's suitable for all kinds of scales such as edges, enterprise
+cores, even cloud data centers.
 
 ![Cloud Service Models](/assets/images/cloud-service-models.png)
 
