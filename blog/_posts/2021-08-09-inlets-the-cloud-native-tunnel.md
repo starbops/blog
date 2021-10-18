@@ -461,8 +461,8 @@ their private services efficiently like never before. It is also possible
 bringing remote services to local using Inlets PRO. Unlike SaaS tunneling
 solutions like [Ngrok](https://ngrok.com/), you have total control over your
 infrastructure without traffic throttling. And the data flow through the tunnel
-is secured out of the box. If you have a local K8s deployment, definitely give
-it a try!
+is secured out of the box. If you have a local K8s deployment, definitely [give
+it a try!](https://gumroad.com/a/751932531/HGlxA)
 
 ## References
 
