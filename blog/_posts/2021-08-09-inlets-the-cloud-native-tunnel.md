@@ -150,10 +150,10 @@ Starting inlets PRO fileserver. Version: 0.8.9-18-gf4fc15b - f4fc15b9604efd0b0ca
 ```
 
 Since the Inlets PRO HTTP fileserver binds to local interface, I'll start the
-Inlets PRO HTTP client on the same **local computer** and specify
-`[localhost](http://localhost)` as upstream. So the client will establish the
-tunnel to the **exit-server**, and forward related HTTP requests back to the
-fileserver running on my **local computer**.
+Inlets PRO HTTP client on the same **local computer** and specify `localhost`
+as upstream. So the client will establish the tunnel to the **exit-server**,
+and forward related HTTP requests back to the fileserver running on my **local
+computer**.
 
 ```bash
 $ inlets-pro http client \
