@@ -2,6 +2,12 @@ div.highlighter-rouge code {
     overflow-wrap: normal;
     white-space: pre !important;
 }
+footer {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    font-size: 0.8em;
+}
 img.emoji {
     display: inline;
     margin: 0
