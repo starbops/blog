@@ -1,5 +1,8 @@
 <footer>
 {%- if site.copyright -%}
-  <p>&copy; {{ 'now' | date: "%Y"}} {{ site.copyright }}</p>
+  <div>&copy; {{ 'now' | date: "%Y"}} {{ site.copyright }}</div>
+{%- endif -%}
+{%- if site.env.VERSION -%}
+  <div>Version {{ site.env.VERSION }}</div>
 {%- endif -%}
 </footer>

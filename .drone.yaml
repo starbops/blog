@@ -21,6 +21,7 @@ steps:
       from_secret: docker_password
     build_args:
     - JEKYLL_ENV=production
+    - VERSION=${DRONE_TAG##v}-${DRONE_COMMIT_SHA:0:7}
   when:
     event:
     - tag
@@ -39,6 +40,7 @@ steps:
       from_secret: docker_password
     build_args:
     - JEKYLL_ENV=development
+    - VERSION=${DRONE_COMMIT_SHA:0:7}
   when:
     event:
     - push
