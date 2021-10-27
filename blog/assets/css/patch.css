@@ -4,7 +4,9 @@ div.highlighter-rouge code {
 }
 footer {
     display: flex;
-    justify-content: center;
+    flex-flow: column;
+    /*justify-content: center;*/
+    align-items: center;
     padding: 5px;
     font-size: 0.8em;
 }
