@@ -28,3 +28,4 @@ plugins:
 - jekyll-feed
 - jekyll-seo-tag
 - jemoji
+- jekyll-sitemap
