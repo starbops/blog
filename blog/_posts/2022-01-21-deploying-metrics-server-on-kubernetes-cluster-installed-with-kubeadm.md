@@ -39,7 +39,12 @@ E0114 02:25:00.543400       1 scraper.go:139] "Failed to scrape node" err="Get \
 I0114 02:25:01.372652       1 server.go:188] "Failed probe" probe="metric-storage-ready" err="not metrics to serve"
 ```
 
-What the logs shown intrigued me, especially the “certificate expired” part. If I remember correctly, the Kubernetes control plane uses a set of keys and certificates for authentication over TLS for security reasons. The cluster was installed with `kubeadm`. By default, the certificates required are automatically generated and being valid for one year long. I went to the master node and checked whether they’re expired or not.
+What the logs shown intrigued me, especially the “certificate expired” part. If
+I remember correctly, the Kubernetes control plane uses a set of keys and
+certificates for authentication over TLS for security reasons. The cluster was
+installed with `kubeadm`. By default, the certificates required are
+automatically generated and being valid for one year long. I went to the master
+node and checked whether they’re expired or not.
 
 ```bash
 $ sudo kubeadm certs check-expiration
@@ -253,7 +258,7 @@ So to make the newly added configuration to work, we need to restart kubelet
 daemon on all nodes:
 
 ```bash
-$ sudo systemctl restart kubelet.service
+sudo systemctl restart kubelet.service
 ```
 
 Then we can check if there’s any CSR created:
