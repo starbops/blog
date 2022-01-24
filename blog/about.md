@@ -64,3 +64,6 @@ I'm also a PC gamer, For my gaming highlights or VODs, please take a look:
 
 -  [YouTube](https://www.youtube.com/channel/UCVIPbYP853Uz7EgmANh85MQ)
 -  [Twitch](https://www.twitch.tv/starbops)
+
+If you're curious about what I read or watched, please consider going to my
+collections in [Pinboard](https://pinboard.in/u:starbops).
