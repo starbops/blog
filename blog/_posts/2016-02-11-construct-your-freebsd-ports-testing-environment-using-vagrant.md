@@ -11,7 +11,6 @@ this tutorial uses Mac OS X as an example to illustrate the whole process you
 will need to take to construct a FreeBSD Ports testing environment using
 Vagrant.
 
-
 Homebrew
 --------
 
@@ -31,7 +30,6 @@ After installed Homebrew, simply enter the following command to install a packag
 brew install <name>
 ```
 
-
 VirtualBox
 ----------
 
@@ -47,7 +45,6 @@ brew cask install virtualbox
 ```
 
 Only single one command, and you're done. The power of Homebrew-Cask!
-
 
 Vagrant
 -------
@@ -104,7 +101,6 @@ command to do the provision work:
 vagrant provision
 ```
 
-
 ZFS
 ---
 
@@ -137,7 +133,6 @@ sudo zpool create ztank /disk
 
 If you don't want to mess with ZFS, it's totally FINE to use UFS. Just skip this
 section. And now we're good to go. Continue with Poudriere's settings.
-
 
 Poudriere
 ---------
@@ -220,7 +215,6 @@ network performance. On my Macbook Air it take about 4~5 minutes to complete the
 task (sudo package). And the newest packages will reside in
 `/poudriere/data/packages/102amd64-default/All`.
 
-
 Integrate with Vagrant Provisioner
 ----------------------------------
 
@@ -286,7 +280,6 @@ script we specified in the `Vagrantfile`. It just that elegant! You can even use
 configuration management system like Ansible to help make the provision task
 more scalable and manageable.
 
-
 Summary
 -------
 
@@ -297,7 +290,6 @@ like a charm. In a future post I will describe how the VMs created by Vagrant be
 provisioned by Ansible.
 
 Thanks for reading!
-
 
 References
 ----------
