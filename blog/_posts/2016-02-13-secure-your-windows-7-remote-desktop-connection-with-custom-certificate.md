@@ -4,8 +4,7 @@ title: 'Secure Your Windows 7 Remote Desktop Connection with Custom Certificate'
 category: memo
 slug: secure-your-windows-7-remote-desktop-connection-with-custom-certificate
 ---
-Generate Certificate and Key pair
----------------------------------
+## Generate Certificate and Key pair
 
 To import the certificate with its private key, you can do the following:
 
@@ -13,13 +12,13 @@ To import the certificate with its private key, you can do the following:
    using `openssl pkcs12`.
 1. Import this PKCS #12 or PFX file into the certificate store.
 
-```sh
-openssl pkcs12 -inkey harrenhal.zespre.net.key -in harrenhal.zespre.net.crt
--export -out harrenhal.zespre.net.pfx
+```bash
+openssl pkcs12 -inkey harrenhal.zespre.net.key \
+    -in harrenhal.zespre.net.crt \
+    -export -out harrenhal.zespre.net.pfx
 ```
 
-Settings on Windows Side
-------------------------
+## Settings on Windows Side
 
 Download the PFX.
 
@@ -35,8 +34,7 @@ s_client` to connect to the remote desktop service. See what you will get:
 openssl s_client -connect harrenhal.zespre.net:3389 | openssl x509 -noout -text
 ```
 
-References
-----------
+## References
 
 -  [How to Force Remote Desktop Services on Windows 7 to Use a Custom Server
    Authentication Certificate for
