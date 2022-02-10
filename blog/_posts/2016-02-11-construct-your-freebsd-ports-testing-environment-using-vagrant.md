@@ -11,8 +11,7 @@ this tutorial uses Mac OS X as an example to illustrate the whole process you
 will need to take to construct a FreeBSD Ports testing environment using
 Vagrant.
 
-Homebrew
---------
+## Homebrew
 
 [Homebrew](http://brew.sh) is a mature package management system on Mac OS X. I
 recommend using it to install all the third party packages you need on your Mac.
@@ -30,8 +29,7 @@ After installed Homebrew, simply enter the following command to install a packag
 brew install <name>
 ```
 
-VirtualBox
-----------
+## VirtualBox
 
 VirtualBox is an open source project which gives you the power to run virtual
 machines right on your host, i.e. you Mac. Don't be confused VirtualBox with
@@ -46,8 +44,7 @@ brew cask install virtualbox
 
 Only single one command, and you're done. The power of Homebrew-Cask!
 
-Vagrant
--------
+## Vagrant
 
 ```bash
 brew install vagrant
@@ -101,8 +98,7 @@ command to do the provision work:
 vagrant provision
 ```
 
-ZFS
----
+## ZFS
 
 Poudriere can benefit from ZFS. To enable ZFS on you VM, it is recommended to
 set you VM's memory up to 4G or even larger. But the reality is, we don't have
@@ -134,8 +130,7 @@ sudo zpool create ztank /disk
 If you don't want to mess with ZFS, it's totally FINE to use UFS. Just skip this
 section. And now we're good to go. Continue with Poudriere's settings.
 
-Poudriere
----------
+## Poudriere
 
 This how Poudriere is introduced in the FreeBSD handbook:
 
@@ -154,7 +149,7 @@ set up. Here comes `/usr/local/etc/poudriere.conf`! This file is also filled
 with well explained directives. You can remove all the content because all we
 need are listed as follow:
 
-```plaintext
+```text
 # If "ZFS" is used
 ZPOOL=tank
 ZROOTFS=/poudriere
@@ -197,7 +192,7 @@ sudo poudriere bulk -j 102amd64 security/sudo
 
 If you have a list of ports to build, just craft a list in this form:
 
-```plaintext
+```text
 <category>/<portname>
 <category>/<portname>
 <category>/<portname>
@@ -215,8 +210,7 @@ network performance. On my Macbook Air it take about 4~5 minutes to complete the
 task (sudo package). And the newest packages will reside in
 `/poudriere/data/packages/102amd64-default/All`.
 
-Integrate with Vagrant Provisioner
-----------------------------------
+## Integrate with Vagrant Provisioner
 
 Follow the whole tutorial you get a complete environment which is capable
 building FreeBSD packages for other FreeBSD workstations. Unfortunately, the
@@ -280,8 +274,7 @@ script we specified in the `Vagrantfile`. It just that elegant! You can even use
 configuration management system like Ansible to help make the provision task
 more scalable and manageable.
 
-Summary
--------
+## Summary
 
 In this post I've tried to introduce how to construct a testing environment for
 FreeBSD package bilding system right on your Mac in a more efficient way. The
@@ -291,8 +284,7 @@ provisioned by Ansible.
 
 Thanks for reading!
 
-References
-----------
+## References
 
 -  [Official Vagrant FreeBSD Images][1]
 -  [Testing the Port][2]
