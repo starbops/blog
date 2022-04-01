@@ -92,6 +92,7 @@ steps:
     - ingress.enabled=true
     - ingress.annotations.kubernetes\\.io/ingress\\.class=nginx-cloud
     - ingress.annotations.cert-manager\\.io/cluster-issuer=letsencrypt-prod-cloud
+    - ingress.className=nginx-cloud
     - ingress.hosts[0].host=blog.zespre.com
     - ingress.hosts[0].paths[0].path="/"
     - ingress.tls[0].hosts[0]=blog.zespre.com
