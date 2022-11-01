@@ -102,6 +102,7 @@ steps:
     - tag
 - name: notification
   image: plugins/slack
+  failure: ignore
   settings:
     webhook: https://mattermost.internal.zespre.com/hooks/d1ymz9ie3fyrudk76qon6hc4dr
     channel: cicd
