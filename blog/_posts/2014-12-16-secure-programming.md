@@ -104,4 +104,3 @@ slug: secure-programming-20141216
 -  Burp Suite
 
 [1]: http://sqli.exp.tw
-

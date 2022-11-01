@@ -272,4 +272,3 @@ private network. Hope you like it!
    使用方式](https://andyyou.github.io/2019/04/13/how-to-use-certbot/)
 -  [Need to suck TLD out of list of FQDN's using BASH
    script](https://stackoverflow.com/questions/14368658/need-to-suck-tld-out-of-list-of-fqdns-using-bash-script)
-

@@ -9,7 +9,7 @@ rule 'MD007', :indent => 3
 # MD009 - Trailing spaces
 rule 'MD009', :br_spaces => 2
 # MD013 - Line length
-rule 'MD013', :code_blocks => false, :tables => false
+rule 'MD013', :ignore_code_blocks => true, :tables => false
 # MD024 - Multiple headers with the same content
 rule 'MD024', :allow_different_nesting => true
 # MD029 - Ordered list item prefix
