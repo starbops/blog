@@ -11,4 +11,3 @@ slug: computer-networks-20141001
    -  ydlin's opinioon: Mobile IP is not a good idea
       -  Destroy the nature of IP subnet
       -  Subnets are nearby may be good for Mobile IP
-
