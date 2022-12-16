@@ -88,7 +88,8 @@ people (maybe it's on your business card)
 
 ### Upload Public Keys
 
-There're several public GPG key servers. You have to upload your public key to one of them.
+There're several public GPG key servers. You have to upload your public key to
+one of them.
 
 -  keyserver.ubuntu.com
 -  keys.openpgp.org
