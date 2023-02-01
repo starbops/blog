@@ -26,6 +26,10 @@ google_analytics: UA-56544554-1
 
 plugins:
 - jekyll-feed
+- jekyll-mermaid
 - jekyll-seo-tag
 - jemoji
 - jekyll-sitemap
+
+mermaid:
+  src: '/assets/js/mermaid.min.js'
