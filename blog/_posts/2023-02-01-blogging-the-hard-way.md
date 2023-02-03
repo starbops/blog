@@ -802,32 +802,6 @@ helm upgrade --install blog blog \
 kubectl -n blog logs deploy/blog -f
 ```
 
-## Making the Blog Publicly Accessible
-
-I'm using MetalLB for Kubernetes LoadBalancer type of Service, and it works very
-well in my cluster. I can access various services and applications deployed in
-the cluster easily while I'm at home. However, my Kubernetes cluster is deployed
-in an internal private network that is not accessible from the Internet. Now
-there's a need to expose the blog to the outside world. This means I have to
-configure the gateway of my home lab to do the port forwarding job which
-forwards incoming traffic destined to port 80 on the public IP address bound on
-the gateway, to the corresponding port and IP address of the blog Service of
-Kubernetes. This is better explained with a graph:
-
-![MetalLB with Configured Gateway Port Forwarding]()
-
-### inlets
-
-```yaml
-provider: digitalocean
-region: sgp1
-annotatedOnly: true
-```
-
-### ingress-nginx
-
-### cert-manager
-
 ## GitOps
 
 Now that the version-control and syntax-checking parts are done, it's time for
