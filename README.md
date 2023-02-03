@@ -7,7 +7,7 @@ Testing
 -------
 
 ```bash
-sudo docker run --rm -v $PWD:/app -w /app mdl:latest blog/_posts/
+make test
 ```
 
 Build the Image
@@ -16,21 +16,12 @@ Build the Image
 Choosing what environment to deploy to, "development" or "production".
 
 ```bash
-cd blog/
-docker build --build-arg JEKYLL_ENV=<ENVIRONMENT> -t zpcc-blog:<VERSION> .
-```
-
-Push the newly built image to a image registry.
-
-```bash
-docker tag zpcc-blog:<VERSION> registry.internal.zespre.com/zpcc-blog:<VERSION>
-docker push registry.internal.zespre.com/zpcc-blog:<VERSION>
+JEKYLL_ENV="development" VERSION="v0.1.0" make build
 ```
 
 Run the Blog
 ------------
 
 ```bash
-docker run -p 0.0.0.0:8080:80
-docker run --rm -p 0.0.0.0:8080:80/tcp zpcc-blog:<VERSION>
+VERSION="v0.1.0" make run
 ```
