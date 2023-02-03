@@ -61,7 +61,7 @@ please visit:
 
 I'm also a PC gamer, For my gaming highlights or VODs, please take a look:
 
--  [YouTube](https://www.youtube.com/channel/UCVIPbYP853Uz7EgmANh85MQ)
+-  [YouTube](https://www.youtube.com/@starbops)
 -  [Twitch](https://www.twitch.tv/starbops)
 
 If you're curious about what I read or watch, please consider going to my
