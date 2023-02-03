@@ -516,6 +516,14 @@ flowchart TD;
     end;
 {% endmermaid %}
 
+It's time to prepare the manifests for it. It first comes with some plain YAML
+files for various Kubernetes resources. Basically, there are:
+
+-  Deployment: manages the blog Pod (the blog container will be inside the Pod)
+-  Secret: contains the credentials accessing the private container registry
+-  Service: provides a fixed L3/L4 endpoint for accessing the backend blog Pod
+-  Ingress: configures HTTPS endpoint for the blog
+
 ```bash
 $ export REGISTRY="registry.internal.example.com"
 $ cat <<EOF | tee deployment.yaml | kubectl apply -f -
@@ -572,6 +580,10 @@ spec:
 EOF
 ```
 
+The Ingress resource we're going to create is designed to be associated with the
+external-facing ingress-nginx, which is taken care of in the next section.
+Notice that the `ingressClassName` is `nginx-cloud` but not `nginx`.
+
 ```bash
 $ export DOMAIN="blog.example.com"
 $ cat <<EOF | tee ingress.yaml | kubectl apply -f -
@@ -602,6 +614,10 @@ spec:
     secretName: blog-tls
 EOF
 ```
+
+After creating the Ingress resource, the blog is still not widely accessible
+from the Internet due to the absence of the inlets tunnel and the TLS
+certificate.
 
 ### Inlets Operator
 
@@ -736,13 +752,8 @@ $ kubectl apply -f staging-issuer-cloud.yaml
 
 ### Helm Charts
 
-Remember that we want to host the blog on Kubernetes ultimately? It's time to
-prepare the manifests for it. It first comes with some plain YAML files for
-various Kubernetes resources:
-
--  Deployment: manages the blog Pod (the blog container will be inside the Pod)
--  Service: provides a fixed L3/L4 endpoint for accessing the backend blog Pod
--  Ingress: configures HTTPS endpoint for the blog
+Remember that we created several manifest files for the blog to run on the
+Kubernetes cluster?
 
 ```bash
 kubectl apply -f deployment.yaml -f service.yaml -f ingress.yaml
@@ -789,21 +800,6 @@ helm upgrade --install blog blog \
 
 ```bash
 kubectl -n blog logs deploy/blog -f
-```
-
-![Pushing Commits](/assets/images/blogging-the-hard-way/pushing-commits.png)
-![PR Merge](/assets/images/blogging-the-hard-way/pr-merge.png)
-![Pushing Tags](/assets/images/blogging-the-hard-way/pushing-tags.png)
-
-```bash
-$ kubectl -n drone get pods drone-1vm0inc02qppitcpil9s -o jsonpath='{range .spec.containers[*]}{.name}{"\t"}{.image}{"\n"}{end}'
-drone-e34n2kzrxfm4uelofsh6      drone/git:latest
-drone-zwpdoaar9z4cc3cvx7tm      docker.io/library/ruby:2.7.1-buster
-drone-to3dil7z30ydj30ay27w      docker.io/plugins/docker:latest
-drone-4j6jzl2lhogttpoekpox      drone/placeholder:1
-drone-55wpfjiyycnwv2338xqw      drone/placeholder:1
-drone-afmx6bk3s1nwkst0dn2k      docker.io/bitsbeats/drone-helm3:latest
-drone-j3n4pf7gazaqqpgjro12      docker.io/plugins/slack:latest
 ```
 
 ## Making the Blog Publicly Accessible
@@ -1040,6 +1036,12 @@ env:
 
 ### Final Integration
 
+![Pushing Commits](/assets/images/blogging-the-hard-way/pushing-commits.png)
+
+![PR Merge](/assets/images/blogging-the-hard-way/pr-merge.png)
+
+![Pushing Tags](/assets/images/blogging-the-hard-way/pushing-tags.png)
+
 `.drone.yaml`:
 
 ```yaml
@@ -1157,9 +1159,21 @@ kind: pipeline
      - failure
 ```
 
+![Setting Up Webhook on Gitea to Send Events to Drone](/assets/images/blogging-the-hard-way/gitea-blog-webhook.png)
+
 ![Continuous Integration - Drone](/assets/images/blogging-the-hard-way/continuous-integration-drone.png)
 
-![Setting Up Webhook on Gitea to Send Events to Drone](/assets/images/blogging-the-hard-way/gitea-blog-webhook.png)
+```bash
+$ kubectl -n drone get pods drone-1vm0inc02qppitcpil9s \
+    -o jsonpath='{range .spec.containers[*]}{.name}{"\t"}{.image}{"\n"}{end}'
+drone-e34n2kzrxfm4uelofsh6      drone/git:latest
+drone-zwpdoaar9z4cc3cvx7tm      docker.io/library/ruby:2.7.1-buster
+drone-to3dil7z30ydj30ay27w      docker.io/plugins/docker:latest
+drone-4j6jzl2lhogttpoekpox      drone/placeholder:1
+drone-55wpfjiyycnwv2338xqw      drone/placeholder:1
+drone-afmx6bk3s1nwkst0dn2k      docker.io/bitsbeats/drone-helm3:latest
+drone-j3n4pf7gazaqqpgjro12      docker.io/plugins/slack:latest
+```
 
 ## Pros and Cons
 
@@ -1178,6 +1192,9 @@ environment repository.
 -  Introduce cache layer (CDN etc.)
 
 ## Wrapping Up
+
+In this lengthy article, we bootstrap a static blog and put it onto Kubernetes,
+following the GitOps approach.
 
 Setting all these up might be hard
 
