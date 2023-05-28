@@ -5,9 +5,9 @@
 
   <title>
     {%- if page.title -%}
-      {{ page.title }}
+    {{ page.title }}
     {%- else -%}
-      {{ site.title }}
+    {{ site.title }}
     {%- endif -%}
   </title>
 
@@ -15,10 +15,14 @@
   {%-feed_meta-%}
 
   <link rel="shortcut icon" type="image/x-icon" href="{{ site.favicon | relative_url }}" />
-  <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}" />
-  <link rel="stylesheet" href="{{ "/assets/css/patch.css" | relative_url }}" />
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
+  <link rel="stylesheet" href="{{ '/assets/css/patch.css' | relative_url }}" />
 
   {% if site.google_analytics and jekyll.environment == 'production' %}
-    {% include analytics.html %}
+  {% include analytics.html %}
+  {% endif %}
+
+  {% if jekyll.environment == 'production' %}
+  {% include buymeacoffee.html %}
   {% endif %}
 </head>
