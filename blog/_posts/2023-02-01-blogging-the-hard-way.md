@@ -942,6 +942,51 @@ Now I can write articles, commit changes, and push them to the Git server.
 
 ![Blog Repo on Gitea](/assets/images/blogging-the-hard-way/starbops-blog-gitea.png)
 
+### Chart Repository
+
+[ChartMuseum](https://chartmuseum.com) is an open-source Helm Chart repository
+server that supports many cloud storage backends. We will install ChartMuseum on
+the Kubernetes cluster to host the blog's chart from a local filesystem.
+
+```bash
+helm upgrade --install chartmuseum chartmuseum \
+    -f values.yaml
+    --create-namespace \
+    --namespace chartmuseum \
+    --repo https://chartmuseum.github.io/charts
+```
+
+In `values.yaml`:
+
+```yaml
+---
+env:
+  open:
+    STORAGE: local
+    DISABLE_API: false
+persistence:
+  enabled: true
+  accessMode: ReadWriteOnce
+  size: 8Gi
+  storageClass: nfs-client
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hosts:
+  - name: charts.internal.example.com
+    path: /
+    tls: true
+```
+
+```bash
+cd blog-chart/
+helm package .
+```
+
+```bash
+curl --data-binary "@blog-0.1.0.tgz" https://charts.internal.example.com/api/charts
+```
+
 ### Drone
 
 -  [Drone server
