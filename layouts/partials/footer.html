@@ -1,0 +1,8 @@
+<footer>
+  {{ if .Site.Copyright }}
+  <div>&copy; 2014-{{ now.Format "2006" }} {{ .Site.Copyright }}</div>
+  {{ end }}
+  {{ if .Site.Params.VERSION }}
+  <div>Version {{ .Site.Params.VERSION }}</div>
+  {{ end }}
+</footer>

@@ -1,0 +1,16 @@
+div.highlighter-rouge code {
+    overflow-wrap: normal;
+    white-space: pre !important;
+}
+footer {
+    display: flex;
+    flex-flow: column;
+    /*justify-content: center;*/
+    align-items: center;
+    padding: 5px;
+    font-size: 0.8em;
+}
+img.emoji {
+    display: inline;
+    margin: 0
+}
