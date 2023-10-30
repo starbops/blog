@@ -1,0 +1,14 @@
+entries:
+- title: 'me'
+  entries:
+  - title: 'about'
+    url: '/about'
+- title: 'all posts'
+  post_list:
+    section: 'posts'
+    limit: 5
+    show_more: true
+    show_more_url: '/archives'
+    show_more_text: 'see more posts...'
+- title: 'rss'
+  url: feed.xml
