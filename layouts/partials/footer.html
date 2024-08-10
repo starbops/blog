@@ -6,6 +6,6 @@
   <div>Version {{ .Site.Params.Version }}</div>
   {{ end }}
   {{ if getenv "CF_PAGES_COMMIT_SHA" }}
-  <div>Build {{ getenv "CF_PAGES_COMMIT_SHA" }}</div>
+  <div>Build {{ slicestr (getenv "CF_PAGES_COMMIT_SHA") 0 8 }}</div>
   {{end}}
 </footer>
