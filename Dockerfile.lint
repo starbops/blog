@@ -1,6 +1,0 @@
-FROM ruby:2.7.1-buster
-RUN gem install mdl
-COPY . /app
-WORKDIR /app
-ENTRYPOINT ["mdl"]
-CMD ["blog/_posts/"]

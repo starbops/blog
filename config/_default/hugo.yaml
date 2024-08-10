@@ -1,8 +1,8 @@
-baseURL: 'https://blog-ng.zespre.com/'
+baseURL: 'https://blog.zespre.com/'
 languageCode: 'en-us'
 title: "Zespre's Blog"
 theme: 'nostyleplease'
-copyright: 'Zespre Schmidt'
+copyright: 'Zespre Chang'
 permalinks:
   page:
     posts: '/:slug'
@@ -18,3 +18,5 @@ params:
     back_home_text: '..'
     date_format: '2006-01-02'
     show_description: true
+  version: 'dev'
+uglyURLs: true
