@@ -2,7 +2,10 @@
   {{ if .Site.Copyright }}
   <div>&copy; 2014-{{ now.Format "2006" }} {{ .Site.Copyright }}</div>
   {{ end }}
-  {{ if .Site.Params.VERSION }}
+  {{ if .Site.Params.Version }}
   <div>Version {{ .Site.Params.Version }}</div>
   {{ end }}
+  {{ if getenv "CF_PAGES_COMMIT_SHA" }}
+  <div>Build {{ getenv "CF_PAGES_COMMIT_SHA" }}</div>
+  {{end}}
 </footer>

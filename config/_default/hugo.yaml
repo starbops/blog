@@ -19,4 +19,9 @@ params:
     date_format: '2006-01-02'
     show_description: true
   version: 'dev'
+security:
+  funcs:
+    getenv:
+    - ^HUGO_
+    - ^CF_
 uglyURLs: true
