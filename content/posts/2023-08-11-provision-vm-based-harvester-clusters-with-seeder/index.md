@@ -3,7 +3,6 @@ title: Provision VM-based Harvester Clusters with Seeder
 category: memo
 slug: provision-vm-based-harvester-clusters-with-seeder
 date: 2023-08-11
-draft: true
 ---
 The Harvester team often uses the
 [ipxe-examples](https://github.com/harvester/ipxe-examples) to spin up live and
