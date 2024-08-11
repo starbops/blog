@@ -1,0 +1,6 @@
+FROM ruby:3.3.4-alpine
+RUN gem install mdl
+COPY . /app
+WORKDIR /app
+ENTRYPOINT ["mdl"]
+CMD ["content/posts/"]
