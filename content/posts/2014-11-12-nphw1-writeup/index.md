@@ -45,18 +45,18 @@ delPipe
 By doing some observation, I picked up three interesting functions for deeper
 inspection: `main`, `passCmdline`, `splitCmdline`, `exeCmd`.
 
-| Offset of cmdline | Meaning                               |
-| -----------------:| ------------------------------------- |
-| 0                 | pointer of whole command line         |
-| 1 - 10000         | pointer of each word                  |
-| 10001             | number of words in whole command line |
-| 10002 - 11001     | single command, seperated by '\|'     |
-| 11002             | argc                                  |
-| 11003             | not important                         |
-| 11004             | stdout                                |
-| 11005             | pointer of function printEnv()        |
-| 11006             | pointer of string "printenv"          |
-| 11007             | pointer of function setEnv()          |
+| Offset of cmdline | Meaning                                |
+| -----------------:| -------------------------------------- |
+| 0                 | pointer of whole command line          |
+| 1 - 10000         | pointer of each word                   |
+| 10001             | number of words in whole command line  |
+| 10002 - 11001     | single command, seperated by pipe char |
+| 11002             | argc                                   |
+| 11003             | not important                          |
+| 11004             | stdout                                 |
+| 11005             | pointer of function printEnv()         |
+| 11006             | pointer of string "printenv"           |
+| 11007             | pointer of function setEnv()           |
 
 Since the program uses function pointer to call printEnv(), we can simply put
 our shellcode to replace the original printEnv() with the aid of buffer

@@ -40,21 +40,21 @@ Below is the reference architecture of the setup:
 
 We need the following packages and tools installed to be able to proceed:
 
-- KVM/QEMU - needless to say, we need these to create VMs
-- Libvirt - RKE2 and Harvester nodes will be created using libvirt APIs
-- virt-install - for creating domain definitions (XMLs)
-- NGINX - for serving Harvester artifacts (using `python3 -m http.server` would
-  work, too)
-- noVNC - for accessing the VM consoles (optional)
+-  KVM/QEMU - needless to say, we need these to create VMs
+-  Libvirt - RKE2 and Harvester nodes will be created using libvirt APIs
+-  virt-install - for creating domain definitions (XMLs)
+-  NGINX - for serving Harvester artifacts (using `python3 -m http.server` would
+   work, too)
+-  noVNC - for accessing the VM consoles (optional)
 
 ## Environment Information
 
-- Hypervisor
-   - IP address: 192.168.48.111/24
-- Networking (bridge mode)
-   - Bridge name: `br0`
-   - Subnet: 192.168.48.0/24
-   - Gateway: 192.168.48.1
+-  Hypervisor
+   -  IP address: 192.168.48.111/24
+-  Networking (bridge mode)
+   -  Bridge name: `br0`
+   -  Subnet: 192.168.48.0/24
+   -  Gateway: 192.168.48.1
 
 ## Setup
 
@@ -204,10 +204,10 @@ The VM should be off. Later on, it will be booted up by Seeder.
 
 Prepare the following manifest files:
 
-- AddressPool CRs: One for the nodes, the other for the VIP
-- Secret: The credentials for the virtual BMC (in our case, `admin`/`password`)
-- Inventory CR: The VM
-- Cluster CR: The Harvester cluster
+-  AddressPool CRs: One for the nodes, the other for the VIP
+-  Secret: The credentials for the virtual BMC (in our case, `admin`/`password`)
+-  Inventory CR: The VM
+-  Cluster CR: The Harvester cluster
 
 In `cluster.yaml`:
 
