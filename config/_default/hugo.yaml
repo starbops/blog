@@ -11,6 +11,9 @@ permalinks:
 enableEmoji: true
 enableRobotsTXT: true
 params:
+  author:
+    email: starbops@zespre.com
+    name: 'Zespre Chang'
   description: >
     A real sysadmin doesn't have colleagues, only enemies.
   theme_config:
@@ -24,3 +27,14 @@ security:
     getenv:
     - ^HUGO_
     - ^CF_
+outputs:
+  home:
+  - html
+  - rss
+  section:
+  - html
+  - rss
+  taxonomy:
+  - html
+  term:
+  - html
