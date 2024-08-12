@@ -8,6 +8,10 @@ on:
     tags:
     - v*
 
+env:
+  HUGO_VERSION: 0.131.0
+  NGINX_VERSION: 1.27.0
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -36,6 +40,10 @@ jobs:
         provenance: false
         context: .
         platforms: linux/amd64,linux/arm64
+        build-args: |
+          HUGO_VERSION=$HUGO_VERSION
+          NGINX_VERSION=$NGINX_VERSION
+          VERSION=${{ github.ref_name }}
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
