@@ -69,7 +69,9 @@ jobs:
         HUGO_PARAMS_COMMIT: ${{ github.sha }}
     - name: Publish to Cloudflare Pages
       uses: cloudflare/wrangler-action@v3
+      env:
+        TARGET_BRANCH: ${{ github.ref_type == 'tag' && 'release' || 'main' }}
       with:
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        command: pages deploy public --branch=release --project-name=blog
+        command: pages deploy public --branch=${{ env.TARGET_BRANCH }} --project-name=blog
