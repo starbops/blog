@@ -2,12 +2,10 @@
   {{ if .Site.Copyright }}
   <div>&copy; 2014-{{ now.Format "2006" }} {{ .Site.Copyright }}</div>
   {{ end }}
-  {{ if getenv "CF_PAGES_BRANCH" }}
-  <div>Version {{ getenv "CF_PAGES_BRANCH" }}</div>
-  {{ else if .Site.Params.Version }}
+  {{ if .Site.Params.Version }}
   <div>Version {{ .Site.Params.Version }}</div>
   {{ end }}
-  {{ if getenv "CF_PAGES_COMMIT_SHA" }}
-  <div>Build {{ slicestr (getenv "CF_PAGES_COMMIT_SHA") 0 8 }}</div>
+  {{ if .Site.Params.Commit }}
+  <div>Build {{ slicestr .Site.Params.Commit 0 8 }}</div>
   {{end}}
 </footer>

@@ -22,6 +22,7 @@ params:
     date_format: '2006-01-02'
     show_description: true
   version: 'dev'
+  commit: ''
 security:
   funcs:
     getenv:
