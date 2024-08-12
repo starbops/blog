@@ -8,6 +8,7 @@ on:
 
 jobs:
   build-pr:
+    name: Build
     runs-on: ubuntu-latest
     env:
       HUGO_VERSION: '0.131.0'
