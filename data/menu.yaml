@@ -11,4 +11,4 @@ entries:
     show_more_url: '/archives'
     show_more_text: 'see more posts...'
 - title: 'rss'
-  url: feed.xml
+  url: index.xml
