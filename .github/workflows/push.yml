@@ -63,10 +63,15 @@ jobs:
         hugo-version: ${{ env.HUGO_VERSION }}
         extended: true
     - name: Build
-      run: hugo --minify --gc
+      run: |
+        if [ "${{ github.ref_type }}" = "tag" ]; then
+          export HUGO_SERVICES_GOOGLEANALYTICS_ID="$GOOGLEANALYTICS_ID";
+        fi
+        hugo --minify --gc
       env:
         HUGO_PARAMS_VERSION: ${{ github.ref_name }}
         HUGO_PARAMS_COMMIT: ${{ github.sha }}
+        GOOGLEANALYTICS_ID: ${{ secrets.GOOGLEANALYTICS_ID }}
     - name: Publish to Cloudflare Pages
       uses: cloudflare/wrangler-action@v3
       env:
