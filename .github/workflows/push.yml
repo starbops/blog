@@ -67,19 +67,11 @@ jobs:
       env:
         HUGO_PARAMS_VERSION: ${{ github.ref_name }}
         HUGO_PARAMS_COMMIT: ${{ github.sha }}
-    - name: Publish to Cloudflare Pages (staging)
-      if: ${{ github.ref_type == 'branch' }}
-      uses: cloudflare/wrangler-action@v3
-      with:
-        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        command: pages deploy public --branch=main --project-name=blog
-    - name: Publish to Cloudflare Pages (production)
-      if: ${{ github.ref_type == 'tag' }}
+    - name: Publish to Cloudflare Pages
       uses: cloudflare/wrangler-action@v3
       env:
-        HUGO_SERVICES_GOOGLEANALYTICS_ID: ${{ secrets.HUGO_SERVICES_GOOGLEANALYTICS_ID }}
+        TARGET_BRANCH: ${{ github.ref_type == 'tag' && 'release' || 'main' }}
       with:
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        command: pages deploy public --branch=release --project-name=blog
+        command: pages deploy public --branch=${{ env.TARGET_BRANCH }} --project-name=blog
