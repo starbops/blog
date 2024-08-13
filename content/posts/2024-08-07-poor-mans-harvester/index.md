@@ -21,6 +21,7 @@ terms of:
    (CDI)](https://github.com/kubevirt/containerized-data-importer) (populating
    VM disks using existing images)
 -  Networking: [Multus CNI](https://github.com/k8snetworkplumbingwg/multus-cni)
+   (enabling attaching multiple network interfaces to pods)
 
 Note: the resulting cluster does not have the VM live migration ability due to
 the non-migratable nature of local volumes. Even if the cluster consists of
@@ -45,13 +46,41 @@ genuine multi-node Harvester cluster.
 ### Kubernetes
 
 We choose RKE2 as the Kubernetes distribution to deploy. Installing RKE2 is as
-simple as installing [K3s](https://k3s.io/) with a one-liner:
+simple as installing [K3s](https://k3s.io/) with a one-liner (yeah you need to
+get a shell on the nodes where you wish to install RKE2):
 
 ```shell
-curl -sfL https://get.rke2.io | sudo INSTALL_RKE2_VERSION=v1.28.11+rke2r1 RKE2_KUBECONFIG_MODE=644 sh -
+curl -sfL https://get.rke2.io | sudo INSTALL_RKE2_VERSION=v1.28.11+rke2r1 sh -
 ```
 
-Enable and start the RKE2 server immediately:
+For a single-node setup, you can skip straight to the part kicking off the RKE2
+server; if you want to add more servers or agents later on, consider adding some
+configuration beforehands.
+
+```shell
+sudo mkdir -p /etc/rancher/rke2/config.yaml.d/
+```
+
+Put the following content in `/etc/rancher/rke2/config.yaml` for every server
+nodes:
+
+```yaml
+token: supersecret
+write-kubeconfig-mode: "0644"
+tls-san:
+- parvester.192.168.48.73.sslip.io
+- 192.168.48.73
+```
+
+For additional server nodes (not including the initial server node), please
+create a new configuration file `/etc/rancher/rke2/config.yaml.d/10-server.yaml`
+with the following content:
+
+```yaml
+server: https://parvester.192.168.48.73.sslip.io:9345
+```
+
+Enable and start the RKE2 server(s) immediately:
 
 ```shell
 sudo systemctl enable rke2-server.service --now
@@ -183,10 +212,11 @@ cluster. The NetworkAttachmentDefinition object is a cluster-wide configuration.
 Now it's time to create it:
 
 ```shell
+cat <<EOF | kubectl apply -f -
 apiVersion: "k8s.cni.cncf.io/v1"
 kind: NetworkAttachmentDefinition
 metadata:
-  name: bridge-conf
+  name: net-101
 spec:
   config: '{
       "cniVersion": "0.3.1",
@@ -194,6 +224,7 @@ spec:
       "bridge": "br0",
       "ipam": {}
     }'
+EOF
 ```
 
 At this point, you'll have a usable NetworkAttachmentDefinition for VMs to
@@ -270,13 +301,17 @@ spec:
 
 Additionally, you can create an empty volume with DataVolume's source specified
 as `blank`. This will populate an empty volume as a VM disk. It's useful for
-cases like PXE provisioning.
+cases like PXE provisioning. I'm exploring the possibility of bringing
+[Tinkerbell](https://tinkerbell.org/), KubeVirt, and
+[KubeVirtBMC](https://github.com/starbops/kubevirtbmc) together to provision a
+bunch of VMs with PXE as we did with bare metals.
 
 ### Fire Up VMs
 
 With networking and storage all setup, we can finally create the VMs. The
 following is a simple VirtualMachine that connects to the network we just
-created, and using the PVC we populated with the cloud image as the VM disk:
+created, and using the PVC we populated with the cloud image as the VM disk.
+Save the manifest as `vm1.yaml`:
 
 ```yaml
 apiVersion: kubevirt.io/v1
@@ -350,10 +385,18 @@ spec:
         name: cloudinitdisk
 ```
 
+It's worth noting that the network configuration (in the form of cloud-init
+network data) specified in the above VirtualMachine manifest is only suitable
+for my own network environment. Keep in mind that the [bridge CNI
+plugin](https://www.cni.dev/plugins/current/main/bridge/) is the actual plugin
+that is in use for the VM. Multus CNI is just a meta plugin that leverages the
+bridge CNI plugin. So, you should provide your own set of configurations for the
+VM to have network connectivity.
+
 Create the VirtualMachine object on the cluster with the command:
 
 ```shell
-kubectl apply -f bridged-vm-with-pvc.yaml
+kubectl apply -f vm1.yaml
 ```
 
 As soon as the VirtualMachine object is created, it'll be booted up. We can
