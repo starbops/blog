@@ -23,7 +23,7 @@ make docker-buildx IMG=<REPO>/blog:<TAG>
 
 ## Deployment
 
-Each new commit pushed to the `main` or `release` branch will trigger the auto-build and deploy pipeline with Cloudflare Pages.
+Each commit pushed to the `main` branch will trigger the staging deployment rollout on Cloudflare Pages. Production deployment rollout based on the `release` branch only happens when a tag is pushed.
 
 - Staging: `main` branch
 - Production: `release` branch
@@ -42,10 +42,11 @@ Each new commit pushed to the `main` or `release` branch will trigger the auto-b
 
 1. Clone the repository
 2. Checkout to the `release` branch (to ensure the branch is up-to-date please run `git pull --rebase`)
-3. Checkout  a new branch for the release PR
+3. Checkout a new branch for the release PR
 4. Cherry-pick the commits on the `main` branch
 5. Bump the `.params.version` field in `config/_default/hugo.yaml` with a new version
 6. Commit the changes and push to the remote
 7. Create a new PR targeted the `release` branch
+8. Release a new version by creating a new tag on the `release` branch
 
 Note: we only tag versions on the `release` branch.
