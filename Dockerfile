@@ -4,7 +4,7 @@ ARG NGINX_VERSION=1.27.0
 
 # ---
 
-FROM hugomods/hugo:exts-${HUGO_VERSION} AS build
+FROM hugomods/hugo:dart-sass-${HUGO_VERSION} AS build
 
 ARG MODE=development
 ARG VERSION=dev
