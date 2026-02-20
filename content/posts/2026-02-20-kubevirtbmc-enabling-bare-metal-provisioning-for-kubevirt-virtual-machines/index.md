@@ -194,7 +194,7 @@ kubectl -n kubevirtbmc-system wait --for=condition=Ready pods \
     -l app.kubernetes.io/name=kubevirtbmc
 ```
 
-KubeVirtBMC is not ready to serve.
+KubeVirtBMC is now ready to serve.
 
 ### Step 3: Create a Test Virtual Machine
 
