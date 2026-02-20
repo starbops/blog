@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-ARG HUGO_VERSION=0.131.0
+ARG HUGO_VERSION=0.156.0
 ARG NGINX_VERSION=1.27.0
 
 # ---
