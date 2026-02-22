@@ -16,6 +16,7 @@ params:
     name: 'Zespre Chang'
   description: >
     A real sysadmin doesn't have colleagues, only enemies.
+  favicon: 'favicon.ico'
   theme_config:
     appearance: 'auto'
     back_home_text: '..'
