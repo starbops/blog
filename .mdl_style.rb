@@ -12,6 +12,8 @@ rule 'MD009', :br_spaces => 2
 rule 'MD013', :ignore_code_blocks => true, :tables => false
 # MD024 - Multiple headers with the same content
 rule 'MD024', :allow_different_nesting => true
+# MD026
+rule 'MD026', :punctuation => '.,;:!'
 # MD029 - Ordered list item prefix
 rule 'MD029', :style => :one
 # MD030 - Spaces after list markers
