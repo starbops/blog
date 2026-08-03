@@ -40,9 +40,11 @@ changing destination IP address.
 
 ## When Use This Architecture
 
--  When output capacity of the load balancer won't be a bottleneck in a near future
+-  When output capacity of the load balancer won't be a bottleneck in a near
+   future
 -  When nothing but the default gateway of the servers can be changed
 
 ## References
 
--  [Layer 4 load balancing NAT mode](https://www.haproxy.com/blog/layer-4-load-balancing-nat-mode/)
+-  [Layer 4 load balancing NAT
+   mode](https://www.haproxy.com/blog/layer-4-load-balancing-nat-mode/)

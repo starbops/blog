@@ -42,4 +42,5 @@ Enabled
 
 ## References
 
--  [Lifecycle Controller is in Recovery Mode and is disabled](https://www.dell.com/community/PowerEdge-Hardware-General/Lifecycle-Controller-is-in-Recovery-Mode-and-is-disabled/td-p/7342571)
+-  [Lifecycle Controller is in Recovery Mode and is
+   disabled](https://www.dell.com/community/PowerEdge-Hardware-General/Lifecycle-Controller-is-in-Recovery-Mode-and-is-disabled/td-p/7342571)

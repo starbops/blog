@@ -176,4 +176,5 @@ gpg --check-sigs $KEYID
    keys](https://lists.gnupg.org/pipermail/gnupg-users/2004-May/022471.html)
 -  [Signing
    keys](https://unix.stackexchange.com/questions/644304/key-signing-cant-see-new-signatures)
--  [Signing someone's GPG key](https://gist.github.com/F21/b0e8c62c49dfab267ff1d0c6af39ab84)
+-  [Signing someone's GPG
+   key](https://gist.github.com/F21/b0e8c62c49dfab267ff1d0c6af39ab84)
