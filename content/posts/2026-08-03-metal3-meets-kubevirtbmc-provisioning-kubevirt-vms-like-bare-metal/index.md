@@ -9,9 +9,9 @@ In [the previous post]({{< relref
 "2026-02-20-kubevirtbmc-enabling-bare-metal-provisioning-for-kubevirt-virtual-machines"
 >}})
 , we introduced KubeVirtBMC and showed how it provides virtual BMC endpoints
-for KubeVirt virtual machines. We tested it with raw IPMI and Redfish commands.
-That was fun, but the real power of KubeVirtBMC shines when you pair it with
-actual bare-metal provisioning tools.
+for KubeVirt VMs. We tested it with raw IPMI and Redfish commands. That was
+fun, but the real power of KubeVirtBMC shines when you pair it with actual
+bare-metal provisioning tools.
 
 In this post, we'll walk through a complete end-to-end demo: using
 [Metal3](https://metal3.io/) to manage and provision KubeVirt VMs through
@@ -80,7 +80,7 @@ resources that point to the virtual BMC endpoints created by KubeVirtBMC. When
 Metal3 tells Ironic to power on a host or attach a boot image, Ironic sends
 Redfish requests to the BMC pod. The BMC pod translates these into Kubernetes
 API calls to control the KubeVirt VM. Metal3 doesn't know (or care) that it's
-talking to a virtual machine.
+talking to a VM.
 
 ## Prerequisites
 
@@ -94,7 +94,8 @@ Before we start, make sure you have:
 
 If you don't have a cluster ready, refer to the [previous post]({{< relref
 "2026-02-20-kubevirtbmc-enabling-bare-metal-provisioning-for-kubevirt-virtual-machines"
->}}) for instructions on setting one up with KubeVirt CI or Harvester.
+>}}) for instructions on setting one up with KubeVirt CI, or simply using
+>[Harvester](https://harvesterhci.io).
 
 ## Step 1: Install cert-manager
 
@@ -102,10 +103,7 @@ Both KubeVirtBMC and Metal3 components require cert-manager for webhook
 certificates.
 
 ```bash
-helm repo add jetstack https://charts.jetstack.io
-helm repo update
-
-helm upgrade --install cert-manager jetstack/cert-manager \
+helm upgrade --install cert-manager oci://quay.io/jetstack/charts/cert-manager \
     --namespace=cert-manager \
     --create-namespace \
     --set=crds.enabled=true
@@ -121,10 +119,8 @@ kubectl -n cert-manager wait --for=condition=Available \
 ## Step 2: Install KubeVirtBMC
 
 ```bash
-helm repo add kubevirtbmc https://charts.zespre.com/
-helm repo update
-
-helm upgrade --install kubevirtbmc kubevirtbmc/kubevirtbmc \
+helm upgrade --install kubevirtbmc kubevirtbmc \
+    --repo=https://charts.kubevirtbmc.io \
     --namespace=kubevirtbmc-system \
     --create-namespace
 
@@ -143,9 +139,9 @@ kubevirtbmc-controller-manager-xxxxx      1/1     Running   0          30s
 
 ## Step 3: Create a KubeVirt VM with BMC
 
-We'll create a VM that simulates a bare-metal server. It needs a disk, and it
-should start in a powered-off state so that Metal3 can manage its lifecycle from
-scratch.
+We'll create a VM that simulates a bare-metal server. It needs a disk, a
+network interface, and it should start in a powered-off state so that Metal3
+can manage its lifecycle from scratch.
 
 Create a PVC for the VM's root disk:
 
@@ -180,9 +176,9 @@ spec:
     spec:
       domain:
         cpu:
-          cores: 2
+          cores: 4
         memory:
-          guest: 4Gi
+          guest: 8Gi
         devices:
           disks:
           - name: rootdisk
@@ -194,10 +190,11 @@ spec:
           interfaces:
           - name: default
             macAddress: "02:00:00:00:00:01"
-            masquerade: {}
+            bridge: {}
         firmware:
           bootloader:
-            bios: {}
+            efi:
+              secureBoot: false
       networks:
       - name: default
         pod: {}
@@ -205,9 +202,6 @@ spec:
       - name: rootdisk
         persistentVolumeClaim:
           claimName: metal3-demo-vm-disk
-      - name: cdrom
-        cloudInitNoCloud:
-          userData: ""
 EOF
 ```
 
@@ -228,7 +222,6 @@ Now create the VirtualMachineBMC and its credential Secret:
 
 ```bash
 cat <<EOF | kubectl apply -f -
----
 apiVersion: v1
 kind: Secret
 metadata:
@@ -263,8 +256,16 @@ NAME       VIRTUALMACHINE   SECRET           CLUSTERIP       READY
 demo-bmc   metal3-demo-vm   demo-bmc-secret  10.96.xxx.xxx   True
 ```
 
-Take note of the Service name. The BMC pod is accessible at
-`metal3-demo-vm-virtbmc.default.svc` within the cluster.
+Take note of the Service name:
+
+```console
+$ kubectl get services -l kubevirt.io/virtualmachinebmc-name=demo-bmc
+NAME                     TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+metal3-demo-vm-virtbmc   ClusterIP   10.96.xxx.xxx   <none>        80/TCP,623/UDP   58s
+```
+
+The BMC service is accessible at
+`metal3-demo-vm-virtbmc.default.svc.cluster.local` within the cluster.
 
 ## Step 4: Install the Metal3 Stack
 
@@ -275,17 +276,21 @@ Ironic, which is the recommended approach for new installations.
 
 ### Install the Ironic Standalone Operator
 
+Install IrSO from the bleeding-edge build, as the
+`ironic.spec.networking.disableHostNetwork` field had only recently been
+introduced at the time of writing and was not yet included in a release.
+
 ```bash
-IRSO_VERSION=0.8.0
-kubectl apply -f \
-    "https://github.com/metal3-io/ironic-standalone-operator/releases/download/v${IRSO_VERSION}/install.yaml"
+git clone https://github.com/metal3-io/ironic-standalone-operator.git
+cd ironic-standalone-operator
+make install deploy
 
 kubectl -n ironic-standalone-operator-system wait --for=condition=Available \
     deploy/ironic-standalone-operator-controller-manager \
     --timeout=120s
 ```
 
-### Deploy Ironic and BMO
+### Deploy Ironic
 
 We'll follow the [Metal3 quickstart](https://book.metal3.io/quick-start.html)
 pattern and use a kustomization to deploy both Ironic and BMO together. First,
@@ -300,7 +305,6 @@ cert-manager:
 
 ```bash
 cat <<EOF | kubectl apply -f -
----
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
@@ -337,6 +341,9 @@ metadata:
   name: ironic-cert
   namespace: baremetal-operator-system
 spec:
+  secretTemplate:
+    labels:
+      environment.metal3.io/ironic-standalone-operator: "true"
   dnsNames:
   - ironic.baremetal-operator-system.svc
   - ironic.baremetal-operator-system.svc.cluster.local
@@ -344,6 +351,27 @@ spec:
     kind: Issuer
     name: ca-issuer
   secretName: ironic-cert
+EOF
+```
+
+In addition to TLS certificates, a set of credentials should be created to
+protect the API endpoints. Otherwise, random credentials will be generated
+automatically when the Ironic custom resource is created. For simplicity, we
+will create them explicitly here:
+
+```bash
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    environment.metal3.io/ironic-standalone-operator: "true"
+  name: ironic-credentials
+  namespace: baremetal-operator-system
+type: kubernetes.io/basic-auth
+stringData:
+  username: ironic
+  password: supersecret
 EOF
 ```
 
@@ -358,14 +386,26 @@ metadata:
   name: ironic
   namespace: baremetal-operator-system
 spec:
+  apiCredentialsName: ironic-credentials
+  networking:
+    disableHostNetwork: true
   tls:
     certificateName: ironic-cert
-  version: "34.0"
+    disableVirtualMediaTLS: true
+  version: "37.0"
 EOF
 ```
 
-IrSO will auto-generate Ironic API credentials and create the Ironic pod. Wait
-for it to become ready:
+One thing to note is that `.spec.tls.disableVirtualMediaTLS` must be set to
+`true`, as we do not want dynamically generated images to be hosted on a
+TLS-protected HTTP server. At the time of writing, neither KubeVirtBMC nor CDI,
+the underlying component used by KubeVirtBMC for volume preparation, can
+properly [handle the certificates Ironic
+created](https://github.com/kubevirt/containerized-data-importer/issues/4166)
+or skip certificate verification.
+
+IrSO will use the API credentials you provided or auto-generate ones and create
+the Ironic pod. Wait for it to become ready:
 
 ```bash
 kubectl -n baremetal-operator-system wait --for=condition=Ready \
@@ -400,14 +440,17 @@ kind: Kustomization
 namespace: baremetal-operator-system
 resources:
 - ../../default
+components:
+- ../../components/basic-auth
+- ../../components/tls
 EOF
 
 # Configure the Ironic connection
 cat > config/default/ironic.env <<EOF
 DEPLOY_KERNEL_URL=
 DEPLOY_RAMDISK_URL=
-IRONIC_ENDPOINT=https://ironic.baremetal-operator-system.svc:6385
-IRONIC_CACERT_FILE=/certs/ironic/ca/tls.crt
+IRONIC_ENDPOINT=https://ironic.baremetal-operator-system.svc
+IRONIC_CACERT_FILE=/opt/metal3/certs/ca/tls.crt
 IRONIC_INSECURE=false
 EOF
 ```
@@ -427,8 +470,8 @@ Verify that all Metal3 components are running:
 ```console
 $ kubectl get pods -n baremetal-operator-system
 NAME                                                      READY   STATUS    RESTARTS   AGE
-baremetal-operator-controller-manager-xxxxx                1/1     Running   0          60s
-ironic-xxxxx                                              4/4     Running   0          2m
+baremetal-operator-controller-manager-xxxxx               1/1     Running   0          60s
+ironic-service-xxxxx                                      4/4     Running   0          2m
 ```
 
 ## Step 5: Register the VM as a BareMetalHost
@@ -439,13 +482,11 @@ virtual BMC—it just sees a standard Redfish interface.
 
 ```bash
 cat <<EOF | kubectl apply -f -
----
 apiVersion: v1
 kind: Secret
 metadata:
   name: metal3-demo-vm-bmc-secret
   namespace: default
-type: Opaque
 stringData:
   username: admin
   password: password
@@ -459,7 +500,7 @@ spec:
   online: true
   bootMACAddress: "02:00:00:00:00:01"
   bmc:
-    address: redfish-virtualmedia+http://metal3-demo-vm-virtbmc.default.svc:80/redfish/v1/Systems/1
+    address: redfish-virtualmedia+http://metal3-demo-vm-virtbmc.default.svc.cluster.local:80/redfish/v1/Systems/1
     credentialsName: metal3-demo-vm-bmc-secret
     disableCertificateVerification: true
   rootDeviceHints:
@@ -473,9 +514,10 @@ A few important details on the `bmc.address` field:
    media support (ISO boot instead of PXE). See the [supported
    hardware](https://book.metal3.io/bmo/supported_hardware.html) page for all
    available driver types.
--  `+http` specifies plain HTTP since the BMC pod doesn't serve HTTPS by default.
-   Without the `+http` suffix, Ironic defaults to HTTPS and the connection will
-   fail.
+-  `+http` explicitly selects plain HTTP because the BMC pod does not serve
+   HTTPS by default. HTTPS can be enabled through an Ingress resource, but HTTP
+   is used here for simplicity. Without the `+http` suffix, Ironic defaults to
+   HTTPS, causing the connection to fail.
 -  The host portion `metal3-demo-vm-virtbmc.default.svc:80` is the in-cluster
    Service created by KubeVirtBMC.
 -  `/redfish/v1/Systems/1` is the Redfish system path that KubeVirtBMC exposes.
@@ -490,7 +532,8 @@ $ kubectl get bmh metal3-demo-vm -w
 NAME             STATE          CONSUMER   ONLINE   ERROR   AGE
 metal3-demo-vm   registering                true             5s
 metal3-demo-vm   inspecting                 true             30s
-metal3-demo-vm   available                  true             2m
+metal3-demo-vm   preparing                  true             9m30s
+metal3-demo-vm   available                  true             9m31s
 ```
 
 During **registering**, Ironic verifies the BMC credentials by sending a Redfish
@@ -502,7 +545,7 @@ host becomes **available** and ready for provisioning.
 You can inspect the discovered hardware inventory:
 
 ```bash
-kubectl get bmh metal3-demo-vm -o jsonpath='{.status.hardware}' | jq .
+kubectl get bmh metal3-demo-vm -o jsonpath='{.status.hardware}'
 ```
 
 ## Step 6: Provision the Host with an OS Image
@@ -518,7 +561,7 @@ kubectl patch bmh metal3-demo-vm --type=merge -p '
 {
   "spec": {
     "image": {
-      "url": "https://releases.ubuntu.com/noble/ubuntu-24.04.2-live-server-amd64.iso",
+      "url": "https://releases.ubuntu.com/resolute/ubuntu-26.04-live-server-amd64.iso",
       "format": "live-iso"
     }
   }
@@ -537,9 +580,9 @@ kubectl patch bmh metal3-demo-vm --type=merge -p '
 {
   "spec": {
     "image": {
-      "url": "http://YOUR_IMAGE_SERVER/image.qcow2",
-      "checksum": "http://YOUR_IMAGE_SERVER/image.qcow2.sha256sum",
-      "checksumType": "sha256",
+      "url": "https://cloud-images.ubuntu.com/resolute/current/resolute-server-cloudimg-amd64.img",
+      "checksum": "https://cloud-images.ubuntu.com/resolute/current/SHA256SUMS",
+      "checksumType": "auto",
       "format": "qcow2"
     }
   }
@@ -620,20 +663,24 @@ There are a few things that might trip you up when working with this setup:
    actual interface on the VM. That's why we pinned it to `02:00:00:00:00:01` in
    the VirtualMachine spec. If you forget this, KubeVirt generates a random MAC
    and Ironic won't be able to match the host during inspection.
--  **HTTP vs HTTPS.** KubeVirtBMC serves Redfish over plain HTTP by default. Make
-   sure to use `redfish-virtualmedia+http://` in the BMC address. Without the
-   `+http` suffix, Ironic defaults to HTTPS and the connection will fail
-   silently during registration.
--  **Virtual media vs network boot.** The `redfish-virtualmedia` driver boots the
-   IPA ramdisk and provisioning images via virtual media (ISO attachment), which
-   means no PXE, no DHCP, and no provisioning network is required. If you use
-   the `redfish` driver (without `virtualmedia`), you'll need to set up DHCP and
-   configure Ironic's networking section accordingly.
--  **Ironic host networking.** By default, IrSO deploys Ironic using host
-   networking. The Ironic pod needs to be reachable from the IPA ramdisk running
-   inside VMs. If you're running everything in a single cluster, this should
-   just work. In more complex network topologies, you may need to adjust the
-   Ironic networking configuration.
+-  **HTTP vs HTTPS.** KubeVirtBMC serves Redfish over plain HTTP by default.
+   Make sure to use `redfish-virtualmedia+http://` in the BMC address. Without
+   the `+http` suffix, Ironic defaults to HTTPS and the connection will fail
+   during registration.
+-  **Virtual media vs network boot.** The `redfish-virtualmedia` driver boots
+   the IPA ramdisk and provisioning images via virtual media (ISO attachment),
+   which means no PXE, no DHCP, and no provisioning network is required. If you
+   use the `redfish` driver (without `virtualmedia`), you'll need to set up DHCP
+   and configure Ironic's networking section accordingly (we'll talk about that
+   part in a future post).
+-  **Ironic host networking.** By default, IrSO deploys Ironic with host
+   networking enabled. The Ironic pod must be reachable from the IPA ramdisk
+   running inside the VMs. If everything is running in a single cluster, this
+   should work out of the box. In this article, we disable host networking
+   solely for demonstration purposes, allowing us to rely on in-cluster DNS to
+   resolve the Ironic service and route traffic to the underlying Ironic pod.
+   In more complex network topologies, you may need to adjust the Ironic
+   networking configuration.
 -  **Cross-cluster scenarios.** If Metal3 runs in a different cluster than
    KubeVirt, you can expose the KubeVirtBMC Services externally using Ingress or
    NodePort. Just update the BMC address in the BareMetalHost accordingly.
@@ -657,9 +704,7 @@ provisioning workflows:
 The KubeVirtBMC project is actively evolving. There is more work underway to
 improve Redfish compatibility and extend the BMC feature set. If you want to
 follow the progress or contribute, head over to the [GitHub
-repository](https://github.com/kubevirtbmc/kubevirtbmc). The project is also
-participating in [GSoC 2025](https://github.com/kubevirt/community/issues/386)
-under the KubeVirt organization.
+repository](https://github.com/kubevirtbmc/kubevirtbmc).
 
 If you've found this useful—or hit a snag while trying it out—please open an
 issue or drop a comment. Feedback is what keeps open-source projects going.
