@@ -20,11 +20,11 @@ along and replicate every step.
 
 ## Why Metal3?
 
-[Metal3](https://metal3.io/) (Metal Kubed) is a CNCF Sandbox project that brings
-bare-metal host management into the Kubernetes ecosystem. Under the hood, it
-uses [OpenStack Ironic](https://ironicbaremetal.org/) to handle the heavy
-lifting—inspecting hardware, setting boot devices, and writing OS images to
-disks.
+[Metal3](https://metal3.io/) (Metal Kubed) is a CNCF Incubating project that
+brings bare-metal host management into the Kubernetes ecosystem. Under the
+hood, it uses [OpenStack Ironic](https://ironicbaremetal.org/) to handle the
+heavy lifting—inspecting hardware, setting boot devices, and writing OS images
+to disks.
 
 The core abstraction is the `BareMetalHost` custom resource. You declare what
 you want (BMC address, credentials, desired image), and Metal3 takes care of the
