@@ -509,14 +509,23 @@ syslogd_flags="-C -a saduty -a sabsd"
 
 ## References
 
--  [Network Information System (NIS)](https://www.freebsd.org/doc/handbook/network-nis.html)
--  [adding NIS users and create homedir](http://lists.freebsd.org/pipermail/freebsd-questions/2003-August/016200.html)
--  [Using pw adduser to set password in a script](http://lists.freebsd.org/pipermail/freebsd-questions/2003-July/011018.html)
--  [Network File System (NFS)](https://www.freebsd.org/doc/handbook/network-nfs.html)
+-  [Network Information System
+   (NIS)](https://www.freebsd.org/doc/handbook/network-nis.html)
+-  [adding NIS users and create
+   homedir](http://lists.freebsd.org/pipermail/freebsd-questions/2003-August/016200.html)
+-  [Using pw adduser to set password in a
+   script](http://lists.freebsd.org/pipermail/freebsd-questions/2003-July/011018.html)
+-  [Network File System
+   (NFS)](https://www.freebsd.org/doc/handbook/network-nfs.html)
 -  [架設 NIS 驗證伺服器](http://www.weithenn.org/2009/07/nis.html)
--  [Re: NIS-master/slave w/ 2.1.7+2.2.2](http://markmail.org/message/qlphkdn6pvthb6ao#query:+page:1+mid:qlphkdn6pvthb6ao+state:results)
--  [misc/145910: Problem with nullfs in fstab on boot](http://lists.freebsd.org/pipermail/freebsd-bugs/2010-April/039579.html)
--  [Configuring NFS in FreeBSD](http://troysunix.blogspot.tw/2011/03/configuring-nfs-in-freebsd.html)
--  [Configuring AutoFS in FreeBSD](http://troysunix.blogspot.tw/2012/10/configuring-autofs-in-freebsd.html)
--  [Take Control of your Linux \| sudoers file: How to with Examples](http://www.garron.me/en/linux/visudo-command-sudoers-file-sudo-default-editor.html)
+-  [Re: NIS-master/slave w/
+   2.1.7+2.2.2](http://markmail.org/message/qlphkdn6pvthb6ao#query:+page:1+mid:qlphkdn6pvthb6ao+state:results)
+-  [misc/145910: Problem with nullfs in fstab on
+   boot](http://lists.freebsd.org/pipermail/freebsd-bugs/2010-April/039579.html)
+-  [Configuring NFS in
+   FreeBSD](http://troysunix.blogspot.tw/2011/03/configuring-nfs-in-freebsd.html)
+-  [Configuring AutoFS in
+   FreeBSD](http://troysunix.blogspot.tw/2012/10/configuring-autofs-in-freebsd.html)
+-  [Take Control of your Linux \| sudoers file: How to with
+   Examples](http://www.garron.me/en/linux/visudo-command-sudoers-file-sudo-default-editor.html)
 -  [Syslog - FreeBSDwiki](http://www.freebsdwiki.net/index.php/Syslog)

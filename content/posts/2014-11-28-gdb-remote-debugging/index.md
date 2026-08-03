@@ -46,4 +46,5 @@ $ nc <target> <port>
 
 ## Reference
 
--  [Debugging with GDB: Remote Debugging](http://davis.lbl.gov/Manuals/GDB/gdb_17.html)
+-  [Debugging with GDB: Remote
+   Debugging](http://davis.lbl.gov/Manuals/GDB/gdb_17.html)

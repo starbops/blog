@@ -163,7 +163,8 @@ NAME    NAMESPACE       REVISION        UPDATED STATUS  CHART   APP VERSION
 
 ### Step 1: Install cert-manager
 
-KubeVirtBMC needs certificates for its webhook server. Install cert-manager first:
+KubeVirtBMC needs certificates for its webhook server. Install cert-manager
+first:
 
 ```bash
 # Add the repository

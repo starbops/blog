@@ -58,6 +58,9 @@ sudo update-ca-trust
 ## References
 
 -  [Test an insecure registry](https://docs.docker.com/registry/insecure/)
--  [Deploy a registry server](https://docs.docker.com/registry/deploying/#get-a-certificate)
--  [Manage sensitive data with Docker secrets](https://docs.docker.com/v17.12/engine/swarm/secrets/#about-secrets)
--  [How to setup a private docker registry with a self sign certificate](https://medium.com/@ifeanyiigili/how-to-setup-a-private-docker-registry-with-a-self-sign-certificate-43a7407a1613)
+-  [Deploy a registry
+   server](https://docs.docker.com/registry/deploying/#get-a-certificate)
+-  [Manage sensitive data with Docker
+   secrets](https://docs.docker.com/v17.12/engine/swarm/secrets/#about-secrets)
+-  [How to setup a private docker registry with a self sign
+   certificate](https://medium.com/@ifeanyiigili/how-to-setup-a-private-docker-registry-with-a-self-sign-certificate-43a7407a1613)

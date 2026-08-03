@@ -105,4 +105,5 @@ terminate the input string unexpectedly.
 
 ## Reference
 
--  [Linux System Call Table](http://docs.cs.up.ac.za/programming/asm/derick_tut/syscalls.html)
+-  [Linux System Call
+   Table](http://docs.cs.up.ac.za/programming/asm/derick_tut/syscalls.html)

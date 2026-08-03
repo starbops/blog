@@ -197,4 +197,5 @@ available.
 
 ## References
 
--  [Corosync: Redundant Ring Protocol](https://www.sebastien-han.fr/blog/2012/08/01/corosync-rrp-configuration/)
+-  [Corosync: Redundant Ring
+   Protocol](https://www.sebastien-han.fr/blog/2012/08/01/corosync-rrp-configuration/)

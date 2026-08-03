@@ -35,5 +35,7 @@ exec 5<&-
 
 ## References
 
--  [Playing with file descriptors and redirection](https://www.packtpub.com/mapt/book/networking_and_servers/9781785881985/1/ch01lvl1sec14/playing-with-file-descriptors-and-redirection)
--  [How to close file descriptor via Linux shell command](https://stackoverflow.com/questions/5987820/how-to-close-file-descriptor-via-linux-shell-command)
+-  [Playing with file descriptors and
+   redirection](https://www.packtpub.com/mapt/book/networking_and_servers/9781785881985/1/ch01lvl1sec14/playing-with-file-descriptors-and-redirection)
+-  [How to close file descriptor via Linux shell
+   command](https://stackoverflow.com/questions/5987820/how-to-close-file-descriptor-via-linux-shell-command)
