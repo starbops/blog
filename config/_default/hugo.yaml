@@ -22,7 +22,7 @@ params:
     back_home_text: '..'
     date_format: '2006-01-02'
     show_description: true
-  version: 'v2.5.0'
+  version: 'v2.5.1'
   commit: ''
 security:
   funcs:
