@@ -19,6 +19,10 @@ rule 'MD029', :style => :one
 # MD030 - Spaces after list markers
 rule 'MD030', :ul_single => 2, :ol_single => 1, :ul_multi => 2, :ol_multi => 1
 
+# MD034
+# TODO: temporarily disabled due to an mdl upstream issue: https://github.com/markdownlint/markdownlint/issues/595
+#       need to revisit once the patch for it is released.
+exclude_rule 'MD034'
 # MD025 - Multiple top level headers in the same document
 exclude_rule 'MD025'
 # MD028 - Blank line inside blockquote
