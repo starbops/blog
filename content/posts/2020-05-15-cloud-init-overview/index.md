@@ -208,6 +208,9 @@ X-Instance-ID-Signature: <HMAC secret, instance_id>
 
 ## References
 
--  [2.9. Configuring instances at boot time](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux_OpenStack_Platform/4/html/End_User_Guide/user-data.html)
--  [Network Configuration - Cloud-Init 18.4 documentation](https://cloudinit.readthedocs.io/en/latest/topics/network-config.html)
--  [OpenStack Docs: Metadata](https://docs.openstack.org/nova/latest/user/metadata.html)
+-  [2.9. Configuring instances at boot
+   time](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux_OpenStack_Platform/4/html/End_User_Guide/user-data.html)
+-  [Network Configuration - Cloud-Init 18.4
+   documentation](https://cloudinit.readthedocs.io/en/latest/topics/network-config.html)
+-  [OpenStack Docs:
+   Metadata](https://docs.openstack.org/nova/latest/user/metadata.html)

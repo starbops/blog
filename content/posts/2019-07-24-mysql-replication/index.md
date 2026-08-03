@@ -164,7 +164,11 @@ mysql> STOP SLAVE;
 -  [NicolasTrutet/Linux-HA-MySQL-Replication: How to set up 2 nodes failover
    with a MySQL master-master
    replication](https://github.com/NicolasTrutet/Linux-HA-MySQL-Replication)
--  [How does MySQL Replication really work?](https://www.percona.com/blog/2013/01/09/how-does-mysql-replication-really-work/)
--  [Overview of Different MySQL Replication Solutions](https://www.percona.com/blog/2017/02/07/overview-of-different-mysql-replication-solutions/)
--  [MySQL 平行執行的 Replication...](https://blog.gslin.org/archives/2013/01/09/3117/mysql-%E5%B9%B3%E8%A1%8C%E5%9F%B7%E8%A1%8C%E7%9A%84-replication/)
--  [Multi-Threaded Replication in MySQL 5.6 and MySQL 5.7](https://www.percona.com/live/mysql-conference-2015/sites/default/files/slides/MySQL_MultiThreaded_Replication.pdf)
+-  [How does MySQL Replication really
+   work?](https://www.percona.com/blog/2013/01/09/how-does-mysql-replication-really-work/)
+-  [Overview of Different MySQL Replication
+   Solutions](https://www.percona.com/blog/2017/02/07/overview-of-different-mysql-replication-solutions/)
+-  [MySQL 平行執行的
+   Replication...](https://blog.gslin.org/archives/2013/01/09/3117/mysql-%E5%B9%B3%E8%A1%8C%E5%9F%B7%E8%A1%8C%E7%9A%84-replication/)
+-  [Multi-Threaded Replication in MySQL 5.6 and MySQL
+   5.7](https://www.percona.com/live/mysql-conference-2015/sites/default/files/slides/MySQL_MultiThreaded_Replication.pdf)

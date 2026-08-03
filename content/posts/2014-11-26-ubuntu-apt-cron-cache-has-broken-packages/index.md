@@ -75,7 +75,8 @@ $ uname -r
 I found many `linux-headers-3.2.0-xx` and `linux-headers-3.2.0-xx-generic`
 are under `/usr/src` directory. So chances are that I may move those
 directories to another place which is not under root directory. And I did it.
-Now we can install the dependencies by `sudo apt-get -f install linux-headers-3.2.0-72`
+Now we can install the dependencies by `sudo apt-get -f install
+linux-headers-3.2.0-72`
 
 After the dependencies were installed, we can remove all the previous kernel
 images, headers and modules, leaving only the current one intact. Using the one

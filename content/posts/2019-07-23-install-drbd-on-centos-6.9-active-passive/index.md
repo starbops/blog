@@ -406,5 +406,7 @@ drwx------. 2 root root    16384 Mar 14 19:56 lost+found
 
 ## References
 
--  [Chapter 1. DRBD fundamentals - Docs LINBIT](https://docs.linbit.com/doc/users-guide-84/ch-fundamentals/)
--  [How to install and setup DRBD on CentOS](https://www.howtoforge.com/tutorial/how-to-install-and-setup-drbd-on-centos-6/)
+-  [Chapter 1. DRBD fundamentals - Docs
+   LINBIT](https://docs.linbit.com/doc/users-guide-84/ch-fundamentals/)
+-  [How to install and setup DRBD on
+   CentOS](https://www.howtoforge.com/tutorial/how-to-install-and-setup-drbd-on-centos-6/)

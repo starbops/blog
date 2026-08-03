@@ -92,4 +92,5 @@ page of the virtual machine in XenCenter.
 
 -  [XenServer - Create and Attach Virtual Disk from XE CLI][1]
 
-[1]: https://techhelplist.com/index.php/tech-tutorials/41-misc/316-xenserver-create-and-attach-virtual-disk-from-xe-cli
+[1]:
+https://techhelplist.com/index.php/tech-tutorials/41-misc/316-xenserver-create-and-attach-virtual-disk-from-xe-cli

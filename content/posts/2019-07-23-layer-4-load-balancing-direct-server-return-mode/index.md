@@ -53,4 +53,5 @@ client using the service IP configured on a loopback interface.
 
 ## Reference
 
--  [layer 4 load balancing direct server return mode](https://www.haproxy.com/blog/layer-4-load-balancing-direct-server-return-mode/)
+-  [layer 4 load balancing direct server return
+   mode](https://www.haproxy.com/blog/layer-4-load-balancing-direct-server-return-mode/)

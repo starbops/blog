@@ -787,10 +787,14 @@ DIB_DEV_USER_USERNAME=user DIB_DEV_USER_PASSWORD=password DIB_DEV_USER_PWDLESS_S
 
 ## References
 
--  [Bare Metal service installation guide](https://docs.openstack.org/project-install-guide/baremetal/newton/)
--  [Node Cleaning - Ironic 6.2.5.dev3 documentation](https://docs.openstack.org/ironic/newton/deploy/cleaning.html)
--  [Troubleshooting Ironic-Python-Agent (IPA)](https://docs.openstack.org/ironic-python-agent/latest/admin/troubleshooting.html)
--  [Multitenancy in Bare Metal Service - Ironic 6.2.5.dev3 documentation](https://docs.openstack.org/ironic/newton/deploy/multitenancy.html)
+-  [Bare Metal service installation
+   guide](https://docs.openstack.org/project-install-guide/baremetal/newton/)
+-  [Node Cleaning - Ironic 6.2.5.dev3
+   documentation](https://docs.openstack.org/ironic/newton/deploy/cleaning.html)
+-  [Troubleshooting Ironic-Python-Agent
+   (IPA)](https://docs.openstack.org/ironic-python-agent/latest/admin/troubleshooting.html)
+-  [Multitenancy in Bare Metal Service - Ironic 6.2.5.dev3
+   documentation](https://docs.openstack.org/ironic/newton/deploy/multitenancy.html)
 -  [linux - resolv.conf keeps getting overwritten when dnsmasq is restarted,
    breaking dnsmasq - Super
    User](https://superuser.com/questions/894513/resolv-conf-keeps-getting-overwritten-when-dnsmasq-is-restarted-breaking-dnsmas)

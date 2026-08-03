@@ -144,5 +144,7 @@ http://controller:5000/v3/users/$USER_ID
 
 ## References
 
--  [API Examples using Curl - keystone 10.0.3.dev9 documentation](https://docs.openstack.org/keystone/newton/api_curl_examples.html)
--  [OpenStack Docs: Identity API v3 (CURRENT)](https://developer.openstack.org/api-ref/identity/v3/index.html)
+-  [API Examples using Curl - keystone 10.0.3.dev9
+   documentation](https://docs.openstack.org/keystone/newton/api_curl_examples.html)
+-  [OpenStack Docs: Identity API v3
+   (CURRENT)](https://developer.openstack.org/api-ref/identity/v3/index.html)

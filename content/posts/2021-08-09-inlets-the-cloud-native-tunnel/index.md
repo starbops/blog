@@ -64,7 +64,8 @@ and my office Windows desktop, so I can access office environment through
 Windows RDP from my Mac. All I have to do is opening up Microsoft Remote Desktop
 app, and connect to my homelab server on port 3389.
 
-![Using Inlets PRO to Expose Windows RDP](images/using-inlets-pro-to-expose-windows-rdp.png)
+![Using Inlets PRO to Expose Windows
+RDP](images/using-inlets-pro-to-expose-windows-rdp.png)
 
 Since I prefer commands which will block the terminal to be in the background,
 making `inlets-pro tcp server` a systemd service is the way to go. Be sure to
@@ -189,7 +190,8 @@ And we are all set. Open a browser then navigate to the address of the
 up. Sign in with the default username (which is `admin`) and the specified
 password, the directory list will show up.
 
-![Basic Auth of Inlets HTTP Fileserver](images/basic-auth-of-inlets-http-fileserver.png)
+![Basic Auth of Inlets HTTP
+Fileserver](images/basic-auth-of-inlets-http-fileserver.png)
 
 ![Inlets HTTP Fileserver](images/inlets-http-fileserver.png)
 

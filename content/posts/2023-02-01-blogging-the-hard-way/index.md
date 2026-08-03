@@ -51,7 +51,8 @@ Pushing changes (articles) to the Git server, and voilà!
 And that is just the tip of the iceberg. However, the work behind the scene is
 like ...
 
-![The Workflow and Architecture of My Blogging Infrastructure](images/overview.png)
+![The Workflow and Architecture of My Blogging
+Infrastructure](images/overview.png)
 
 Yes, in case you were wondering, I’m just trying to shoot myself in the foot.
 However, it does work pretty well once you set it up.
@@ -163,10 +164,10 @@ web server into a container and expose it using inlets.
 
 ### Containerization
 
-Static site generator takes Markdown files as input and outputs HTML files under
-`_site` by default. Typically, one has to set up a web server to serve those HTML
-files so that users can access the blog via browser. There're three things to
-do:
+Static site generator takes Markdown files as input and outputs HTML files
+under `_site` by default. Typically, one has to set up a web server to serve
+those HTML files so that users can access the blog via browser. There're three
+things to do:
 
 1. Build: generating `.html` from `.md`
 1. Ship: moving the output directory full of `.html` files to the serving
@@ -308,8 +309,8 @@ To delete:
 
 ![Exit Server Provisioned by inletsctl](images/do-exit-server-inletsctl.png)
 
-Follow the instruction shown in the output, and modify the `UPSTREAM` and `PORTS`
-environment variables to point to the blog container.
+Follow the instruction shown in the output, and modify the `UPSTREAM` and
+`PORTS` environment variables to point to the blog container.
 
 ```bash
 export PORTS="8080"
@@ -691,7 +692,8 @@ controller:
 After the external-facing ingress-nginx is installed, we can observe that the
 corresponding inlets exit server and tunnel are provisioned.
 
-![Exit Server Provisioned by inlets-operator](images/do-exit-server-inlets-operator.png)
+![Exit Server Provisioned by
+inlets-operator](images/do-exit-server-inlets-operator.png)
 
 ```bash
 $ kubectl -n ingress-nginx-cloud get svc,tunnels
@@ -820,8 +822,8 @@ the last part - auto-publishing. What I want is actually:
    1. Deploy the blog to the production environment
 
 Long story short, I'd like to **apply the continuous
-integration/delivery/deployment practices to the blogging flow same as we do with
-software development.**
+integration/delivery/deployment practices to the blogging flow same as we do
+with software development.**
 
 ### Git Service
 
@@ -1178,7 +1180,8 @@ kind: pipeline
      - failure
 ```
 
-![Setting Up Webhook on Gitea to Send Events to Drone](images/gitea-blog-webhook.png)
+![Setting Up Webhook on Gitea to Send Events to
+Drone](images/gitea-blog-webhook.png)
 
 ![Continuous Integration - Drone](images/continuous-integration-drone.png)
 

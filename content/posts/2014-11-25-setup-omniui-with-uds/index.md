@@ -6,10 +6,10 @@ date: 2014-11-25
 ---
 ## Mininet
 
-[Mininet][1] is a network simulator, running real kernel, switch, and application
-code. It is useful for developing, teaching, and research. You can simply
-manipulate the entire virtual network by command line interface or [programming
-API][2].
+[Mininet][1] is a network simulator, running real kernel, switch, and
+application code. It is useful for developing, teaching, and research. You can
+simply manipulate the entire virtual network by command line interface or
+[programming API][2].
 
 Download Mininet virtual machine image from Mininet's official website. Then
 import the uzipped image to your VMware, VirtualBox, etc. Using account/password

@@ -176,8 +176,8 @@ self-signed certificate which is often solved by running metrics-server with
 `--kubelet-insecure-tls`. But it’s definitely not what I want to see. To
 summarize, there’re two types of certificate under `/var/lib/kubelet/pki`:
 
--  Client certificate, which is for kubelet to initiate connections to apiserver,
-   and is auto-rotated by kubelet by default.
+-  Client certificate, which is for kubelet to initiate connections to
+   apiserver, and is auto-rotated by kubelet by default.
 -  Server certificate, which is serving with kubelet’s own API, and is **not**
    auto-rotated by kubelet by default.
 

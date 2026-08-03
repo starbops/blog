@@ -317,7 +317,11 @@ In `~/hadoop/etc/hadoop/mapred-site.xml`:
 
 ## References
 
--  [基于 ZooKeeper 搭建 Hadoop 高可用集群-heibaiying-51CTO博客](https://blog.51cto.com/14183932/2411358)
--  [How to Install and Set Up a 3-Node Hadoop Cluster](https://www.linode.com/docs/databases/hadoop/how-to-install-and-set-up-hadoop-cluster/)
--  [HDFS High Availability](https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithNFS.html)
--  [ResourceManager High Availability](http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/ResourceManagerHA.html)
+-  [基于 ZooKeeper 搭建 Hadoop
+   高可用集群-heibaiying-51CTO博客](https://blog.51cto.com/14183932/2411358)
+-  [How to Install and Set Up a 3-Node Hadoop
+   Cluster](https://www.linode.com/docs/databases/hadoop/how-to-install-and-set-up-hadoop-cluster/)
+-  [HDFS High
+   Availability](https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithNFS.html)
+-  [ResourceManager High
+   Availability](http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/ResourceManagerHA.html)

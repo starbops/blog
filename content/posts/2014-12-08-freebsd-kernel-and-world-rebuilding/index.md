@@ -280,5 +280,7 @@ issues. Make sure that all installed ports are rebuilt.
 
 ## References
 
--  [Chapter 9. Configuring the FreeBSD Kernel](http://www.freebsd.org/doc/en/books/handbook/kernelconfig.html)
--  [Chapter 24.6. Rebuilding World](http://www.freebsd.org/doc/en/books/handbook/makeworld.html)
+-  [Chapter 9. Configuring the FreeBSD
+   Kernel](http://www.freebsd.org/doc/en/books/handbook/kernelconfig.html)
+-  [Chapter 24.6. Rebuilding
+   World](http://www.freebsd.org/doc/en/books/handbook/makeworld.html)

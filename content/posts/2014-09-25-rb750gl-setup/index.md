@@ -139,8 +139,8 @@ masquerade packets send to the outer network
 /ip firewall nat add action=masquerade chain=srcnat comment="default configuration" disabled=no out-interface=ether1-gateway
 ```
 
-If you want remote client to access internal services, e.g. SSH, HTTP, RDP, etc.,
-destination NAT is needed
+If you want remote client to access internal services, e.g. SSH, HTTP, RDP,
+etc., destination NAT is needed
 
 ```bash
 /ip firewall nat add action=dst-nat chain=dstnat disabled=no dst-port=2222 in-interface=ether1-gateway protocol=tcp to-addresses=192.168.88.155 to-ports=22
@@ -183,4 +183,5 @@ proxy ARP on the local port
 ## References
 
 -  [MikroTik Wiki](http://wiki.mikrotik.com/wiki/Main_Page)
--  [基地台與分享器 - [研究所] MikroTik RouterOS 學習 (持續更新) - 電腦討論區 - Mobile01](http://www.mobile01.com/topicdetail.php?f=110&t=3205444)
+-  [基地台與分享器 - [研究所] MikroTik RouterOS 學習 (持續更新) - 電腦討論區 -
+   Mobile01](http://www.mobile01.com/topicdetail.php?f=110&t=3205444)
