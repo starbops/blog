@@ -53,7 +53,8 @@ menuentry 'disposable_os' {
 
 ## References
 
--  [10.4. Providing and configuring bootloaders for PXE clients](https://docs.fedoraproject.org/en-US/Fedora/24/html/Installation_Guide/pxe-bootloader.html)
+-  [10.4. Providing and configuring bootloaders for PXE
+   clients](https://docs.fedoraproject.org/en-US/Fedora/24/html/Installation_Guide/pxe-bootloader.html)
 -  [30.2.2. Configuring PXE Boot for EFI Red Hat Enterprise Linux 6 \| Red Hat
    Customer
    Portal](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/installation_guide/s1-netboot-pxe-config-efi)

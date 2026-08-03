@@ -208,8 +208,12 @@ Raspberry Pi.
 -  [RPI-Wireless-Hotspot][3]
 -  [Setting Up WiFi Access Point with Edimax EW-7811UN on Raspberry Pi][4]
 
-[1]: http://www.daveconroy.com/turn-your-raspberry-pi-into-a-wifi-hotspot-with-edimax-nano-usb-ew-7811un-rtl8188cus-chipset/
-[2]: http://www.daveconroy.com/using-your-raspberry-pi-as-a-wireless-router-and-web-server/
+[1]:
+http://www.daveconroy.com/turn-your-raspberry-pi-into-a-wifi-hotspot-with-edimax-nano-usb-ew-7811un-rtl8188cus-chipset/
+[2]:
+http://www.daveconroy.com/using-your-raspberry-pi-as-a-wireless-router-and-web-server/
 [3]: http://elinux.org/RPI-Wireless-Hotspot
-[4]: https://ariandy1.wordpress.com/2013/04/07/setting-up-wifi-access-point-with-edimax-ew-7811un-on-raspberry-pi/
-[5]: http://www.realtek.com.tw/downloads/downloadsView.aspx?Langid=1&PNid=21&PFid=48&Level=5&Conn=4&DownTypeID=3&GetDown=false
+[4]:
+https://ariandy1.wordpress.com/2013/04/07/setting-up-wifi-access-point-with-edimax-ew-7811un-on-raspberry-pi/
+[5]:
+http://www.realtek.com.tw/downloads/downloadsView.aspx?Langid=1&PNid=21&PFid=48&Level=5&Conn=4&DownTypeID=3&GetDown=false

@@ -132,5 +132,7 @@ kubectl get pods -n kube-system -l k8s-app=packetbeat-dynamic
 
 ## References
 
--  [Getting started with the Elastic Stack](https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-elastic-stack.html)
--  [Example: Add logging and metrics to the PHP / Redis Guestbook example](https://kubernetes.io/docs/tutorials/stateless-application/guestbook-logs-metrics-with-elk/)
+-  [Getting started with the Elastic
+   Stack](https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-elastic-stack.html)
+-  [Example: Add logging and metrics to the PHP / Redis Guestbook
+   example](https://kubernetes.io/docs/tutorials/stateless-application/guestbook-logs-metrics-with-elk/)

@@ -28,4 +28,5 @@ The difference between those two families is simple:
 
 ## Reference
 
--  [What is the difference between keepalive and heartbeat?](https://serverfault.com/questions/361071/what-is-the-difference-between-keepalive-and-heartbeat)
+-  [What is the difference between keepalive and
+   heartbeat?](https://serverfault.com/questions/361071/what-is-the-difference-between-keepalive-and-heartbeat)

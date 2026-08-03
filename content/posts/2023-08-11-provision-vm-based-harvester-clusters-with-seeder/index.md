@@ -17,14 +17,16 @@ with virtual machines.
 ### Harvester HCI
 
 > [Harvester](https://harvesterhci.io/) is a modern, open,
-> interoperable, [HCI](https://en.wikipedia.org/wiki/Hyper-converged_infrastructure) solution
+> interoperable, [HCI](
+> https://en.wikipedia.org/wiki/Hyper-converged_infrastructure) solution
 > built on Kubernetes. It is an open-source alternative designed for operators
 > seeking a [cloud-native](https://about.gitlab.com/topics/cloud-native/) HCI
 > solution. Harvester runs on bare metal servers and provides integrated
 > virtualization and distributed storage capabilities. In addition to
 > traditional virtual machines (VMs), Harvester supports containerized
 > environments automatically through integration
-> with [Rancher](https://ranchermanager.docs.rancher.com/integrations-in-rancher/harvester).
+> with [Rancher](
+https://ranchermanager.docs.rancher.com/integrations-in-rancher/harvester).
 > It offers a solution that unifies legacy virtualized infrastructure while
 > enabling the adoption of containers from core to edge locations.
 
@@ -180,7 +182,8 @@ vbmc add \
 vbmc start harvester-vm
 ```
 
-Make sure the virtual BMC is in `running` status and the address/port tuple is correct:
+Make sure the virtual BMC is in `running` status and the address/port tuple is
+correct:
 
 ```bash
 $ vbmc list
@@ -314,7 +317,8 @@ we do to bare-metal machines.
 
 ![Installing Harvester](images/installing-harvester.png)
 
-After the provisioning is done, open your browser and navigate to [https://192.168.48.240](https://192.168.48.240):
+After the provisioning is done, open your browser and navigate to
+[https://192.168.48.240](https://192.168.48.240):
 
 ![Welcome to Harvester!](images/the-welcome-page-of-harvester.png)
 You have a fully functional Harvester cluster now!

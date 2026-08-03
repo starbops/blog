@@ -23,7 +23,8 @@ Chrome and Firefox can make your life a little bit easier.
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-After installed Homebrew, simply enter the following command to install a package:
+After installed Homebrew, simply enter the following command to install a
+package:
 
 ```bash
 brew install <name>
@@ -288,8 +289,11 @@ Thanks for reading!
 
 -  [Official Vagrant FreeBSD Images][1]
 -  [Testing the Port][2]
--  [How To Set Up a Poudriere Build System to Create Packages for your FreeBSD Servers][3]
+-  [How To Set Up a Poudriere Build System to Create Packages for your FreeBSD
+   Servers][3]
 
 [1]: https://forums.freebsd.org/threads/official-vagrant-freebsd-images.52717/
-[2]: https://www.freebsd.org/doc/en/books/porters-handbook/testing-poudriere.html
-[3]: https://www.digitalocean.com/community/tutorials/how-to-set-up-a-poudriere-build-system-to-create-packages-for-your-freebsd-servers
+[2]:
+https://www.freebsd.org/doc/en/books/porters-handbook/testing-poudriere.html
+[3]:
+https://www.digitalocean.com/community/tutorials/how-to-set-up-a-poudriere-build-system-to-create-packages-for-your-freebsd-servers

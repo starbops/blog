@@ -189,5 +189,7 @@ baremetal machines.
 
 ## References
 
--  [The first and final words on OpenStack availability zones](https://www.mirantis.com/blog/the-first-and-final-word-on-openstack-availability-zones/)
--  [OpenStack Docs: Compute schedulers](https://docs.openstack.org/newton/config-reference/compute/schedulers.html)
+-  [The first and final words on OpenStack availability
+   zones](https://www.mirantis.com/blog/the-first-and-final-word-on-openstack-availability-zones/)
+-  [OpenStack Docs: Compute
+   schedulers](https://docs.openstack.org/newton/config-reference/compute/schedulers.html)

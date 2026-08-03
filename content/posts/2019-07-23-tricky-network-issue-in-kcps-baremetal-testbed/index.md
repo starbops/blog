@@ -117,12 +117,18 @@ back.
 
 ## References
 
--  [Proxy ARP - Cisco](https://www.cisco.com/c/en/us/support/docs/ip/dynamic-address-allocation-resolution/13718-5.html)
--  [/proc/sys/net/ipv4/* Variables](https://www.kernel.org/doc/Documentation/networking/ip-sysctl.txt)
--  [How to broadcast ARP update to all neighbors in Linux?](https://serverfault.com/questions/175803/how-to-broadcast-arp-update-to-all-neighbors-in-linux/175806)
--  [ARP Table Timeout and MAC-Address-Table Timeout](https://learningnetwork.cisco.com/thread/2450)
--  [Using the Linux arping utility to send out gratuitious ARPs](https://prefetch.net/blog/2011/03/26/using-the-linux-arping-utility-to-send-out-gratuitious-arps/)
--  [Solved: Proxy-Arp - Cisco Support Community](https://supportforums.cisco.com/t5/wan-routing-and-switching/proxy-arp/td-p/1560798)
+-  [Proxy ARP -
+   Cisco](https://www.cisco.com/c/en/us/support/docs/ip/dynamic-address-allocation-resolution/13718-5.html)
+-  [/proc/sys/net/ipv4/*
+   Variables](https://www.kernel.org/doc/Documentation/networking/ip-sysctl.txt)
+-  [How to broadcast ARP update to all neighbors in
+   Linux?](https://serverfault.com/questions/175803/how-to-broadcast-arp-update-to-all-neighbors-in-linux/175806)
+-  [ARP Table Timeout and MAC-Address-Table
+   Timeout](https://learningnetwork.cisco.com/thread/2450)
+-  [Using the Linux arping utility to send out gratuitious
+   ARPs](https://prefetch.net/blog/2011/03/26/using-the-linux-arping-utility-to-send-out-gratuitious-arps/)
+-  [Solved: Proxy-Arp - Cisco Support
+   Community](https://supportforums.cisco.com/t5/wan-routing-and-switching/proxy-arp/td-p/1560798)
 -  [Configure two network cards in a different subnet on RHEL 6, RHEL 7, CentOS
    6 and CentOS 7](http://jensd.be/468/linux/two-network-cards-rp_filter)
 -  [Linux does not reply to ARP request messages if requested IP address is

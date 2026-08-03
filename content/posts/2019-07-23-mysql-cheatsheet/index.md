@@ -85,7 +85,11 @@ mysql> ALTER TABLE table_name ENGINE=InnoDB;
 
 ## References
 
--  [What is the default root password for MySQL 5.7](https://stackoverflow.com/questions/33991228/what-is-the-default-root-pasword-for-mysql-5-7)
--  [MySQL root access from all host](https://stackoverflow.com/questions/11223235/mysql-root-access-from-all-hosts)
--  [How to Reset the Root Password](https://dev.mysql.com/doc/refman/5.7/en/resetting-permissions.html)
--  [How can I check MySQL engine type for a specific table?](https://stackoverflow.com/questions/213543/how-can-i-check-mysql-engine-type-for-a-specific-table)
+-  [What is the default root password for MySQL
+   5.7](https://stackoverflow.com/questions/33991228/what-is-the-default-root-pasword-for-mysql-5-7)
+-  [MySQL root access from all
+   host](https://stackoverflow.com/questions/11223235/mysql-root-access-from-all-hosts)
+-  [How to Reset the Root
+   Password](https://dev.mysql.com/doc/refman/5.7/en/resetting-permissions.html)
+-  [How can I check MySQL engine type for a specific
+   table?](https://stackoverflow.com/questions/213543/how-can-i-check-mysql-engine-type-for-a-specific-table)

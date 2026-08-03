@@ -120,6 +120,7 @@ signal reflection
 
 -  [SPD 講解](https://youtu.be/xQNcpA1DuHE)
 -  [主機板上的記憶體線路不同所造成的訊號差異](https://youtu.be/9fTOux85nmE)
--  [RAM 結構講解（資料可能有點過時）](https://www.techbang.com/posts/18381-from-the-channel-to-address-computer-main-memory-structures-to-understand)
+-  [RAM
+   結構講解（資料可能有點過時）](https://www.techbang.com/posts/18381-from-the-channel-to-address-computer-main-memory-structures-to-understand)
 -  [記憶體 Rank 數與單雙面無關](https://www.strongpilab.com/ddr-2rx8-rank-not-side/)
 -  [記憶體體質定義](https://youtu.be/JTcIlt-zbsw)
