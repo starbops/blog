@@ -2,7 +2,7 @@
 title: "Metal3 Meets KubeVirtBMC: Provisioning KubeVirt VMs Like Bare Metal"
 category: memo
 slug: metal3-meets-kubevirtbmc
-date: 2026-03-06
+date: 2026-08-03
 ---
 
 In [the previous post]({{< relref
@@ -45,7 +45,7 @@ built in. KubeVirt VMs don't—unless you give them one with KubeVirtBMC.
 
 ## What We're Building
 
-Here's the big picture of what the demo environment looks like:
+Here’s a high-level overview of the demo environment:
 
 ```mermaid
 flowchart TB
@@ -65,7 +65,8 @@ flowchart TB
         BMH[BareMetalHost CR]
         VMBMC[VirtualMachineBMC CR]
 
-        BMH -->|Redfish| BMCPod
+        BMH -.->|Reference| BMCPod
+        Ironic -->|Redfish| BMCPod
         BMO --> BMH
         BMO --> Ironic
         Controller --> VMBMC
@@ -95,7 +96,7 @@ Before we start, make sure you have:
 If you don't have a cluster ready, refer to the [previous post]({{< relref
 "2026-02-20-kubevirtbmc-enabling-bare-metal-provisioning-for-kubevirt-virtual-machines"
 >}}) for instructions on setting one up with KubeVirt CI, or simply using
->[Harvester](https://harvesterhci.io).
+[Harvester](https://harvesterhci.io).
 
 ## Step 1: Install cert-manager
 
@@ -518,8 +519,8 @@ A few important details on the `bmc.address` field:
    HTTPS by default. HTTPS can be enabled through an Ingress resource, but HTTP
    is used here for simplicity. Without the `+http` suffix, Ironic defaults to
    HTTPS, causing the connection to fail.
--  The host portion `metal3-demo-vm-virtbmc.default.svc:80` is the in-cluster
-   Service created by KubeVirtBMC.
+-  The host portion `metal3-demo-vm-virtbmc.default.svc.cluster.local:80` is
+   the in-cluster Service created by KubeVirtBMC.
 -  `/redfish/v1/Systems/1` is the Redfish system path that KubeVirtBMC exposes.
 
 Note that `bootMACAddress` matches the MAC address `02:00:00:00:00:01` we pinned
