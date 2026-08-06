@@ -47,34 +47,8 @@ built in. KubeVirt VMs don't—unless you give them one with KubeVirtBMC.
 
 Here’s a high-level overview of the demo environment:
 
-```mermaid
-flowchart TB
-    subgraph k8s["Kubernetes Cluster"]
-        subgraph metal3["Metal3 Stack"]
-            BMO[Bare Metal Operator]
-            Ironic[Ironic]
-        end
-        subgraph kubevirtbmc["KubeVirtBMC"]
-            Controller[virtbmc-controller]
-            BMCPod[BMC Pod]
-        end
-        subgraph kubevirt["KubeVirt"]
-            VM[VirtualMachine]
-            VMI[VirtualMachineInstance]
-        end
-        BMH[BareMetalHost CR]
-        VMBMC[VirtualMachineBMC CR]
-
-        BMH -.->|Reference| BMCPod
-        Ironic -->|Redfish| BMCPod
-        BMO --> BMH
-        BMO --> Ironic
-        Controller --> VMBMC
-        Controller -->|Creates| BMCPod
-        BMCPod -->|K8s API| VM
-        VM --> VMI
-    end
-```
+![Metal3 + KubeVirtBMC + KubeVirt
+architecture](images/metal3-kubevirtbmc-architecture.png)
 
 Everything runs in a single Kubernetes cluster. Metal3 manages `BareMetalHost`
 resources that point to the virtual BMC endpoints created by KubeVirtBMC. When
