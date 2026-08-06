@@ -1,5 +1,5 @@
 FROM ruby:3.3.4-alpine
-RUN gem install mdl
+RUN gem install mdl -v 0.17.0
 COPY . /app
 WORKDIR /app
 ENTRYPOINT ["mdl"]
