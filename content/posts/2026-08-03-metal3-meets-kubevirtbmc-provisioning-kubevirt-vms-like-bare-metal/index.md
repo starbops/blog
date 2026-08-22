@@ -30,15 +30,7 @@ The core abstraction is the `BareMetalHost` custom resource. You declare what
 you want (BMC address, credentials, desired image), and Metal3 takes care of the
 rest. The typical BareMetalHost lifecycle goes like this:
 
-```mermaid
-stateDiagram-v2
-    [*] --> Registering: Create BareMetalHost
-    Registering --> Inspecting: Credentials verified
-    Inspecting --> Available: Hardware details collected
-    Available --> Provisioning: Image specified
-    Provisioning --> Provisioned: OS installed
-    Provisioned --> Available: Deprovisioned
-```
+![Metal3 Workflow](images/metal3-workflow.png)
 
 Metal3 expects to talk to a BMC via IPMI or Redfish. Physical servers have these
 built in. KubeVirt VMs don't—unless you give them one with KubeVirtBMC.
@@ -575,25 +567,7 @@ metal3-demo-vm   provisioned               true             12m
 
 Behind the scenes, here's what happens:
 
-```mermaid
-sequenceDiagram
-    participant BMO as Bare Metal Operator
-    participant Ironic
-    participant BMCPod as BMC Pod (KubeVirtBMC)
-    participant K8sAPI as Kubernetes API
-    participant VM as KubeVirt VM
-
-    BMO->>Ironic: Provision host with image
-    Ironic->>BMCPod: Redfish: Insert Virtual Media
-    BMCPod->>K8sAPI: Add volume to VirtualMachine
-    K8sAPI->>VM: Attach ISO as CD-ROM
-    Ironic->>BMCPod: Redfish: Power On
-    BMCPod->>K8sAPI: Start VirtualMachine
-    K8sAPI->>VM: VM boots from ISO
-    VM-->>Ironic: IPA reports back
-    Ironic-->>BMO: Provisioning complete
-    BMO->>BMO: Update BareMetalHost status
-```
+![Sequence Diagram](images/metal3-kubevirtbmc-sequence.png)
 
 The entire flow is transparent. Metal3 and Ironic use standard Redfish calls.
 KubeVirtBMC translates them into Kubernetes API operations on the VirtualMachine
